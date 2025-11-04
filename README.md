@@ -18,5 +18,7 @@ Megoldandó feladatok
 ## Intézményi adatok
 
 MISKOLCI EGYETEM
-Gépészmérnöki és informatikai Kar 
+
+Gépészmérnöki és informatikai Kar
+
 Alkalmazott Matematikai Tanszék

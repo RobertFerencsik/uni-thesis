@@ -20,3 +20,18 @@ Megoldandó feladatok
 - MISKOLCI EGYETEM
 - Gépészmérnöki és informatikai Kar
 - Alkalmazott Matematikai Tanszék
+
+## Repository Használata
+
+### Környezet
+
+winget install Python.Python.3.10
+
+#### Virtuális környezet készítése
+
+py -3.10 -m venv .venv
+.venv\Scripts\Activate.ps1
+
+#### Szükséges könyvtárak telepítése
+
+pip install -r requirements.txt

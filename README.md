@@ -17,8 +17,6 @@ Megoldandó feladatok
 
 ## Intézményi adatok
 
-MISKOLCI EGYETEM
-
-Gépészmérnöki és informatikai Kar
-
-Alkalmazott Matematikai Tanszék
+- MISKOLCI EGYETEM
+- Gépészmérnöki és informatikai Kar
+- Alkalmazott Matematikai Tanszék

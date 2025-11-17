@@ -1,5 +1,5 @@
 *.log
-venv/
+.venv/
 examples/
 docs/
 db/

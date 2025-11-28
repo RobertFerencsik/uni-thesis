@@ -3,4 +3,6 @@
 examples/
 docs/
 db/
-data/
+__pycache__/
+models/
+datainspect.py

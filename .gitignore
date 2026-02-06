@@ -1,8 +1,0 @@
-*.log
-.venv/
-examples/
-docs/
-db/
-__pycache__/
-models/
-datainspect.py

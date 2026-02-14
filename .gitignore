@@ -1,6 +1,7 @@
 *.log
 .venv/
 .vscode/
+.cursor/
 __pycache__/
 /datasets
 /data

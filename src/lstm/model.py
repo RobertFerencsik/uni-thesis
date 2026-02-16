@@ -58,9 +58,9 @@ class BiLSTMSpamClassifier(nn.Module):
         embedded = self.embedding(token_ids)
         
         attention_mask = attention_mask.unsqueeze(-1)
-        embedded = embedded *attention_mask
+        embedded = embedded * attention_mask
 
-        lstm_out, hidden, cell = self.lstm(embedded)
+        _, (hidden, _) = self.lstm(embedded)
 
         forward_hidden = hidden[-2, :, :]
         backward_hidden = hidden[-1, :, :]
@@ -72,7 +72,7 @@ class BiLSTMSpamClassifier(nn.Module):
         dense_out = self.dropout(dense_out)
         output = self.dense2(dense_out)
 
-        output = self.sigmoid(output)
+        output = self.sigmoid(output) #do not use BCELoss with sigmoid TODO: fix this
 
         return output
 

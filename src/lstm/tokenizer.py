@@ -37,7 +37,7 @@ class SentencePieceTokenizer:
         for ids in encoded:
             pad_length =  max_length - len(ids)
             padded.append(ids + [self.pad_id] * pad_length)
-            return padded
+            return padded, lengths
 
     def get_vocab_size(self):
         return self.vocab_size

@@ -28,7 +28,7 @@ class SpamHamDataset:
         return len(self.texts)
 
     def __getitem__(self, index):
-        token_ids = torch.tensor(self.encoded_texts[index], dytpe=torch.long)
+        token_ids = torch.tensor(self.encoded_texts[index], dtype=torch.long)
         seq_length = self.lengths[index]
 
         attention_mask = torch.ones_like(token_ids)

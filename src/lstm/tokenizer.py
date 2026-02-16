@@ -1,8 +1,11 @@
+import sentencepiece as spm
+from pathlib import Path
 
 class SentencePieceTokenizer:
     def __init__(self, model_path, max_length: int = 512):
-        self.model_path = model_path
+        self.model_path = Path(model_path)
         self.max_length = max_length
+        self.sp = spm.SentencePieceProcessor()
         self.sp.load(str(self.model_path))
 
         self.pad_id = self.sp.pad_id() if self.sp.pad_id() >= 0 else 0

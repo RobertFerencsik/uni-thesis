@@ -18,7 +18,7 @@ class SpamHamDataset:
         dataframe = pd.read_csv(csv_path)
 
         self.texts = dataframe[text_column].astype(str).tolist()
-        self.labels = dataframe[label_column].astype(int).tolist()
+        self.labels = dataframe[label_column].astype(str).tolist()
 
         self.labels = [1 if label == 'spam' else 0 for label in self.labels]
 

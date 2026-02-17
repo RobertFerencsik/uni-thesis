@@ -31,7 +31,7 @@ class SpamHamDataset:
         token_ids = torch.tensor(self.encoded_texts[index], dtype=torch.long)
         seq_length = self.lengths[index]
 
-        attention_mask = torch.ones_like(token_ids)
+        attention_mask = torch.zeros_like(token_ids)
         attention_mask[:seq_length] = 1
 
         label = torch.tensor(self.labels[index], dtype=torch.float32)

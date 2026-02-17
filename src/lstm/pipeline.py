@@ -34,7 +34,7 @@ class LSTMTrainingPipeline:
         tokenizer_path = self.project_root / 'data' / 'models' / 'lstm_tokenizer.model'
         train_csv = self.project_root / 'data' / 'corpora' / 'processed' / 'train-pp.csv'
         val_csv = self.project_root / 'data' / 'corpora' / 'processed' / 'validation-pp.csv'
-        save_dir = self.project_root / 'checkpoints' / 'lstm'
+        save_dir = self.project_root / 'data' / 'models' / 'lstm'
         
         self.tokenizer_path = Path(tokenizer_path)
         self.train_csv = Path(train_csv)

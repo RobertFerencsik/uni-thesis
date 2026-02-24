@@ -1,0 +1,25 @@
+{
+    "paths": [
+        {
+            "corpora_raw": "data/corpora/raw",
+            "corpus_raw": "enron_spam_data.csv",
+            "train_raw": "train_raw.csv",
+            "validation_raw": "validation_raw.csv",
+            "test_raw": "test_raw.csv"
+        },
+        {
+            "corpora_processed": "data/corpora/processed"
+        },
+        {
+            "models": "data/models"
+        }
+    ],
+    "regexes": {
+        "url": "^https?://(?:www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b(?:[-a-zA-Z0-9()@:%_\\+.~#?&//=]*)$",
+        "email": "\\b[a-zA-Z0-9](?:[a-zA-Z0-9._-]*[a-zA-Z0-9])?@[a-zA-Z0-9](?:[a-zA-Z0-9.-]*[a-zA-Z0-9])?\\.[a-zA-Z]{2,}\\b",
+        "phone": "\\b(?:\\+?1[-.\\s]?)?\\(?\\d{3}\\)?[-.\\s]?\\d{3}[-.\\s]?\\d{4}\\b",
+        "num": "\\b\\d+(?:\\.\\d+)?\\b",
+        "uppercase": "\\b[a-z]*[A-Z]+[a-z]*[A-Z]+[a-z]*\\b",
+        "repeated_char": "(.)\\1{2,}"
+    }
+}

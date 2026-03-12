@@ -37,12 +37,19 @@ def init_paths(config):
 @dataclass(frozen = True)
 class Paths:
     corpora_raw: Path
-    corpora_processed: Path
-    models: Path
     corpus_raw: Path
     train_raw: Path
     validation_raw: Path
     test_raw: Path
+
+    corpora_processed: Path
+    train_processed: Path
+    validation_processed: Path
+    test_processed: Path
+    lstm_tokenizer_train_data: Path
+
+    models: Path
+    lstm_tokenizer: Path
 
     def make_dirs(self):
         for path in self.__dict__.values():

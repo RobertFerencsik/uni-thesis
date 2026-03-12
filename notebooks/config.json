@@ -8,18 +8,24 @@
             "test_raw": "test_raw.csv"
         },
         {
-            "corpora_processed": "data/corpora/processed"
+            "corpora_processed": "data/corpora/processed",
+            "train_processed": "train_processed.csv",
+            "validation_processed": "validation_processed.csv",
+            "test_processed": "test_processed.csv",
+            "lstm_tokenizer_train_data" : "lstm_tokenizer_train_data.txt"
+
         },
         {
-            "models": "data/models"
+            "models": "data/models",
+            "lstm_tokenizer": "lstm_tokenizer.model"
         }
     ],
     "regexes": {
-        "url": "^https?://(?:www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b(?:[-a-zA-Z0-9()@:%_\\+.~#?&//=]*)$",
-        "email": "\\b[a-zA-Z0-9](?:[a-zA-Z0-9._-]*[a-zA-Z0-9])?@[a-zA-Z0-9](?:[a-zA-Z0-9.-]*[a-zA-Z0-9])?\\.[a-zA-Z]{2,}\\b",
-        "phone": "\\b(?:\\+?1[-.\\s]?)?\\(?\\d{3}\\)?[-.\\s]?\\d{3}[-.\\s]?\\d{4}\\b",
-        "num": "\\b\\d+(?:\\.\\d+)?\\b",
-        "uppercase": "\\b[a-z]*[A-Z]+[a-z]*[A-Z]+[a-z]*\\b",
+        "url": "(?:https?:\\/\\/)?(?:www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}(?:[-a-zA-Z0-9()@:%_\\+.~#?&\\/=]*)",
+        "email": "[a-zA-Z0-9](?:[a-zA-Z0-9._-]*[a-zA-Z0-9])?@[a-zA-Z0-9](?:[a-zA-Z0-9.-]*[a-zA-Z0-9])?\\.[a-zA-Z]{2,}",
+        "phone": "(?:\\+?1[-.\\s]?)?\\(?\\d{3}\\)?[-.\\s]?\\d{3}[-.\\s]?\\d{4}",
+        "num": "\\d+(?:[\\.\\,]\\d+)?",
+        "uppercase": "[A-Z]+",
         "repeated_char": "(.)\\1{2,}"
     }
 }

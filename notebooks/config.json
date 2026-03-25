@@ -17,7 +17,13 @@
         },
         {
             "models": "data/models",
-            "lstm_tokenizer": "lstm_tokenizer.model"
+            "lstm_tokenizer": "lstm_tokenizer.model",
+            "train_ids": "train_ids.pkl",
+            "train_pieces": "train_pieces.pkl",
+            "validation_ids": "validation_ids.pkl",
+            "validation_pieces": "validation_pieces.pkl",
+            "test_ids": "test_ids.pkl",
+            "test_pieces": "test_pieces.pkl"
         }
     ],
     "regexes": {

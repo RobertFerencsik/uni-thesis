@@ -50,6 +50,12 @@ class Paths:
 
     models: Path
     lstm_tokenizer: Path
+    train_ids: Path
+    train_pieces: Path
+    validation_ids: Path
+    validation_pieces: Path
+    test_ids: Path
+    test_pieces: Path
 
     def make_dirs(self):
         for path in self.__dict__.values():

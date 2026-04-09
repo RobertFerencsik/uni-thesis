@@ -1,11 +1,19 @@
 from pathlib import Path
 from typing import Optional, Dict, Any
 from torch.utils.data import DataLoader
+import sys
 
 from .tokenizer import SentencePieceTokenizer
 from .dataset import SpamHamDataset
 from .model import BiLSTMSpamClassifier
 from .train import Trainer
+
+# `Path()` uses the current working directory; for reliable package resolution use project-relative path.
+src = Path(__file__).resolve().parent.parent
+if str(src) not in sys.path:
+    sys.path.insert(0, str(src))
+
+from config.config import PATHS, PROJECT_ROOT
 
 
 class LSTMTrainingPipeline:    
@@ -20,26 +28,13 @@ class LSTMTrainingPipeline:
         dense_hidden: int = 32,
         learning_rate: float = 1e-3,
         max_grad_norm: float = 1.0,
-        num_epochs: int = 2,
-        save_dir: Optional[Path] = None,
-        num_workers: int = 0,
-        verbose: bool = True
+        num_epochs: int = 2
     ):
-
-        current_file = Path(__file__)
-        project_root = current_file.parent.parent.parent
-        
-        self.project_root = Path(project_root)
-
-        tokenizer_path = self.project_root / 'data' / 'models' / 'lstm_tokenizer.model'
-        train_csv = self.project_root / 'data' / 'corpora' / 'processed' / 'train-pp.csv'
-        val_csv = self.project_root / 'data' / 'corpora' / 'processed' / 'validation-pp.csv'
-        save_dir = self.project_root / 'data' / 'models' / 'lstm'
-        
-        self.tokenizer_path = Path(tokenizer_path)
-        self.train_csv = Path(train_csv)
-        self.val_csv = Path(val_csv)
-        self.save_dir = Path(save_dir)
+          
+        self.tokenizer_path = Path(PATHS.lstm_tokenizer)
+        self.train_csv = Path(PATHS.train_processed)
+        self.val_csv = Path(PATHS.validation_processed)
+        self.save_dir = Path(PATHS.models)
         
         self.max_length = max_length
         self.batch_size = batch_size
@@ -51,8 +46,6 @@ class LSTMTrainingPipeline:
         self.learning_rate = learning_rate
         self.max_grad_norm = max_grad_norm
         self.num_epochs = num_epochs
-        self.num_workers = num_workers
-        self.verbose = verbose
         
         # Components (initialized in setup)
         self.tokenizer = None
@@ -105,7 +98,7 @@ class LSTMTrainingPipeline:
             model=self.model,
             train_loader=self.train_loader,
             val_loader=self.val_loader,
-            device=None,  # Auto-detect device
+            device=None,
             learning_rate=self.learning_rate,
             max_grad_norm=self.max_grad_norm,
             save_dir=str(self.save_dir)
@@ -123,7 +116,7 @@ class LSTMTrainingPipeline:
     
     def get_config(self) -> Dict[str, Any]:
         return {
-            'project_root': str(self.project_root),
+            'project_root': str(PROJECT_ROOT),
             'tokenizer_path': str(self.tokenizer_path),
             'train_csv': str(self.train_csv),
             'val_csv': str(self.val_csv),

@@ -17,7 +17,7 @@ class Trainer:
         self.model = model
         self.train_loader = train_loader
         self.val_loader = val_loader
-        self.device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+        self.device = torch.device('cuda')
         self.model.to(self.device)
 
         self.criterion = torch.nn.BCELoss()

@@ -1,6 +1,6 @@
 {
   "best_hyperparameters": {
-    "max_length": 512,
+    "max_length": 800,
     "batch_size": 32,
     "embedding_dim": 128,
     "hidden_size": 128,

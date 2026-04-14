@@ -8,12 +8,12 @@ class BiLSTMSpamClassifier(nn.Module):
     def __init__(
         self,
         vocab_size,
-        embedding_dim = 128,
-        hidden_size = 128,
-        num_layers = 1,
-        dropout_rate = 0.5,
-        dense_hidden = 32,
-        padding_idx = 0
+        embedding_dim,
+        hidden_size,
+        num_layers,
+        dropout_rate,
+        dense_hidden,
+        padding_idx
     ):
 
         super(BiLSTMSpamClassifier, self).__init__()

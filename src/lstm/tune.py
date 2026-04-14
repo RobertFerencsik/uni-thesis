@@ -8,17 +8,17 @@ from src.config.config import PATHS
 from src.evaluation.evaluate import evaluate
 from src.lstm.pipeline import LSTMTrainingPipeline
 
-DEFAULT_BASE_HYPERPARAMETERS: Dict[str, Any] = {
-    "max_length": 512,
-    "batch_size": 32,
-    "embedding_dim": 128,
-    "hidden_size": 128,
-    "num_layers": 1,
-    "dropout_rate": 0.4,
-    "dense_hidden": 32,
-    "learning_rate": 1e-3,
-    "max_grad_norm": 1.0,
-    "num_epochs": 2,
+REQUIRED_HYPERPARAMETERS = {
+    "max_length",
+    "batch_size",
+    "embedding_dim",
+    "hidden_size",
+    "num_layers",
+    "dropout_rate",
+    "dense_hidden",
+    "learning_rate",
+    "max_grad_norm",
+    "num_epochs",
 }
 
 
@@ -31,8 +31,6 @@ class RandomSearchTuner:
         self.metric_name = str(self.config.get("metric", "f1"))
         self.default_trials = int(self.config.get("num_trials", 10))
         self.search_space = self.config["search_space"]
-        self.base_hyperparameters = DEFAULT_BASE_HYPERPARAMETERS.copy()
-        self.base_hyperparameters.update(self.config.get("base_hyperparameters", {}))
         random.seed(self.seed)
 
     @staticmethod
@@ -55,9 +53,15 @@ class RandomSearchTuner:
         raise ValueError(f"Unsupported parameter type: {param_type}")
 
     def _sample_hyperparameters(self) -> Dict[str, Any]:
-        sampled: Dict[str, Any] = self.base_hyperparameters.copy()
+        sampled: Dict[str, Any] = {}
         for name, spec in self.search_space.items():
             sampled[name] = self._sample_param(spec)
+        missing = sorted(REQUIRED_HYPERPARAMETERS - set(sampled.keys()))
+        if missing:
+            raise ValueError(
+                "Missing required hyperparameters in tuning config: "
+                + ", ".join(missing)
+            )
         return sampled
 
     def _run_trial(self, trial_idx: int, hyperparams: Dict[str, Any]) -> Tuple[float, Dict[str, Any]]:
@@ -103,7 +107,11 @@ class RandomSearchTuner:
             if score > best_score:
                 best_score = score
                 best_result = details
-            print(f"[tune] trial={trial_idx}/{trials}, {self.metric_name}={score:.4f}")
+            params_str = ", ".join(f"{k}={v}" for k, v in hyperparams.items())
+            print(
+                f"[tune] trial={trial_idx}/{trials}, "
+                f"{self.metric_name}={score:.4f}, params: {params_str}"
+            )
 
         if best_result is None:
             raise RuntimeError("No trials were executed.")

@@ -1,0 +1,46 @@
+{
+  "random_seed": 42,
+  "metric": "f1",
+  "num_trials": 10,
+  "search_space": {
+    "batch_size": {
+      "type": "choice",
+      "values": [16, 32, 64]
+    },
+    "embedding_dim": {
+      "type": "choice",
+      "values": [64, 128, 256]
+    },
+    "hidden_size": {
+      "type": "choice",
+      "values": [64, 128, 256]
+    },
+    "num_layers": {
+      "type": "choice",
+      "values": [1, 2]
+    },
+    "dropout_rate": {
+      "type": "float",
+      "min": 0.2,
+      "max": 0.6
+    },
+    "dense_hidden": {
+      "type": "choice",
+      "values": [16, 32, 64]
+    },
+    "learning_rate": {
+      "type": "log_float",
+      "min": 0.0001,
+      "max": 0.005
+    },
+    "max_grad_norm": {
+      "type": "float",
+      "min": 0.5,
+      "max": 2.0
+    },
+    "num_epochs": {
+      "type": "choice",
+      "values": [2, 3, 4]
+    }
+  }
+}

@@ -48,8 +48,6 @@ class BiLSTMSpamClassifier(nn.Module):
         self.dense1 = nn.Linear(lstm_output_size, dense_hidden)
         self.dense2 = nn.Linear(dense_hidden, 1)
 
-        self.sigmoid = nn.Sigmoid()
-
     def forward(
         self,
         token_ids,
@@ -71,8 +69,6 @@ class BiLSTMSpamClassifier(nn.Module):
         dense_out = F.relu(self.dense1(lstm_final))
         dense_out = self.dropout(dense_out)
         output = self.dense2(dense_out)
-
-        output = self.sigmoid(output) #do not use BCELoss with sigmoid TODO: fix this
 
         return output
 

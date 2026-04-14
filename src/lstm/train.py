@@ -20,7 +20,7 @@ class Trainer:
         self.device = torch.device('cuda')
         self.model.to(self.device)
 
-        self.criterion = torch.nn.BCELoss()
+        self.criterion = torch.nn.BCEWithLogitsLoss()
 
         self.optimizer = Adam(self.model.parameters(), lr=learning_rate)
         self.max_grad_norm = max_grad_norm
@@ -76,7 +76,8 @@ class Trainer:
                 total_loss += loss.item()
                 num_batches += 1
 
-                predictions = (outputs > 0.5).float()
+                probabilities = torch.sigmoid(outputs)
+                predictions = (probabilities > 0.5).float()
                 correct += (predictions == labels).sum().item()
                 total += labels.size(0)
         

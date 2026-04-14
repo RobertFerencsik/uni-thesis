@@ -82,7 +82,7 @@ def evaluate(
             labels = labels.to(device)
 
             logits = model(token_ids, attention_mask)
-            probs = logits.squeeze(1)
+            probs = torch.sigmoid(logits.squeeze(1))
             batch_preds = (probs > threshold).long()
 
             all_preds.extend(batch_preds.cpu().tolist())

@@ -23,15 +23,77 @@ Megoldandó feladatok
 
 ## Repository Használata
 
-### Környezet
+### Install
 
+#### 1) Python telepítése (Windows)
+
+```powershell
 winget install Python.Python.3.10
+```
 
-#### Virtuális környezet készítése
+#### 2) Virtuális környezet létrehozása és aktiválása
 
+```powershell
 py -3.10 -m venv .venv
-.venv\Scripts\Activate.ps1
+.venv\Scripts\activate
+```
 
-#### Szükséges könyvtárak telepítése
+#### 3) Függőségek telepítése
 
+```powershell
 pip install -r requirements.txt
+```
+
+### Usage
+
+Az entrypoint a `main.py`.
+
+#### Learning curve tanítás + kiértékelés
+
+```powershell
+python main.py --train --eval --num-portions 10
+```
+
+- A modellek a `data/models/learning_curve/` mappába kerülnek.
+- A görbe ábra: `data/models/learning_curve/learning_curve_f1.png`.
+
+#### Csak tanítás
+
+```powershell
+python main.py --train --num-portions 10
+```
+
+#### Csak kiértékelés (korábban tanított modellekre)
+
+```powershell
+python main.py --eval --num-portions 10
+```
+
+#### Random search hyperparameter tuning
+
+```powershell
+python main.py --tune
+```
+
+Használt keresési tartomány:
+- `src/config/hyperparameter_search_space.json`
+
+A legjobb hyperparaméterek kimenete:
+- `src/config/best_hyperparameters.json`
+
+Egyedi trial szám:
+
+```powershell
+python main.py --tune --num-trials 20
+```
+
+#### A tanítás melyik hyperparaméter fájlt használja
+
+Alapértelmezetten:
+- `src/config/best_hyperparameters.json`
+
+Egyedi fájl megadásával:
+
+```powershell
+python main.py --train --eval --best-hparams-in "src/config/best_hyperparameters.json"
+```

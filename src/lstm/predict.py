@@ -19,11 +19,14 @@ def predict_spam(text):
     model.load_state_dict(checkpoint['model_state_dict'])
     model.eval()
     
-    ids = tokenizer.encode(text)[:512] + [tokenizer.pad_id] * (512 - len(tokenizer.encode(text)[:512]))
-    mask = [1] * len(tokenizer.encode(text)[:512]) + [0] * (512 - len(tokenizer.encode(text)[:512]))
+    encoded = tokenizer.encode(text)[:512]
+    encoded_length = len(encoded)
+    ids = encoded + [tokenizer.pad_id] * (512 - encoded_length)
+    mask = [1] * encoded_length + [0] * (512 - encoded_length)
     
     with torch.no_grad():
-        prob = model(torch.tensor([ids]), torch.tensor([mask])).item()
+        logits = model(torch.tensor([ids]), torch.tensor([mask]))
+        prob = torch.sigmoid(logits).item()
     
     return 'spam' if prob > 0.5 else 'ham', prob
 

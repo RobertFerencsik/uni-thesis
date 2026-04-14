@@ -1,0 +1,14 @@
+{
+  "best_hyperparameters": {
+    "max_length": 512,
+    "batch_size": 32,
+    "embedding_dim": 128,
+    "hidden_size": 128,
+    "num_layers": 1,
+    "dropout_rate": 0.4,
+    "dense_hidden": 32,
+    "learning_rate": 0.001,
+    "max_grad_norm": 1.0,
+    "num_epochs": 2
+  }
+}

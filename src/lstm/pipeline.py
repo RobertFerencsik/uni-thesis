@@ -8,7 +8,6 @@ from .dataset import SpamHamDataset
 from .model import BiLSTMSpamClassifier
 from .train import Trainer
 
-# `Path()` uses the current working directory; for reliable package resolution use project-relative path.
 src = Path(__file__).resolve().parent.parent
 if str(src) not in sys.path:
     sys.path.insert(0, str(src))
@@ -19,18 +18,17 @@ from config.config import PATHS, PROJECT_ROOT
 class LSTMTrainingPipeline:    
     def __init__(
         self,
-        max_length: int = 512,
-        batch_size: int = 32,
-        embedding_dim: int = 128,
-        hidden_size: int = 128,
-        num_layers: int = 1,
-        dropout_rate: float = 0.4,
-        dense_hidden: int = 32,
-        learning_rate: float = 1e-3,
-        max_grad_norm: float = 1.0,
-        num_epochs: int = 2
+        max_length: int,
+        batch_size: int,
+        embedding_dim: int,
+        hidden_size: int,
+        num_layers: int,
+        dropout_rate: float,
+        dense_hidden: int,
+        learning_rate: float,
+        max_grad_norm: float,
+        num_epochs: int
     ):
-          
         self.tokenizer_path = Path(PATHS.lstm_tokenizer)
         self.train_csv = Path(PATHS.train_processed)
         self.val_csv = Path(PATHS.validation_processed)
@@ -76,14 +74,12 @@ class LSTMTrainingPipeline:
         self.train_loader = DataLoader(
             self.train_dataset,
             batch_size=self.batch_size,
-            shuffle=True,
-            num_workers=self.num_workers
+            shuffle=True
         )
         self.val_loader = DataLoader(
             self.val_dataset,
             batch_size=self.batch_size,
-            shuffle=False,
-            num_workers=self.num_workers
+            shuffle=False
         )
         self.model = BiLSTMSpamClassifier(
             vocab_size=vocab_size,

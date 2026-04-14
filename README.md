@@ -87,13 +87,10 @@ Egyedi trial szám:
 python main.py --tune --num-trials 20
 ```
 
-#### A tanítás melyik hyperparaméter fájlt használja
+#### Fix konfigurációs fájlok (paper/repro mód)
 
-Alapértelmezetten:
-- `src/config/best_hyperparameters.json`
+A projekt fix fájlnevekkel dolgozik:
+- Keresési tér: `src/config/hyperparameter_search_space.json`
+- Legjobb hyperparaméterek: `src/config/best_hyperparameters.json`
 
-Egyedi fájl megadásával:
-
-```powershell
-python main.py --train --eval --best-hparams-in "src/config/best_hyperparameters.json"
-```
+A tanítás és kiértékelés mindig a `src/config/best_hyperparameters.json` fájlt használja.

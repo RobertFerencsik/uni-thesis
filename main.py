@@ -178,25 +178,22 @@ def main():
     parser.add_argument("--train", action="store_true")
     parser.add_argument("--eval", action="store_true")
     parser.add_argument("--tune", action="store_true")
-    parser.add_argument("--num-trials", type=int, default=None)
-    parser.add_argument("--search-config", type=str, default=str(DEFAULT_SEARCH_CONFIG))
-    parser.add_argument("--best-hparams-out", type=str, default=str(DEFAULT_BEST_HPARAMS))
-    parser.add_argument("--best-hparams-in", type=str, default=str(DEFAULT_BEST_HPARAMS))
+    parser.add_argument("--num-trials", type=int, default=10)
     args = parser.parse_args()
 
     if args.tune:
         tuner = RandomSearchTuner(
-            config_path=Path(args.search_config),
-            output_path=Path(args.best_hparams_out),
+            config_path=DEFAULT_SEARCH_CONFIG,
+            output_path=DEFAULT_BEST_HPARAMS,
         )
         result = tuner.run(num_trials=args.num_trials)
         print(
             f"[tune] best {result['metric']}={result['best_metrics'][result['metric']]:.4f}, "
-            f"saved: {args.best_hparams_out}"
+            f"saved: {DEFAULT_BEST_HPARAMS}"
         )
         return
 
-    pipeline_hparams = _load_best_hyperparameters(Path(args.best_hparams_in))
+    pipeline_hparams = _load_best_hyperparameters(DEFAULT_BEST_HPARAMS)
 
     runner = LearningCurveRunner(
         num_portions=args.num_portions,

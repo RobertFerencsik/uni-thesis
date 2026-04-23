@@ -48,16 +48,12 @@ class LearningCurveRunner:
     def __init__(
         self,
         num_portions,
-        do_train,
-        do_eval,
         pipeline_hparams,
         *,
         seed = SPLIT_SEED,
         eval_threshold = EVAL_THRESHOLD,
     ):
         self.num_portions = num_portions
-        self.do_train = do_train
-        self.do_eval = do_eval
         self.pipeline_hparams = pipeline_hparams
         self.seed = int(seed)
         self.eval_threshold = float(eval_threshold)
@@ -68,8 +64,6 @@ class LearningCurveRunner:
     def _validate(self):
         if self.num_portions < 1:
             raise ValueError("--num-portions must be >= 1")
-        if not self.do_train and not self.do_eval:
-            raise ValueError("Use --train and/or --eval")
 
     def _ensure_dirs(self):
         self.split_dir.mkdir(parents=True, exist_ok=True)
@@ -105,8 +99,7 @@ class LearningCurveRunner:
             size = len(split_df)
             run_dir = self.model_root / f"portion_{i:02d}_of_{self.num_portions}"
             run_dir.mkdir(parents=True, exist_ok=True)
-            if self.do_train:
-                self._train_portion(i, size, split_df)
+            self._train_portion(i, size, split_df)
             run_info.append((size, run_dir / "best_model.pt"))
         return run_info
 
@@ -138,5 +131,4 @@ class LearningCurveRunner:
         self._validate()
         self._ensure_dirs()
         run_info = self._build_run_info()
-        if self.do_eval:
-            self._evaluate(run_info)
+        self._evaluate(run_info)

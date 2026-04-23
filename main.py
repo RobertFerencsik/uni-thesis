@@ -54,13 +54,11 @@ def run_tuning(num_trials):
     print(f"[tune] best {metric}={score:.4f}, saved: {DEFAULT_BEST_HPARAMS}")
 
 
-def run_learning_curve(num_portions, do_train, do_eval):
+def run_learning_curve(num_portions):
     hparams = load_best_hyperparameters(DEFAULT_BEST_HPARAMS)
     LearningCurveRunner(
         num_portions=num_portions,
-        do_train=do_train,
-        do_eval=do_eval,
-        pipeline_hparams=hparams,
+        pipeline_hparams=hparams
     ).run()
 
 
@@ -68,27 +66,32 @@ def main():
     parser = argparse.ArgumentParser(
         description="Tune LSTM hyperparameters or run learning curve"
     )
-    parser.add_argument(
-        "--num-portions",
-        type=int,
-        default=10,
-        help="Number of cumulative stratified train portions",
-    )
-    parser.add_argument("--train", action="store_true", help="Train each learning-curve portion")
-    parser.add_argument("--eval", action="store_true", help="Evaluate checkpoints and plot F1")
-    parser.add_argument("--tune", action="store_true", help="Random search over hyperparameter space")
-    parser.add_argument("--num-trials", type=int, default=20, help="Trials when using --tune")
+
+    parser.add_argument("mode", choices=["tune", "learning-curve"], help="Mode to run")
+    if args.mode == "learning-curve":
+        parser.add_argument(
+            "--num-portions",
+            type=int,
+            default=10,
+            help="Number of cumulative stratified train portions",
+        )   
+    elif args.mode == "tune":
+        parser.add_argument(
+            "--num-trials",
+            type=int,
+            default=20,
+            help="Trials when using --tune",
+        )
+    else:
+        parser.error("Invalid mode. Please use 'tune' or 'learning-curve'.")
     args = parser.parse_args()
 
-    if args.tune:
+    if args.mode == "tune":
         run_tuning(args.num_trials)
-        return
-
-    run_learning_curve(
-        num_portions=args.num_portions,
-        do_train=args.train,
-        do_eval=args.eval,
-    )
+    elif args.mode == "learning-curve":
+        run_learning_curve(num_portions=args.num_portions, do_train=args.train, do_eval=args.eval)
+    else:
+        parser.error("Invalid mode. Please use 'tune' or 'learning-curve'.")
 
 if __name__ == "__main__":
     main()

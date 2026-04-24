@@ -70,14 +70,14 @@ def main():
 
     parser.add_argument("mode", choices=["tune", "learning-curve"], help="Mode to run")
     args.update(vars(parser.parse_args()))
-    if args.mode == "learning-curve":
+    if args["mode"] == "learning-curve":
         parser.add_argument(
             "--num-portions",
             type=int,
             default=10,
             help="Number of cumulative stratified train portions",
         )   
-    elif args.mode == "tune":
+    elif args["mode"] == "tune":
         parser.add_argument(
             "--num-trials",
             type=int,
@@ -88,10 +88,10 @@ def main():
         parser.error("Invalid mode. Please use 'tune' or 'learning-curve'.")
     args.update(vars(parser.parse_args()))
 
-    if args.mode == "tune":
-        run_tuning(args.num_trials)
-    elif args.mode == "learning-curve":
-        run_learning_curve(num_portions=args.num_portions, do_train=args.train, do_eval=args.eval)
+    if args["mode"] == "tune":
+        run_tuning(args["num_trials"])
+    elif args["mode"] == "learning-curve":
+        run_learning_curve(num_portions=args["num_portions"])
     else:
         parser.error("Invalid mode. Please use 'tune' or 'learning-curve'.")
 

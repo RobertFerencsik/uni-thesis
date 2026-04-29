@@ -1,0 +1,13 @@
+\select@language {magyar} \contentsline {chapter}{\numberline {1}Bevezetés}{1}{chapter.1}%
+\select@language {magyar} \contentsline {chapter}{\numberline {2}Koncepció}{3}{chapter.2}%
+\select@language {magyar} \contentsline {section}{\numberline {2.1}A fejezet célja}{3}{section.2.1}%
+\select@language {magyar} \contentsline {section}{\numberline {2.2}Tartalom és felépítés}{3}{section.2.2}%
+\select@language {magyar} \contentsline {section}{\numberline {2.3}Amit csak említés szintjén érdemes szerepeltetni}{3}{section.2.3}%
+\select@language {magyar} \contentsline {chapter}{\numberline {3}Tervezés}{5}{chapter.3}%
+\select@language {magyar} \contentsline {section}{\numberline {3.1}Táblázatok}{5}{section.3.1}%
+\select@language {magyar} \contentsline {section}{\numberline {3.2}Ábrák}{5}{section.3.2}%
+\select@language {magyar} \contentsline {section}{\numberline {3.3}További környezetek}{5}{section.3.3}%
+\select@language {magyar} \contentsline {chapter}{\numberline {4}Megvalósítás}{7}{chapter.4}%
+\select@language {magyar} \contentsline {chapter}{\numberline {5}Tesztelés}{9}{chapter.5}%
+\select@language {magyar} \contentsline {chapter}{\numberline {6}Összefoglalás}{10}{chapter.6}%
+\select@language {magyar} \contentsline {chapter}{Források}{11}{chapter*.2}%

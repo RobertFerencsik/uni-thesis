@@ -42,8 +42,9 @@
 \include{chapters/5_test}
 \include{chapters/6_summary}
 
-%biblatex verzió
-%a bibintoc heading stílussal megjelenik a tartalomjegyzékben, title-lel a megjelenő címsor szövege módosítható
+% biblatex: alapból csak \cite-zett munkák jelennek meg. Az alábbi \nocite a felsorolt
+% kulcsokat a Források közé teszi szövegbeli hivatkozás nélkül is (később elhagyható, ha mindenhol \cite van).
+\nocite{ibmThinkNLP,wang2023textclassificationnlp,li2022surveytextclassification,taha2024textclassificationsurvey,uscensusDatascience,ibmThinkAI,kowsari2019textclassificationsurvey}
 \printbibliography[heading=bibintoc,%
 title=Források]
 %sima bibtex verzió

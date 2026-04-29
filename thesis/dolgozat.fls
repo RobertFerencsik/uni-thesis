@@ -350,6 +350,18 @@ INPUT .\chapters\2_concept.tex
 INPUT chapters\2_concept.tex
 INPUT C:\Users\rober\AppData\Local\Programs\MiKTeX\fonts\tfm\jknappen\ec\ecrm1728.tfm
 INPUT C:\Users\rober\AppData\Local\Programs\MiKTeX\fonts\tfm\jknappen\ec\ecbx1728.tfm
+INPUT .\images\text_classification_flowchart.png
+INPUT .\images\text_classification_flowchart.png
+INPUT .\images\text_classification_flowchart.png
+INPUT .\images\text_classification_flowchart.png
+INPUT .\images\text_classification_flowchart.png
+INPUT .\images\text_classification_flowchart.png
+INPUT .\images\text_classification_taxonomy.png
+INPUT .\images\text_classification_taxonomy.png
+INPUT .\images\text_classification_taxonomy.png
+INPUT .\images\text_classification_taxonomy.png
+INPUT .\images\text_classification_taxonomy.png
+INPUT .\images\text_classification_taxonomy.png
 INPUT .\chapters\3_design.tex
 INPUT .\chapters\3_design.tex
 OUTPUT chapters\3_design.aux
@@ -428,6 +440,8 @@ INPUT .\dolgozat.out
 INPUT .\dolgozat.out
 INPUT dolgozat.run.xml
 OUTPUT dolgozat.run.xml
+INPUT C:\Users\rober\AppData\Local\MiKTeX\fonts\pk\ljfour\jknappen\ec\dpi600\eccc1200.pk
+INPUT C:\Users\rober\AppData\Local\MiKTeX\fonts\pk\ljfour\jknappen\ec\dpi600\eccc1200.pk
 INPUT C:\Users\rober\AppData\Local\MiKTeX\fonts\pk\ljfour\jknappen\ec\dpi600\ecsl1200.pk
 INPUT C:\Users\rober\AppData\Local\MiKTeX\fonts\pk\ljfour\jknappen\ec\dpi600\ecsl1200.pk
 INPUT C:\Users\rober\AppData\Local\MiKTeX\fonts\pk\ljfour\jknappen\ec\dpi600\ecbx1728.pk

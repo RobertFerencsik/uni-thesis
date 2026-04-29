@@ -17,42 +17,290 @@
 \endgroup
 
 \datalist[entry]{nyt/global//global/global/global}
-  \entry{coombs1987markup}{article}{}{}
-    \name{author}{3}{}{%
-      {{hash=CJH}{%
-         family={Coombs},
-         familyi={C\bibinitperiod},
-         given={James\bibnamedelima H},
-         giveni={J\bibinitperiod\bibinitdelim H\bibinitperiod},
-      }}%
-      {{hash=RAH}{%
-         family={Renear},
-         familyi={R\bibinitperiod},
-         given={Allen\bibnamedelima H},
-         giveni={A\bibinitperiod\bibinitdelim H\bibinitperiod},
-      }}%
-      {{hash=DSJ}{%
-         family={DeRose},
-         familyi={D\bibinitperiod},
-         given={Steven\bibnamedelima J},
-         giveni={S\bibinitperiod\bibinitdelim J\bibinitperiod},
+  \entry{ibmThinkAI}{online}{}{}
+    \name{author}{1}{}{%
+      {{hash=I}{%
+         family={{IBM}},
+         familyi={I\bibinitperiod},
       }}%
     }
-    \list{publisher}{1}{%
-      {ACM}%
-    }
-    \strng{namehash}{CJHRAHDSJ1}
-    \strng{fullhash}{CJHRAHDSJ1}
+    \strng{namehash}{I1}
+    \strng{fullhash}{I1}
     \field{labelnamesource}{author}
     \field{labeltitlesource}{title}
-    \field{sortinit}{C}
-    \field{sortinithash}{C}
-    \field{number}{11}
-    \field{pages}{933\bibrangedash 947}
-    \field{title}{Markup systems and the future of scholarly text processing}
-    \field{volume}{30}
-    \field{journaltitle}{Communications of the ACM}
-    \field{year}{1987}
+    \field{sortinit}{I}
+    \field{sortinithash}{I}
+    \field{title}{Artificial intelligence}
+    \verb{url}
+    \verb https://www.ibm.com/think/topics/artificial-intelligence
+    \endverb
+    \field{urlday}{29}
+    \field{urlmonth}{04}
+    \field{urlyear}{2026}
+  \endentry
+
+  \entry{kowsari2019textclassificationsurvey}{article}{}{}
+    \name{author}{6}{}{%
+      {{hash=KK}{%
+         family={Kowsari},
+         familyi={K\bibinitperiod},
+         given={Kamran},
+         giveni={K\bibinitperiod},
+      }}%
+      {{hash=JMK}{%
+         family={Jafari\bibnamedelima Meimandi},
+         familyi={J\bibinitperiod\bibinitdelim M\bibinitperiod},
+         given={Kia},
+         giveni={K\bibinitperiod},
+      }}%
+      {{hash=HM}{%
+         family={Heidarysafa},
+         familyi={H\bibinitperiod},
+         given={Mojtaba},
+         giveni={M\bibinitperiod},
+      }}%
+      {{hash=MS}{%
+         family={Mendu},
+         familyi={M\bibinitperiod},
+         given={Sanjana},
+         giveni={S\bibinitperiod},
+      }}%
+      {{hash=BLE}{%
+         family={Barnes},
+         familyi={B\bibinitperiod},
+         given={Laura\bibnamedelima E.},
+         giveni={L\bibinitperiod\bibinitdelim E\bibinitperiod},
+      }}%
+      {{hash=BDE}{%
+         family={Brown},
+         familyi={B\bibinitperiod},
+         given={Donald\bibnamedelima E.},
+         giveni={D\bibinitperiod\bibinitdelim E\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{KK+1}
+    \strng{fullhash}{KKJMKHMMSBLEBDE1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{K}
+    \field{sortinithash}{K}
+    \verb{doi}
+    \verb 10.3390/info10040150
+    \endverb
+    \field{number}{4}
+    \field{title}{Text classification algorithms: A survey}
+    \verb{url}
+    \verb https://doi.org/10.3390/info10040150
+    \endverb
+    \field{volume}{10}
+    \field{journaltitle}{Information}
+    \field{year}{2019}
+  \endentry
+
+  \entry{li2022surveytextclassification}{article}{}{}
+    \name{author}{8}{}{%
+      {{hash=LQ}{%
+         family={Li},
+         familyi={L\bibinitperiod},
+         given={Qian},
+         giveni={Q\bibinitperiod},
+      }}%
+      {{hash=PH}{%
+         family={Peng},
+         familyi={P\bibinitperiod},
+         given={Hao},
+         giveni={H\bibinitperiod},
+      }}%
+      {{hash=LJ}{%
+         family={Li},
+         familyi={L\bibinitperiod},
+         given={Jianxin},
+         giveni={J\bibinitperiod},
+      }}%
+      {{hash=XC}{%
+         family={Xia},
+         familyi={X\bibinitperiod},
+         given={Congying},
+         giveni={C\bibinitperiod},
+      }}%
+      {{hash=YR}{%
+         family={Yang},
+         familyi={Y\bibinitperiod},
+         given={Renyu},
+         giveni={R\bibinitperiod},
+      }}%
+      {{hash=SL}{%
+         family={Sun},
+         familyi={S\bibinitperiod},
+         given={Lichao},
+         giveni={L\bibinitperiod},
+      }}%
+      {{hash=YPS}{%
+         family={Yu},
+         familyi={Y\bibinitperiod},
+         given={Philip\bibnamedelima S.},
+         giveni={P\bibinitperiod\bibinitdelim S\bibinitperiod},
+      }}%
+      {{hash=HL}{%
+         family={He},
+         familyi={H\bibinitperiod},
+         given={Lifang},
+         giveni={L\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{LQ+1}
+    \strng{fullhash}{LQPHLJXCYRSLYPSHL1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{L}
+    \field{sortinithash}{L}
+    \verb{doi}
+    \verb 10.1145/3495162
+    \endverb
+    \field{number}{2}
+    \field{pages}{1\bibrangedash 39}
+    \field{title}{A Survey on Text Classification: From Traditional to Deep
+  Learning}
+    \verb{url}
+    \verb https://dl.acm.org/doi/10.1145/3495162
+    \endverb
+    \field{volume}{13}
+    \field{journaltitle}{ACM Transactions on Intelligent Systems and
+  Technology}
+    \field{year}{2022}
+  \endentry
+
+  \entry{ibmThinkNLP}{online}{}{}
+    \name{author}{2}{}{%
+      {{hash=SC}{%
+         family={Stryker},
+         familyi={S\bibinitperiod},
+         given={Cole},
+         giveni={C\bibinitperiod},
+      }}%
+      {{hash=HJ}{%
+         family={Holdsworth},
+         familyi={H\bibinitperiod},
+         given={Jim},
+         giveni={J\bibinitperiod},
+      }}%
+    }
+    \list{organization}{1}{%
+      {{International Business Machines Corporation (IBM)}}%
+    }
+    \strng{namehash}{SCHJ1}
+    \strng{fullhash}{SCHJ1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{S}
+    \field{sortinithash}{S}
+    \field{title}{What is {NLP}?}
+    \verb{url}
+    \verb https://www.ibm.com/think/topics/natural-language-processing
+    \endverb
+    \field{urlday}{29}
+    \field{urlmonth}{04}
+    \field{urlyear}{2026}
+  \endentry
+
+  \entry{taha2024textclassificationsurvey}{article}{}{}
+    \name{author}{5}{}{%
+      {{hash=TK}{%
+         family={Taha},
+         familyi={T\bibinitperiod},
+         given={Kamal},
+         giveni={K\bibinitperiod},
+      }}%
+      {{hash=YPD}{%
+         family={Yoo},
+         familyi={Y\bibinitperiod},
+         given={Paul\bibnamedelima D.},
+         giveni={P\bibinitperiod\bibinitdelim D\bibinitperiod},
+      }}%
+      {{hash=YC}{%
+         family={Yeun},
+         familyi={Y\bibinitperiod},
+         given={Chan},
+         giveni={C\bibinitperiod},
+      }}%
+      {{hash=HD}{%
+         family={Homouz},
+         familyi={H\bibinitperiod},
+         given={Dirar},
+         giveni={D\bibinitperiod},
+      }}%
+      {{hash=TA}{%
+         family={Taha},
+         familyi={T\bibinitperiod},
+         given={Aya},
+         giveni={A\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{TK+1}
+    \strng{fullhash}{TKYPDYCHDTA1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{T}
+    \field{sortinithash}{T}
+    \verb{doi}
+    \verb 10.1016/j.cosrev.2024.100664
+    \endverb
+    \field{pages}{100664}
+    \field{title}{A comprehensive survey of text classification techniques and
+  their research applications: Observational and experimental insights}
+    \verb{url}
+    \verb https://doi.org/10.1016/j.cosrev.2024.100664
+    \endverb
+    \field{volume}{54}
+    \field{journaltitle}{Computer Science Review}
+    \field{year}{2024}
+  \endentry
+
+  \entry{uscensusDatascience}{online}{}{}
+    \name{author}{1}{}{%
+      {{hash=U}{%
+         family={{U.S. Census Bureau}},
+         familyi={U\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{U1}
+    \strng{fullhash}{U1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{U}
+    \field{sortinithash}{U}
+    \field{title}{Data science}
+    \verb{url}
+    \verb https://www.census.gov/topics/research/data-science.html
+    \endverb
+    \field{urlday}{29}
+    \field{urlmonth}{04}
+    \field{urlyear}{2026}
+  \endentry
+
+  \entry{wang2023textclassificationnlp}{article}{}{}
+    \name{author}{1}{}{%
+      {{hash=WM}{%
+         family={Wang},
+         familyi={W\bibinitperiod},
+         given={Mengnan},
+         giveni={M\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{WM1}
+    \strng{fullhash}{WM1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{W}
+    \field{sortinithash}{W}
+    \verb{doi}
+    \verb 10.23977/acss.2023.070213
+    \endverb
+    \field{pages}{93\bibrangedash 100}
+    \field{title}{Research on Text Classification Method Based on {NLP}}
+    \field{volume}{7}
+    \field{journaltitle}{Advances in Computer, Signals and Systems}
+    \field{year}{2023}
   \endentry
 \enddatalist
 \endinput

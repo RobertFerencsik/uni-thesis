@@ -4,11 +4,21 @@
 \select@language {magyar} \contentsline {section}{\numberline {2.2}Szövegosztályozás}{3}{section.2.2}%
 \select@language {magyar} \contentsline {section}{\numberline {2.3}A szövegosztályozás folyamata}{4}{section.2.3}%
 \select@language {magyar} \contentsline {section}{\numberline {2.4}Áttérés a hagyományos módszerekről a mélytanulási módszerekre}{4}{section.2.4}%
-\select@language {magyar} \contentsline {chapter}{\numberline {3}Tervezés}{7}{chapter.3}%
-\select@language {magyar} \contentsline {section}{\numberline {3.1}Táblázatok}{7}{section.3.1}%
-\select@language {magyar} \contentsline {section}{\numberline {3.2}Ábrák}{7}{section.3.2}%
-\select@language {magyar} \contentsline {section}{\numberline {3.3}További környezetek}{7}{section.3.3}%
-\select@language {magyar} \contentsline {chapter}{\numberline {4}Megvalósítás}{9}{chapter.4}%
-\select@language {magyar} \contentsline {chapter}{\numberline {5}Tesztelés}{11}{chapter.5}%
-\select@language {magyar} \contentsline {chapter}{\numberline {6}Összefoglalás}{12}{chapter.6}%
-\select@language {magyar} \contentsline {chapter}{Források}{13}{chapter*.2}%
+\select@language {magyar} \contentsline {section}{\numberline {2.5}Felhasznált módszerek}{6}{section.2.5}%
+\select@language {magyar} \contentsline {subsection}{\numberline {2.5.1}Előfeldolgozás}{6}{subsection.2.5.1}%
+\select@language {magyar} \contentsline {subsubsection}{Tukey interkvartilis tartomány}{7}{section*.2}%
+\select@language {magyar} \contentsline {subsubsection}{Entitások helyettesítése}{7}{section*.3}%
+\select@language {magyar} \contentsline {subsubsection}{SentencePiece tokenizálás}{7}{section*.4}%
+\select@language {magyar} \contentsline {subsection}{\numberline {2.5.2}Modell}{7}{subsection.2.5.2}%
+\select@language {magyar} \contentsline {subsubsection}{Kétirányú hosszú-rövid távú memória neurális háló}{7}{section*.5}%
+\select@language {magyar} \contentsline {subsubsection}{Véletlenszerű hiperparaméter-keresés}{7}{section*.6}%
+\select@language {magyar} \contentsline {subsubsection}{Tanítási görbe stratifikált kumulatív felosztással}{7}{section*.7}%
+\select@language {magyar} \contentsline {subsubsection}{Osztályozási kiértékelés}{7}{section*.8}%
+\select@language {magyar} \contentsline {chapter}{\numberline {3}Tervezés}{8}{chapter.3}%
+\select@language {magyar} \contentsline {section}{\numberline {3.1}Táblázatok}{8}{section.3.1}%
+\select@language {magyar} \contentsline {section}{\numberline {3.2}Ábrák}{8}{section.3.2}%
+\select@language {magyar} \contentsline {section}{\numberline {3.3}További környezetek}{8}{section.3.3}%
+\select@language {magyar} \contentsline {chapter}{\numberline {4}Megvalósítás}{10}{chapter.4}%
+\select@language {magyar} \contentsline {chapter}{\numberline {5}Tesztelés}{12}{chapter.5}%
+\select@language {magyar} \contentsline {chapter}{\numberline {6}Összefoglalás}{13}{chapter.6}%
+\select@language {magyar} \contentsline {chapter}{Források}{14}{chapter*.9}%

@@ -170,6 +170,29 @@
     \field{year}{2022}
   \endentry
 
+  \entry{procogiaIQR}{online}{}{}
+    \name{author}{1}{}{%
+      {{hash=P}{%
+         family={{Procogia}},
+         familyi={P\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{P1}
+    \strng{fullhash}{P1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{P}
+    \field{sortinithash}{P}
+    \field{title}{The {Interquartile Range Method} For Outliers}
+    \verb{url}
+    \verb https://procogia.com/interquartile-range-method-for-reliable-data-ana
+    \verb lysis/
+    \endverb
+    \field{urlday}{04}
+    \field{urlmonth}{05}
+    \field{urlyear}{2026}
+  \endentry
+
   \entry{ibmThinkNLP}{online}{}{}
     \name{author}{2}{}{%
       {{hash=SC}{%

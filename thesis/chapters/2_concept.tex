@@ -1,31 +1,49 @@
 \chapter{Szövegosztályozási feladat és módszerek}
 
-Ebben a fejezetben a kontextus megteremtése érdekében a természetes nyelvfeldolgozás és a szövegosztályozás alapfogalmai kerülnek bevezetésre. Ezt követően a szövegosztályozás folyamatáról esik szó. Végül a felhasznált módszerek részletezése következik.
+Ebben a fejezetben a kontextus megteremtése érdekében a természetes nyelvfeldolgozás és a szövegosztályozás alapfogalmai kerülnek bevezetésre. 
+Ezt követően a szövegosztályozás folyamatáról esik szó. Végül a felhasznált módszerek részletezése következik.
 
 \section{Természetes nyelvfeldolgozás}
 
-A természetes nyelvfeldolgozás olyan tudományág, amely lehetővé teszi a számítógépek és digitális rendszerek számára az emberi nyelv értelmezését, megértését és generálását. Integrálja a számítógépes nyelvészetet, a szabályalapú megközelítéseket, a statisztikai modellezést, valamint a korszerű mélytanulási technikákat~\cite{ibmThinkNLP}.
+A természetes nyelvfeldolgozás olyan tudományág, amely lehetővé teszi a számítógépek és digitális rendszerek számára az emberi nyelv értelmezését, 
+megértését és generálását. Integrálja a számítógépes nyelvészetet, a szabályalapú megközelítéseket, a statisztikai modellezést, 
+valamint a korszerű mélytanulási technikákat~\cite{ibmThinkNLP}.
 
-A természetes nyelvfeldolgozás területén folyó kutatások döntő szerepet játszottak a generatív mesterséges intelligencia kifejlődésében, elősegítve a nagy nyelvi modellek kifinomult kommunikációs képességeit, amelyek képesek szöveges és beszélt nyelv értelmezésére, generálására és összetett feladatok végrehajtására~\cite{ibmThinkNLP}.
+A természetes nyelvfeldolgozás területén folyó kutatások döntő szerepet játszottak a generatív mesterséges intelligencia kifejlődésében, 
+elősegítve a nagy nyelvi modellek kifinomult kommunikációs képességeit, amelyek képesek szöveges és beszélt nyelv értelmezésére, 
+generálására és összetett feladatok végrehajtására~\cite{ibmThinkNLP}.
 
 \section{Szövegosztályozás}
 
-A szövegosztályozás egy olyan folyamat, amely során egy dokumentumot automatikusan egy vagy több kategóriába sorolnak. Létezik felügyelt és nem felügyelt változata.
+A szövegosztályozás egy olyan folyamat, amely során egy dokumentumot automatikusan egy vagy több kategóriába sorolnak. 
+Létezik felügyelt és nem felügyelt változata.
 
-A \textbf{felügyelt gépi tanulás} (Supervised Learning) módszer alapja a dokumentum belső jellemzőinek elemzése, majd egy előre címkézett adathalmaz segítségével modell létrehozása a dokumentum és a kategória közötti kapcsolatok feltérképezésére~\cite{wang2023textclassificationnlp}.
+A \textbf{felügyelt gépi tanulás} (Supervised Learning) módszer alapja a dokumentum belső jellemzőinek elemzése, 
+majd egy előre címkézett adathalmaz segítségével modell létrehozása a dokumentum és a 
+kategória közötti kapcsolatok feltérképezésére~\cite{wang2023textclassificationnlp}.
 
 Vannak technikák, amelyek nem igénylik a címkézett adathalmazon tanított modellek használatát, azonban a dolgozat nem tér ki ezek részletezésére.
 
-A szövegosztályozás jelentősége az \textbf{adatrobbanás korszakával} (Era of Big Data) tovább nőtt, hiszen lehetővé teszi a strukturálatlan szöveges adatok hatékony szervezését és feldolgozását. Számos tanulmány rámutat arra, hogy a szövegosztályozás nem csupán egy a sok természetes nyelvfeldolgozás feladat közül, hanem a terület alapvető építőeleme. \cite{li2022surveytextclassification} megállapítja, hogy „a szövegbesorolás a természetes nyelvfeldolgozás legfontosabb és legalapvetőbb feladata” (saját fordítás).
+A szövegosztályozás jelentősége az \textbf{adatrobbanás korszakával} (Era of Big Data) tovább nőtt, 
+hiszen lehetővé teszi a strukturálatlan szöveges adatok hatékony szervezését és feldolgozását. Számos tanulmány rámutat arra, 
+hogy a szövegosztályozás nem csupán egy a sok természetes nyelvfeldolgozás feladat közül, 
+hanem a terület alapvető építőeleme. \cite{li2022surveytextclassification} megállapítja, hogy „a szövegbesorolás a természetes nyelvfeldolgozás legfontosabb és legalapvetőbb feladata” (saját fordítás).
 
 \section{A szövegosztályozás folyamata}
 
-A folyamat tipikusan több egymást követő lépésből áll, melyet \mref{fig:text-classification-flow} szemléltet. Kezdve a \textbf{szöveg előfeldolgozásával} (preprocessing), amely magában foglalja a tokenizálást, a stop-szavak eltávolítását, a szöveg kisbetűsítését, valamint a szótövezést vagy a lemmatizálást. Az előfeldolgozás célja egy egységes, zajtól megtisztított és könnyen feldolgozható szövegállomány előállítása, amely stabil alapot biztosít a további lépésekhez. Ezt követi a \textbf{jellemzőkinyerés} (feature extraction), amelynek során a dokumentumok numerikus reprezentációra alakíthatók. Ez a reprezentáció teszi lehetővé, hogy a különböző gépi tanulási algoritmusok a szöveg struktúráját és tartalmi jellemzőit kvantitatív módon értelmezzék.
+A folyamat tipikusan több egymást követő lépésből áll, melyet \mref{fig:text-classification-flow} szemléltet. 
+Kezdve a \textbf{szöveg előfeldolgozásával} (preprocessing), amely magában foglalja a tokenizálást, a stop-szavak eltávolítását, 
+a szöveg kisbetűsítését, valamint a szótövezést vagy a lemmatizálást. Az előfeldolgozás célja egy egységes, 
+zajtól megtisztított és könnyen feldolgozható szövegállomány előállítása, amely stabil alapot biztosít a további lépésekhez. 
+Ezt követi a \textbf{jellemzőkinyerés} (feature extraction), amelynek során a dokumentumok numerikus reprezentációra alakíthatók. 
+Ez a reprezentáció teszi lehetővé, hogy a különböző gépi tanulási algoritmusok a szöveg struktúráját és tartalmi jellemzőit kvantitatív módon értelmezzék.
 
 \begin{figure}[htbp]
   \centering
   \includegraphics[width=\linewidth]{images/text_classification_flowchart}
-  \caption{A szövegosztályozás tipikus folyamata: \emph{szöveg} és \emph{előfeldolgozás}, majd a \emph{hagyományos módszerek} (jellemzőkinyerés, osztályozó) és a \emph{mélytanulási módszerek} (modellek) párhuzamos ága, ezután \emph{kiértékelés} és \emph{címke} kimenet. \emph{Forrás:}~\cite{li2022surveytextclassification}.}
+  \caption{A szövegosztályozás tipikus folyamata: \emph{szöveg} és \emph{előfeldolgozás}, 
+  majd a \emph{hagyományos módszerek} (jellemzőkinyerés, osztályozó) és a \emph{mélytanulási módszerek} (modellek) párhuzamos ága, 
+  ezután \emph{kiértékelés} és \emph{címke} kimenet. \emph{Forrás:}~\cite{li2022surveytextclassification}.}
   \label{fig:text-classification-flow}
 \end{figure}
 
@@ -43,13 +61,54 @@ Két nagy osztályba sorolhatók a szövegosztályozási technikák, az \textbf{
 
 Itt érdemes megemlíteni, hogy ez a két osztály nem diszjunkt, hanem az adattudomány egy szélesebb terület, amelynek egyik eszköze lehet a mesterséges intelligencia. Ezt a következtetést definíciójukból le lehet vonni.
 
-Az adattudomány „Olyan tudományág, amely tudományos módszereket, folyamatokat és rendszereket alkalmaz az adatokból származó ismeretek és betekintések kinyerésére”~\cite{uscensusDatascience} (saját fordítás).
+Az adattudomány ,Olyan tudományág, amely tudományos módszereket, folyamatokat és rendszereket alkalmaz az adatokból származó ismeretek és betekintések kinyerésére”~\cite{uscensusDatascience} (saját fordítás).
 
 A mesterséges intelligencia egyik definíciója: „Egy technológia, amely felruházza a számítógépeket és gépeket az emberi tanulás, megértés, problémamegoldás, döntéshozatal, kreativitás és önállóság utánzásának képességével”~\cite{ibmThinkAI} (saját fordítás).
 
-\begin{figure}[htbp]
+\begin{figure}[H]
   \centering
   \includegraphics[width=\linewidth]{images/text_classification_taxonomy}
   \caption{A szövegosztályozási módszerek taxonómiája. \emph{Forrás:}~\cite{taha2024textclassificationsurvey}.}
   \label{fig:text-classification-taxonomy}
 \end{figure}
+
+\section{Felhasznált módszerek}
+
+A felhasznált módszerek két csoportban kerülnek bemutatásra. Az első csoport az adathalmaz feldolgozására vonatkozik, míg a második a hosszú-rövid távú memória neurális háló paramétereire és konkrét típusára. Az egyszerűbb és közismertebb módszerek nem kerülnek bemutatásra, az implementáció részletezésénél felsorolásra kerülnek.
+
+\subsection{Előfeldolgozás}
+
+Ebben az alfejezetben az adathalmaz feldolgozása közben alkalmazott módszerek közül kerülnek a fontosabbak kifejtésre.
+
+\subsubsection{Tukey interkvartilis tartomány}
+
+Az adathalmazt tekintve az üzenetek hossza egy nagyon eltérő tartományon oszlik el. A rövid pár szavastól egészen a hosszú üzenet váltásokig, melyek akár százezres nagyságrenbe is lépnek karakterszám tekintetében. A döntés meghozatala, hogy mely üzenet túl rövid mely túl hosszú statisztikai alapon fekszik. Méghozzá \textbf{Tukey interkvartilis módszerén} (Tukey’s Interquartile Range Method, Tukey’s IQR-method).
+
+Az \textbf{interkvartilis tartomány} (interquartile range, IQR) egy statisztikai mutató mely információt ad az adatok eloszlásáról, 
+azonban egyike azon módszereknek melyet nem befolyásol jelentősen az adatok nem normális jellege, 
+esetünkben az eloszlás \textbf{ferdesége} (skewness). Az harmadik (Q3) és első kvartilis (Q3) különbsége adja értékét ~\cite{procogiaIQR}.
+
+\subsubsection{Entitások helyettesítése}
+
+Az \textbf{entitások helyettesítése} (Entity Masking) sok természetes nyelvfeldolgozási feladat egyik fontos lépése. 
+Amely során a \textbf{“megnevezett entitások”} (Named Entites) helyettesítő tokenek kerülnek, így megtartva jelentésbeli értéküket. 
+Feladattól függően változik a módszer célja a jelen dolgozat esetében a cél a szókincs csökkentése a modell megszorításait figyelembe véve. 
+A hosszú-rövid távú memória modellek kisebb szókincs feldolgozására képesek mint a nagy nyelvi modellek.
+
+Egyéb feladatok melyek megoldására használatosak. Adatvédelem, az előbb már említett szókincs csökkentés és normalizáció, 
+jobb generalizáció, a modellek mintázatokat tanulnak nem pedig a konrét értékeket, 
+előtanítás során a generatív modellek megpróbálják behelyettesíteni a maszkolt tokeneket, így mutató adva tudásukról.
+
+\subsubsection{SentencePiece tokenizálás}
+
+\subsection{Modell}
+
+\subsubsection{Kétirányú hosszú-rövid távú memória neurális háló}
+
+\subsubsection{Véletlenszerű hiperparaméter-keresés}
+
+\subsubsection{Tanítási görbe stratifikált kumulatív felosztással}
+
+\subsubsection{Osztályozási kiértékelés}
+
+

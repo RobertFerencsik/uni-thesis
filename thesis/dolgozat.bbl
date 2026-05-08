@@ -170,6 +170,39 @@
     \field{year}{2022}
   \endentry
 
+  \entry{inproceedings}{inproceedings}{}{}
+    \name{author}{3}{}{%
+      {{hash=MV}{%
+         family={Metsis},
+         familyi={M\bibinitperiod},
+         given={Vangelis},
+         giveni={V\bibinitperiod},
+      }}%
+      {{hash=AI}{%
+         family={Androutsopoulos},
+         familyi={A\bibinitperiod},
+         given={Ion},
+         giveni={I\bibinitperiod},
+      }}%
+      {{hash=PG}{%
+         family={Paliouras},
+         familyi={P\bibinitperiod},
+         given={Georgios},
+         giveni={G\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{MVAIPG1}
+    \strng{fullhash}{MVAIPG1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{M}
+    \field{sortinithash}{M}
+    \field{title}{Spam Filtering with Naive Bayes - Which Naive Bayes?}
+    \field{journaltitle}{In CEAS}
+    \field{month}{01}
+    \field{year}{2006}
+  \endentry
+
   \entry{procogiaIQR}{online}{}{}
     \name{author}{1}{}{%
       {{hash=P}{%
@@ -324,6 +357,40 @@
     \field{volume}{7}
     \field{journaltitle}{Advances in Computer, Signals and Systems}
     \field{year}{2023}
+  \endentry
+
+  \entry{wiechmannNoppelEnronSpam}{online}{}{}
+    \name{author}{2}{}{%
+      {{hash=WM}{%
+         family={Wiechmann},
+         familyi={W\bibinitperiod},
+         given={M.},
+         giveni={M\bibinitperiod},
+      }}%
+      {{hash=NM}{%
+         family={Noppel},
+         familyi={N\bibinitperiod},
+         given={M.},
+         giveni={M\bibinitperiod},
+      }}%
+    }
+    \list{organization}{1}{%
+      {{GitHub}}%
+    }
+    \strng{namehash}{WMNM1}
+    \strng{fullhash}{WMNM1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{W}
+    \field{sortinithash}{W}
+    \field{note}{Data set}
+    \field{title}{Enron Spam Dataset}
+    \verb{url}
+    \verb https://github.com/MWiechmann/enron_spam_data
+    \endverb
+    \field{urlday}{06}
+    \field{urlmonth}{05}
+    \field{urlyear}{2026}
   \endentry
 \enddatalist
 \endinput

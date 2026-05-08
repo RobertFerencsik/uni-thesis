@@ -1,0 +1,40 @@
+\chapter{Előfeldolgozás}
+
+Az előfeldolgozás fejezetben helyet kap az adathalmaz leírása, tervezés és implementálás bemutatása az adathalmaz letöltésétől egészen a tokenizált adatok mentéséig.
+A tervezés a végleges változat dokumentálását fedi le, és jellegzetesebb kihívások és megoldások csak említés szintjén kerülnek megörökítésre. 
+Az implementálás ötletesebb megoldások bemutatására szorítkozik, és rövid leírására az alkalmazott módszereknek.
+
+\section{Adathalmaz eredete}
+
+A felhasznált adathalmaz M. Wiechmann \texttt{enron\_spam\_data} GitHub-oldalán található vesszővel tagolt adatfájl 
+(\texttt{CSV}) formátumban~\cite{wiechmannNoppelEnronSpam}.
+
+Az eredeti adathalmazról, mely abban különbözik a leírtak szerint, hogy minden egyes e-mail külön fájlként van tárolva, 
+a Spam filtering with Naive Bayes – Which Naive Bayes? tanulmányban olvashatunk a harmadik fejezetben. 
+A következő alfejezet ezt a művet veszi alapul az adathalmaz általános bemutatására~\cite{inproceedings}.
+
+Az Enron botrány kivizsgálásának keretében közel 150 Enron dolgozó fájljai lettek közzé téve, 
+melyek között jelentős mennyiségű személyes e-mail üzenet is megtalálható. 
+Személyre szabott spam filtert tűztek ki célul, így kiválasztottak 6 Enron dolgozót: 
+farmer-d, kaminski-v, kirchen-l, williams-w3, beck-s és lokay-m, a Bekkerman által szolgáltatott adathalmazból, 
+melyben a levelezések csak ham üzeneteket tartalmaztak ~\cite{inproceedings}.
+
+A Spam üzeneteket négy különböző forrásból állították össze melyek sorra: a SpamAssassin corpus, a Honeypot project, 
+Bruce Guenter spam gyűjteménye, és a 3. fejezet bevezetésében említett mű harmadik szerzőjének, Paliouras G. egyéni spam gyűjteménye ~\cite{inproceedings}.
+
+A hat darab ham üzenet gyűjteményből mindegyik párba lett állítva egy spam gyűjteménnyel a három közül, 
+és az arányuk három esetében 1:3-hoz lett, míg a másik három esetében 3:1-hez ~\cite{inproceedings}.
+
+A következő előfeldolgozási műveleteket is elvégezték:
+\begin{itemize}
+\item Az e-mail fiók tulajdonosa által küldött levelek eltávolítása
+\item HTML címkék eltávolítása
+\item E-mail fejléc eltávolítása
+\item Nem-latin karaktereket alkalmazó spam-ek eltávolítása
+\end{itemize}
+
+\section{Előfeldolgozás tervezése}
+
+Egy adathalmaz előfeldolgozása során több iterációban történt az információ kinyerése az adatokról, 
+majd ezen információk alapján előfeldolgozási módosítások elvégzése. A következő folyamatábra és 
+leírás dokumentálja a folyamatot.

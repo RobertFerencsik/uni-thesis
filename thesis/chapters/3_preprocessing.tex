@@ -1,40 +1,265 @@
 \chapter{Előfeldolgozás}
 
-Az előfeldolgozás fejezetben helyet kap az adathalmaz leírása, tervezés és implementálás bemutatása az adathalmaz letöltésétől egészen a tokenizált adatok mentéséig.
-A tervezés a végleges változat dokumentálását fedi le, és jellegzetesebb kihívások és megoldások csak említés szintjén kerülnek megörökítésre. 
-Az implementálás ötletesebb megoldások bemutatására szorítkozik, és rövid leírására az alkalmazott módszereknek.
+\section{Bevezetés a fejezet felépítéséhez}
 
-\section{Adathalmaz eredete}
+Az előfeldolgozásról szóló fejezetben bemutatásra kerül az adathalmaz rövid történeti háttere, valamint a Jupyter notebook alapú előfeldolgozási folyamat. 
+A fejezet ismerteti a végrehajtás lépéseit a nyers, vesszővel tagolt CSV formátumú üzenetektől kezdve egészen a tanítási, 
+validációs és tesztelési adathalmazok előállításáig, beleértve a tokenizáló modell elkészítését is.
 
-A felhasznált adathalmaz M. Wiechmann \texttt{enron\_spam\_data} GitHub-oldalán található vesszővel tagolt adatfájl 
+Az implementációt ismertető részekben a hangsúly a „miért” és a „hogyan” kérdéseken van, nem pedig a teljes kódbázis részletes bemutatásán. 
+A futtatható kód a verziókezelt forráskódban és a Jupyter notebookokban érhető el, míg a dolgozat elsősorban a döntések indoklását és a 
+be és kimenetek közötti kapcsolat dokumentálását tartalmazza.
+
+\section{Adathalmaz}
+
+\subsection{Adathalmaz eredete}
+
+A felhasznált adathalmaz M. Wiechmann \texttt{enron\_spam\_data} GitHub-oldalán található vesszővel tagolt adatfájl
 (\texttt{CSV}) formátumban~\cite{wiechmannNoppelEnronSpam}.
 
-Az eredeti adathalmazról, mely abban különbözik a leírtak szerint, hogy minden egyes e-mail külön fájlként van tárolva, 
-a Spam filtering with Naive Bayes – Which Naive Bayes? tanulmányban olvashatunk a harmadik fejezetben. 
-A következő alfejezet ezt a művet veszi alapul az adathalmaz általános bemutatására~\cite{inproceedings}.
+Az eredeti adathalmazról, mely abban különbözik a leírtak szerint, hogy minden egyes e-mail külön fájlként van tárolva,
+a \emph{Spam filtering with Naive Bayes -- Which Naive Bayes?} tanulmány harmadik fejezetében olvashatunk.
+A következő bekezdések ezt a művet veszik alapul az adathalmaz általános bemutatására~\cite{inproceedings}.
 
-Az Enron botrány kivizsgálásának keretében közel 150 Enron dolgozó fájljai lettek közzé téve, 
-melyek között jelentős mennyiségű személyes e-mail üzenet is megtalálható. 
-Személyre szabott spam filtert tűztek ki célul, így kiválasztottak 6 Enron dolgozót: 
-farmer-d, kaminski-v, kirchen-l, williams-w3, beck-s és lokay-m, a Bekkerman által szolgáltatott adathalmazból, 
-melyben a levelezések csak ham üzeneteket tartalmaztak ~\cite{inproceedings}.
+Az Enron botrány kivizsgálásának keretében közel 150 Enron dolgozó fájljai lettek közzé téve,
+melyek között jelentős mennyiségű személyes e-mail üzenet is megtalálható.
+Személyre szabott spam szűrőt tűztek ki célul, így kiválasztottak 6 Enron dolgozót:
+\texttt{farmer-d}, \texttt{kaminski-v}, \texttt{kirchen-l}, \texttt{williams-w3}, \texttt{beck-s} és \texttt{lokay-m},
+a Bekkerman által szolgáltatott adathalmazból,
+melyben a levelezések csak ham üzeneteket tartalmaztak~\cite{inproceedings}.
 
-A Spam üzeneteket négy különböző forrásból állították össze melyek sorra: a SpamAssassin corpus, a Honeypot project, 
-Bruce Guenter spam gyűjteménye, és a 3. fejezet bevezetésében említett mű harmadik szerzőjének, Paliouras G. egyéni spam gyűjteménye ~\cite{inproceedings}.
+A spam üzeneteket négy különböző forrásból állították össze, melyek sorrendben: a SpamAssassin corpus, a Honeypot project,
+Bruce Guenter spam gyűjteménye, és a már említett mű harmadik szerzőjének, Paliouras G. egyéni spam gyűjteménye .A hat darab ham üzenet gyűjteményből mindegyik párba lett állítva egy spam gyűjteménnyel a három közül,
+és az arányuk három esetében 1:3-hoz lett, míg a másik három esetében 3:1-hez~\cite{inproceedings}.
 
-A hat darab ham üzenet gyűjteményből mindegyik párba lett állítva egy spam gyűjteménnyel a három közül, 
-és az arányuk három esetében 1:3-hoz lett, míg a másik három esetében 3:1-hez ~\cite{inproceedings}.
-
-A következő előfeldolgozási műveleteket is elvégezték:
+A közzétett korpusz készítői az alábbi előfeldolgozási lépéseket is elvégezték:
 \begin{itemize}
-\item Az e-mail fiók tulajdonosa által küldött levelek eltávolítása
-\item HTML címkék eltávolítása
-\item E-mail fejléc eltávolítása
-\item Nem-latin karaktereket alkalmazó spam-ek eltávolítása
+\item az e-mail fiók tulajdonosa által küldött levelek eltávolítása;
+\item HTML címkék eltávolítása;
+\item e-mail fejléc eltávolítása;
+\item nem latin karaktereket alkalmazó spamek eltávolítása.
 \end{itemize}
+
+\subsection{Adathalmaz szerkezete és értékei}
+
+Összesen 33.716 üzenet található az adathalmazban kéretlen és kívánt válogatás nélkül.
+Az adathalmaz öt oszlopban tárolja az adatokat egyes üzenetváltásokról. Ez eg Ez az öt oszlop sorra az index, a tárgy, az üzenet törzse, a címek és a dátum. 
+Eredeti néven sorra: Message ID, Subject, Message, Spam/Ham és Date. Az első bejegyzés a fejléc információk után: 
+
+\begin{verbatim}
+Message ID,Subject,Message,Spam/Ham,Date
+0,christmas tree farm pictures,,ham,1999-12-10
+\end{verbatim}
+
+A címkék egyensúlyban vannak, csupán egy százalékponttal tér el a két osztály aránya. Számszerűsítve a spam üzenetek száma 17.171 azaz 50.93\%, 
+míg ham üzenetek száma 16.545 azaz 49.07\%. Ez fontos információ a modellezés során, mivel így a \textbf{torzítás} (bias) könnyebben elkerülhető,
+és a pontosság kiértékelésekor nem félrevezető. 
+
+A tárgy és az üzenet törzse fontos információ, mivel ezek alapján kerül implementálásra az osztályba sorolás, ezek nyers karakteres formátumúak, 
+és tartalmaznak metadatokat is, idő feladó stb. Zajosak, speciális karaktereket, táblázatokat, linkeket, és a az Enron céghez kapcsolódó specikius nyelvezetet tartalmaznak. 
+Azonban nem tartalmaznak nagybetűt, és a speciális karakterek köré szóközöket illesztettek, melyek elméletben az adatok gépi módszerrel való feldolgozását nehezítik.
+A címkék formátuma szöveges \texttt{spam} és \texttt{ham} alakban jelenik meg. A dátum oszlopban a bejegyzések alakja éééé-hh-nn formátumot követi. 
+
+A hiányzó adatokr, különböző mintázatok és duplikációk számáról a következő táblázatok adnak informácitó.
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|l|c|}
+    \hline
+    \textbf{Jellemző} & \textbf{Darabszám} \\
+    \hline
+    Duplikált minták & 2953 \\
+    \hline
+    Hiányzó Message mezők & 371 \\
+    \hline
+    Hiányzó Subject mezők & 289 \\
+    \hline
+    Hiányzó Spam/Ham mezők & 0 \\
+    \hline
+    Hiányzó Date mezők & 0 \\
+    \hline
+    \end{tabular}
+    \caption{Adathalmaz tisztasági és hiányzó érték statisztikái}
+\end{table}
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|l|c|}
+    \hline
+    \textbf{Szövegjellemző} & \textbf{Előfordulás} \\
+    \hline
+    URL-ek száma & 266754 \\
+    \hline
+    E-mail címek száma & 16294 \\
+    \hline
+    Telefonszámok száma & 11992 \\
+    \hline
+    Számok összesen & 435439 \\
+    \hline
+    Ismétlődő karakterek & 79316 \\
+    \hline
+    \end{tabular}
+    \caption{A szöveges adatokban detektált mintázatok és előfordulások}
+\end{table}
+
+Az üzentek hossz eloszlása karakter szerint erősen jobbra ferde (\Aref{fig:raw-corpus-message-length-char}. ábra), az átlag jóval nagyobb mint a medián (átlag: 1365, medián: 613), 
+mely azt jelenit, hogy a rövid üzenetek száma magas, azonban van néhány extrém hosszú üzenet ami felfeléhúzza az átlagot. A maximális karakterszámú üzenet 214.422 terjedelmű.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.9\textwidth]{images/1_raw_corpus_charachter_message_length_distribution.png}
+  \caption{Nyers korpusz üzenethossz-eloszlása karakterszámban.}
+  \label{fig:raw-corpus-message-length-char}
+\end{figure}
 
 \section{Előfeldolgozás tervezése}
 
-Egy adathalmaz előfeldolgozása során több iterációban történt az információ kinyerése az adatokról, 
-majd ezen információk alapján előfeldolgozási módosítások elvégzése. A következő folyamatábra és 
-leírás dokumentálja a folyamatot.
+\subsection{Előfeldolgozás szükségessége}
+
+Különböző feladatok és eszközök használatakor különböző kihívások és célok merülnek fel. A rövid-hosszú távú memóra modellek esetében két fő célja van az előfeldolgozási lépésnek.
+Az egyik a zaj csökkentése, hogy a tantás során a helyes összefüggések kerüljenek feltárásra. A másik a szókincs csökkentése mely nagy összetett feladatok esetében is 30.000 maximum 50.000 token. 
+
+\subsection{Előfeldolgozási folyamat}
+
+\Aref{fig:preproc-notebook-flow}. folyamat ábra magasszinten szeretné bemutatni a lépések közötti kapcsolatot és alapot adni az ábrát követő magyarázatokhoz.
+
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[
+  font=\small,
+  box/.style={rectangle, draw, rounded corners, align=center, minimum width=3.1cm, minimum height=0.9cm},
+  arrow/.style={-{Stealth[length=2.2mm]}, thick},
+  stage/.style={rectangle, draw, dashed, rounded corners, align=center, inner sep=6pt},
+]
+\node[box] (raw) {Nyers \texttt{CSV}};
+\node[box, below=1.0cm of raw] (eda1) {feltárás};
+\node[box, right=1.0cm of eda1] (clean) {tisztítás};
+\node[box, right=1.0cm of clean] (eda2) {ellenőrzés};
+\node[box, below=1.0cm of eda2] (tok) {tokenizáló tanítás};
+\node[box, left=1.0cm of tok] (eda3) {validálás};
+\node[stage, below=1.0cm of eda3] (out) {\textbf{kimenet}\\tisztított \texttt{CSV}-k\\\mbox{+ tokenizált adatok}};
+
+\draw[arrow] (raw) -- (eda1);
+\draw[arrow] (eda1) -- (clean);
+\draw[arrow] (clean) -- (eda2);
+\draw[arrow] (eda2) -- (tok);
+\draw[arrow] (tok) -- (eda3);
+\draw[arrow] (eda3) -- (out);
+\end{tikzpicture}
+\caption{A lépések közötti adatáramlás. Az ábra a fájlok mozgását és a felelősségek felosztását hangsúlyozza}
+\label{fig:preproc-notebook-flow}
+\end{figure}
+
+Az adatok letöltése után a feltárás vagy \textbf{feltáró adatelemzés} (Exploratory Data Analysis, EDA) következik. A bemenet a nyers adathalmaz, 
+míg a kimenet az előző fejezetben ismertetett részletes információk az adathalmazról, és azok alapján a tisztítási döntések meghozatala. 
+Tisztítás során a döntések kivitelezése történik meg, mely javarészt adatok eltávolításával, helyettesítésével, és átalakításával jár. Ezeket nem elég elvégezni, egy ellenőrzési lépés 
+következik mely során a tisztítás sikeressége  és a kívánt értékek megörzése kerül megállapításra.
+A sikeres tisztítás után kerül sor a tokenizáló modell tanítására, majd a validálásra. A validálás célja a helyes szószedet ellenőrzése,
+ és a klasszifikációs model helyes paraméterezésének támogatása.
+
+\section{Előfeldolgozás implementálása}
+
+Az előfeldolgozás reprodukálhatósága érdekében a felhasznált eszközök kerülnek ismertetésre; maga a folyamat Jupyter-jegyzetfüzetben került implementálásra.
+Ezek megnyitásához szükséges a megfelelő környezet, amely lehet például a Jupyter Notebook, a Google Colab, vagy a Visual Studio Code megfelelő bővítményeivel.
+A kód \textbf{Python} programozási nyelven készült; a fejlesztéshez használt verzió \texttt{3.10.0}.
+
+A kód futtatásához a következő, \texttt{pip}-pel telepíthető külső csomagok kerültek rögzítésre (zárójelben a dokumentációban feltüntetett verzió):
+\begin{itemize}
+  \item \texttt{pandas} (2.3.3);
+  \item \texttt{matplotlib} (3.10.8);
+  \item \texttt{scikit-learn} (1.7.2);
+  \item \texttt{sentencepiece} (0.2.1);
+  \item \texttt{numpy} (2.2.6).
+\end{itemize}
+A jegyzetfüzet-környezethez a \texttt{jupyter} csomag, illetve legalább az \texttt{ipykernel} (7.2.0) telepítése szükséges.
+
+\subsection{Feltáró adatelemzés, adattisztítás és ellenőrzés}
+
+A tervezés résznél az alap információk bemutatásra kerültek, itt a döntésekről esne szó, ezért kapott egy fejezetben helyet a feltáró adatelemzés és adattisztítás. 
+Illetve az ellenőrzés rész is szorosan kapcsolódik a tisztításhoz.
+
+A feltáró adatelemzést végző jegyzetfüzet a ./notebooks/1-eda-1.ipynb fájlbantalálható. Bemenete a nyers adathalmaz, kimenete a stratifikáltan szétválasztott korpuszok és a döntések az előfeldolgozásról. 
+A fájl elején egy összefoglaló található, melyben a kérédsek és döntések rögzítésre kerültek.
+
+Míg az adattisztitás a ./notebooks/2-data-cleaning.ipynb-ban található. Bemenete a stratifikált adathalmazok, kimenete a tisztított adathalmazok.
+
+Első lépésként már itt megtörténik a \textbf{stratifikált szétválasztás} (Stratified split) a \textbf{tanítási} (train), \textbf{validációs} (validation) és 
+\textbf{teszt} (test) adathalmazokra. A stratifikált szétválasztás alkalmazásának célja, hogy a spam és ham osztályok aránya minden részhalmazban közel azonos maradjon. 
+Ez különösen fontos bináris osztályozási feladatok esetén, mivel az osztályeloszlás torzulása kedvezőtlenül befolyásolhatja a modell tanítását és kiértékelését.
+
+A dátum oszlopnak nincs jelentése ebben a feladat megoldásban így eltávolításra került. A tárgy és az üzenet törzse egyesítésre került, mely így egy sorozatot alkot és egyszerre vizsgálható. 
+A hiányzó értékek és duplikációk száma  jelentéktelen így eltávolításra kerültek ezen adatsorok. A címkék aránya közel azonos maradt így nem volt szükséges módosítás. 
+
+A karakter alapú üzenethossz eloszlás erősen jobbra ferde, így a felső határt Tukey interkvartilis szabálya alapján került meghatározásra, míg az alsó határra mínusz értéket adott a módszer. Itt egy 
+döntéshozatal szerint ha az alsó határ kevesebb min nulla, abban az esetben 15 karakter lesz az érték. Mivel egy két szavas üzenetek tartalmi értéke nulla. A felső határ a tanító halmazon újra számításra került, 
+mely új érték 2452 karakter. Szóval eltávolításra kerültek a 2452 karakternél hosszabb és 15 karaternél rövidebb üzenetek.
+
+A következő mintázatok kerültek vizsgálatra: url-ek, e-mail címek, telefonszámok, számok és ismétlődő karakterek. Az ismétlődő karakterek egységes kettő hosszúságúra kerültek átalakításra, mely a szószedet méretét 
+csökkenti. A többi mintázat helyettesítésre került egy maszkkal, mely szintén csökkenti a szószedet, mégis értelmi értéket tartalmaz. A maszkok alakja: <URL>, <MAIL>, <PHONE> <URL>. Helyettesítésük reguláris kifejezés
+ használatával történt, melyek a .src/config/config.json fájlban rögzítésre kerültek. Helyettesítésük nehéz feladatnak bizonyult, mivel a speciális karakterek köré szóközöket illesztettek, így nem garantált a tökéletes implementáció ezen a részen. 
+ Szintén reguláris kifejezések alkalmazásával ezek a szóközök eltávolításra kerültek, majd a mondatvégi jelek után újra beszúrásra kerültek.
+
+ A speciális karakterek végül nem kerültek eltávolításra, mivel kéretlen üzenetek azonosítása terén információt hordoz jelenlétük, a már említett ismétlődés lett egységesítve. Ha egy karakter egymás után legalább
+  háromszor szerepel, akkor azt kettő hosszúságúra kerül átalakításra.
+
+Az ellenőrzés szintén a gyökérben elhelyezkedő notebook jegyzékben található 3-verification.ipynb fájlban. Külön nem került ellenőrzésre a hiányzó és duplikált adatok illetve az üzenet hosszalapján kiugró értékek eltávolítása, 
+csak az eltávolított üzenetek száma került rögzítésre. Az eredeti 33.716 üzenetből 4.311 üzenet került eltávolításra így összesen 29.405 üzenet maradt. A címkék aránya mind három adathalmazban egyszázalékos eltérés alatt maradt, 
+illetve az üzenet hossz eloszlásának képe sem változott jelentősen. \Aref{fig:outlier-removed-length}. ábra mutatja a tanító halmaz üzenethossz eloszlását előfeldolgozás után.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.9\textwidth]{images/2_outlier_removed_charachter_message_length_distribution.png}
+  \caption{Előfeldolgozás utáni üzenethossz-eloszlása karakterszámban.}
+  \label{fig:outlier-removed-length}
+\end{figure}
+
+Az eredeti felsőhatárhoz képest sokkal hoszabb üzenetek is találhatóak (3500 karakter), míg pár rövidebb is megjelent  (8 karakter). Ennek a magyarázata a kiugró értékeke eltávolítása utáni lépések, főként a mszkolás. 
+Abban az esetben ha egy üzenet sok egyedül álló számot tartalmazott, akkor ez mind helyettseítésre került egy <NUM> karakter sorozattal. A rövidebb üzenet hossz szintén ezen a magyarázaton alapszik.
+
+A szókincs becslés az utolsó lépés, itt becslésként az alfanumerikus összefüggő szekvenciák vizsgálata alapján sikeresen megközelíthető a 30.000 token korlát. Mivel összesen 82.789 különböző egyedi ilyen alfanumerikus sorozat 
+található, azonban ezek közül 51.717 (62.47\%) darab háromnál kevesebbszer fordul elő, így a becsült szókincs mérete 31.072 token.
+
+\subsection{Tokenizálás és validálása}
+
+A tisztítás után következik a tokenizáció, amelynek forráskódja a 4-tokenization.ipynb fájlban található. 
+A notebook bemenetét a feldolgozott tanító-, validációs- és tesztadathalmazok képezik. Kimenetként előállításra kerül a SentencePiece tokenizer modellje, 
+a generált tokenkészlet, valamint az egyes szövegek tokenazonosító-sorozatai pickle formátumban.
+
+A tokenizáló tanítását a train metódus biztosítja, az alábbi kódrészleten látszódik, 
+hogy ebben a lépésben kerül meghatározásra a szószedet mérete, mely értéke 30.000 (különböző) token.
+ A \texttt{user\_defined\_symbols} paraméterben kerülnek megadásra a speciális szimbólumok melyeket a tokenizáló modell nem kell hogy tovább bontson.
+Unigram model elpnye hogy ismeretlen szavakat jól kezeli rugalmas résszavas szegmentálást biztosít, és az \texttt{character\_coverage}  1.0 értéke biztosítja, hogy az összes karakter feldolgozásra kerül.
+
+\begin{python}[caption={Példa: tokenizálás memóriában},label=py:token-ex]
+spm.SentencePieceTrainer.train(
+    input=str(PATHS.lstm_tokenizer_train_data),
+    model_prefix=tokenizer_model_prefix,
+    vocab_size=30000,
+    user_defined_symbols=["<MAIL>", "<URL>", "<NUM>", "<PHONE>"],
+    model_type='unigram',
+    character_coverage=1.0
+)
+\end{python}
+
+A tokenizált adathalmazok \texttt{pickle} formátumban kerültek mentésre, így könnyen visszatölthetők memóriába.
+Az \texttt{ids.pkl} fájlok a numerikus azonosítókat, a \texttt{pieces.pkl} fájlok pedig a szöveges tokenrészleteket tárolják.
+Az objektumok lemezre mentésével nem kell a tokenizálást minden futtatásnál újra elvégezni.
+
+A tokenizálás validálásához a ./notebooks/5-validation.ipynb fájlt érdemes megvizsgálni, itt a három adathalmaz hossz eloszlása 
+szintén kirajzolásra került itt azonban a tokenek száma alapján és a \Aref{fig:token-length-by-split} ábrán látható. 
+
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.9\textwidth]{images/3_tokenized_sequence_length_distribution_by_split.png}
+  \caption{A tokenizált adatok hosszának eloszlása token szám alapján.}
+  \label{fig:token-length-by-split}
+\end{figure}
+
+A tokenizált tanítóhalmazon szókészlet-lefedettségi elemzés is készült. Az elemzés során meghatározásra kerültek az egyes tokenek előfordulási gyakoriságai, 
+majd kiszámításra került a kumulatív lefedettségük. Az eredmények alapján megfigyelhető, hogy a leggyakoribb tokenek viszonylag kis része a teljes tokenállomány jelentős részét lefedi, 
+ami összhangban áll a természetes nyelvekre jellemző Zipf-eloszlással. Ezzel alátámasztva a tokenizálás sikerességét, azonban a 30 leggyakoribb token is kiiratásra került, mert fontos ellenőrizni
+ a gyakori tokenek jelentését. Nem meglepő módon a legyakoribb token a szóköz karakter mely aláhúzással reprezentált. Az első tíz között sok speciális karakter található még mint például a vessző kettőspont, 
+ de itt található a szám és url maszk is. A továbbiak között már megjelennek a rövidebb gyakori szavak és szó részletek mint a your, of, \texttt{\_to, \_ing}. Az első harminc token a tanító adathalmazban megfelel a lefedettség ötven százalékának. 
+ 
+ Az úgynevezett \textbf{stopszavak} (Stop Word) nem kerültek eltávolításra, mivel a helyes használatuk információt adhat az üzenet jó szándékáról, így viszont a gyakori tokenek egy jó része ilyen stopszó. 

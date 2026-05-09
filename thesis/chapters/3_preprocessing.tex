@@ -262,4 +262,11 @@ ami összhangban áll a természetes nyelvekre jellemző Zipf-eloszlással. Ezze
  a gyakori tokenek jelentését. Nem meglepő módon a legyakoribb token a szóköz karakter mely aláhúzással reprezentált. Az első tíz között sok speciális karakter található még mint például a vessző kettőspont, 
  de itt található a szám és url maszk is. A továbbiak között már megjelennek a rövidebb gyakori szavak és szó részletek mint a your, of, \texttt{\_to, \_ing}. Az első harminc token a tanító adathalmazban megfelel a lefedettség ötven százalékának. 
  
+ \begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.9\textwidth]{images/4_vocab_coverage_traning_tokenized.png}
+  \caption{A szókincs lefedettségi elemzése a tanító halmazon.}
+  \label{fig:vocab-coverage-training}
+\end{figure}
+
  Az úgynevezett \textbf{stopszavak} (Stop Word) nem kerültek eltávolításra, mivel a helyes használatuk információt adhat az üzenet jó szándékáról, így viszont a gyakori tokenek egy jó része ilyen stopszó. 

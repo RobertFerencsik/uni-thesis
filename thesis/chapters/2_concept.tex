@@ -22,8 +22,6 @@ A \textbf{felügyelt gépi tanulás} (Supervised Learning) módszer alapja a dok
 majd egy előre címkézett adathalmaz segítségével modell létrehozása a dokumentum és a 
 kategória közötti kapcsolatok feltérképezésére~\cite{wang2023textclassificationnlp}.
 
-Vannak technikák, amelyek nem igénylik a címkézett adathalmazon tanított modellek használatát, azonban a dolgozat nem tér ki ezek részletezésére.
-
 A szövegosztályozás jelentősége az \textbf{adatrobbanás korszakával} (Era of Big Data) tovább nőtt, 
 hiszen lehetővé teszi a strukturálatlan szöveges adatok hatékony szervezését és feldolgozását. Számos tanulmány rámutat arra, 
 hogy a szövegosztályozás nem csupán egy a sok természetes nyelvfeldolgozás feladat közül, 
@@ -41,9 +39,7 @@ Ez a reprezentáció teszi lehetővé, hogy a különböző gépi tanulási algo
 \begin{figure}[htbp]
   \centering
   \includegraphics[width=\linewidth]{images/text_classification_flowchart}
-  \caption{A szövegosztályozás tipikus folyamata: \emph{szöveg} és \emph{előfeldolgozás}, 
-  majd a \emph{hagyományos módszerek} (jellemzőkinyerés, osztályozó) és a \emph{mélytanulási módszerek} (modellek) párhuzamos ága, 
-  ezután \emph{kiértékelés} és \emph{címke} kimenet. \emph{Forrás:}~\cite{li2022surveytextclassification}.}
+  \caption{A szövegosztályozás tipikus folyamata gépi tanulási módszerekkel. \emph{Forrás:}~\cite{li2022surveytextclassification}.}
   \label{fig:text-classification-flow}
 \end{figure}
 
@@ -61,7 +57,7 @@ Két nagy osztályba sorolhatók a szövegosztályozási technikák, az \textbf{
 
 Itt érdemes megemlíteni, hogy ez a két osztály nem diszjunkt, hanem az adattudomány egy szélesebb terület, amelynek egyik eszköze lehet a mesterséges intelligencia. Ezt a következtetést definíciójukból le lehet vonni.
 
-Az adattudomány ,Olyan tudományág, amely tudományos módszereket, folyamatokat és rendszereket alkalmaz az adatokból származó ismeretek és betekintések kinyerésére”~\cite{uscensusDatascience} (saját fordítás).
+Az adattudomány: Olyan tudományág, amely tudományos módszereket, folyamatokat és rendszereket alkalmaz az adatokból származó ismeretek és betekintések kinyerésére”~\cite{uscensusDatascience} (saját fordítás).
 
 A mesterséges intelligencia egyik definíciója: „Egy technológia, amely felruházza a számítógépeket és gépeket az emberi tanulás, megértés, problémamegoldás, döntéshozatal, kreativitás és önállóság utánzásának képességével”~\cite{ibmThinkAI} (saját fordítás).
 
@@ -88,18 +84,31 @@ Az \textbf{interkvartilis tartomány} (interquartile range, IQR) egy statisztika
 azonban egyike azon módszereknek melyet nem befolyásol jelentősen az adatok nem normális jellege, 
 esetünkben az eloszlás \textbf{ferdesége} (skewness). Az harmadik (Q3) és első kvartilis (Q3) különbsége adja értékét ~\cite{procogiaIQR}.
 
+\[
+IQR = Q_3 - Q_1
+\]
+
+A Tukey-módszer alapján a kiugró értékek az alábbi határok segítségével határozhatók meg:
+
+\[
+\text{alsó határ} = Q_1 - 1.5 \cdot IQR
+\]
+
+\[
+\text{felső határ} = Q_3 + 1.5 \cdot IQR
+\]
+
 \subsubsection{Entitások helyettesítése}
 
 Az \textbf{entitások helyettesítése} (Entity Masking) számos természetesnyelv-feldolgozási feladat egyik fontos előfeldolgozási lépése.
 Az eljárás során a \textbf{megnevezett entitások} (Named Entities), például személynevek, telefonszámok, e-mail címek, dátumok vagy helynevek helyére előre definiált helyettesítő tokenek kerülnek, miközben az adott elem szemantikai szerepe továbbra is megmarad a szövegben.
-A módszer célja feladattól függően eltérő lehet, a jelen dolgozat esetében azonban elsősorban a szókincs méretének csökkentése és a tokeneloszlás normalizálása volt a cél.
-A kisebb és egységesebb szókincs hozzájárul a hatékonyabb tanításhoz, mivel csökkenti a ritka tokenek számát és mérsékli az adathalmaz szórását.
-Ez különösen fontos a hosszú-rövid távú memórián alapuló neurális hálózatok esetében, mivel ezek a modellek korlátozottabb szókincs kezelésére képesek, mint a modern nagyméretű nyelvi modellek.
+A módszer célja feladattól függően eltérő lehet, a jelen dolgozat esetében azonban elsősorban a szókészlet méretének csökkentése volt a cél.
+Ez különösen fontos a hosszú-rövid távú memórián alapuló neurális hálózatok esetében, mivel ezek a modellek korlátozottabb szókészlet kezelésére képesek, mint a modern nagy nyelvi modellek.
 Az entitások helyettesítésével a modell kevésbé a konkrét karakterláncokat, sokkal inkább azok kontextuális szerepét és a szövegben megjelenő mintázatokat tanulja meg.
 
 Az entitásmaszkolás további természetesnyelv-feldolgozási feladatok során is széles körben alkalmazott technika.
 Gyakori felhasználási területe az adatvédelem, ahol szükséges a személyes vagy érzékeny adatok eltávolítása a modellek tanítása előtt.
-Emellett jelentős szerepet játszik a szókincs csökkentésében és a szöveges adatok normalizálásában is, mivel az azonos típusú entitások egységes reprezentációt kapnak.
+Emellett jelentős szerepet játszik a szókészlet csökkentésében és a szöveges adatok normalizálásában is, mivel az azonos típusú entitások egységes reprezentációt kapnak.
 Ez javíthatja a modellek generalizációs képességét, mivel a hálózatok kevésbé a konkrét értékeket memorizálják, hanem az azokhoz kapcsolódó nyelvi mintázatokat és kontextusfüggéseket sajátítják el.
 A generatív és előtanított nyelvi modellek esetében a maszkolás az előtanítás egyik fontos eleme is lehet, ahol a modellek feladata a maszkolt tokenek predikciója.
 Az ilyen jellegű tanítás lehetővé teszi, hogy a modellek mélyebb szemantikai és szintaktikai reprezentációkat tanuljanak a nyelvi adatokból.
@@ -107,47 +116,40 @@ Az ilyen jellegű tanítás lehetővé teszi, hogy a modellek mélyebb szemantik
 \subsubsection{SentencePiece tokenizálás}
 
 A Kudo és Richardson által 2018-ban bemutatott SentencePiece egy nyelvfüggetlen résszavas tokenizáló rendszer mely képes nyers, zajos szövegekből 
-szókincs tanulásra.
+szókészlet tanulásra.
 
 A működésének alapja egy statisztikai szegmentáló algoritmus alkalmazása a szöveg apróbb egységekre bontására, előfeldolgozás (tokenizálás, kisbetűsítés stb.)
  szüksége nélkül. a teljes betanítás során a beviteli szövegben található karakterláncokat közvetlenül a modell megtanulja, nem kell előre tokenizált szavakkal dolgozni
  . Ennek eredményeként a SentencePiece nyelvfüggetlen feldolgozást tesz lehetővé: ugyanazon algoritmus alkalmazható bármilyen nyelven, akár szóközzel tagolt (angol), akár összefüggő (japán, kínai) szövegeken is, és egyetlen, előre rögzített méretű szótárra építve hozza létre a tokeneket
  \cite{kudo-richardson-2018-sentencepiece}.
 
- A módszer további előnye a veszteségmentes tokenizáció, mely a különleges karaterek sőt még a szóközök információja is megmarad. A szóközök a "\texttt{\_}" karakterrel
- kerülnek helyettesítésre. Így visszaállítható az eredeti szöveg és bármikor biztonságosan reprodukálható a tokenizációs folyamat. 
- Illetve alkalmazása jelentősen csökkenti a hagyományos jellemzőtervezés szükségességét, és azt állítják, hogy elősegíti a modellek számára a 
- releváns mintázatok tanulását cite{kudo-richardson-2018-sentencepiece}. A releváns mintázatok tanulása lehetséges, hogy csökkenti a tanítóhalmaz minimális mennyiségét.
-
+ A módszer további előnye a veszteségmentes tokenizáció, mellyel a különleges karaterek sőt még a szóközök információja is megmarad. 
+ Így visszaállítható az eredeti szöveg és bármikor biztonságosan reprodukálható a tokenizációs folyamat. 
+ Illetve alkalmazása jelentősen csökkenti a hagyományos jellemzőtervezés szükségességét, és elősegíti a modellek számára a 
+ releváns mintázatok tanulását cite{kudo-richardson-2018-sentencepiece}. A releváns mintázatok tanulása lehetséges, hogy csökkenti a tanítóhalmaz elégséges mennyiségét.
 
  E-mail (spam/ham) osztályozáskor a SentencePiece különösen előnyös a szövegek zajossága és változatossága miatt. 
- A spam üzenetek gyakran tartalmaznak elgépeléseket, felesleges karaktereket és domain-specifikus kifejezéseket, amiket szótári módszerekkel nehéz, 
- és idő költséges kezelni. Ezek az obfuszkációnak nevezett technikák szándékosak, az automatikus szűrés nehezítésére szolgálnak, 
- szintén megtalálhatóak a kártékony számítógépes szoftverekben, szabad szemmel gyanúsak, de manuális szürésnél a mennyiségük okoz nehézséget.
- Mindez robusztusabbá teszi a rendszer működését, és a félreírt, felcserélt vagy egymáshoz fűzött szóalakokat sem kezeli „ismeretlenként”. 
- Ezen felül az e-maillel járó rövid szövegekben minden karakter információja számít, így a veszteségmentes tokenizáció segít, 
- hogy az üzenetek minden elemét kihasználjuk. A résszavas bemenet ráadásul a modern neurális hálózatok (LSTM-ek és nagy nyelvi modellek, LLM-ek) számára is ideális.
- Ezek általában tokenizált bemeneteket várnak, és a résszavakból álló adatok biztosítják a morfémák és ritka egységek automatikus kezelését.
+ A spam üzenetek gyakran tartalmaznak elgépeléseket, felesleges karaktereket, melyeket szótári módszerekkel nehéz 
+ és költséges kezelni. Mindez robusztusabbá teszi a rendszer működését, és a félreírt, felcserélt vagy egymáshoz fűzött szóalakokat sem kezeli „ismeretlenként”. 
+ A résszavas bemenet ráadásul a modern neurális hálózatok számára is ideális.
 
  Az irodalomban nem sűrűn fordul elő, ha egyáltalán előfordul, a SentencePiece használata hosszú-rövid távú memória modellek esetében. Ennek oka a két módszer 
 megjelenésének időpontja és aktív használata lehet. A hosszú-rövid távú memória modellek korszakában, körülbelül 2015-től 2019-ig még a Word2Vec, 
-GloVe és sima szó tokenizálást volt a jellemző, míg a SentencePiece elsősorban a Tranformer, BERT, többnyelvű módszerekkel lett népszerű. 
+GloVe és sima szó tokenizálást volt a jellemző, míg a SentencePiece elsősorban a Tranformer, BERT, többnyelvű módszerekkel lett népszerű.
 
 \subsection{Modell}
 
 \subsubsection{Kétirányú hosszú-rövid távú memória neurális háló}
 
-A \textbf{kétirányú hosszú-rövid távú memória} (BiLSTM) neurális hálózat a \textbf{rekurrens neurális hálók} (RNN) 
-egy továbbfejlesztett változata, amelyet kifejezetten szekvenciális adatok, így természetes nyelvi szövegek feldolgozására terveztek. 
-A klasszikus LSTM modellekkel ellentétben, amelyek a szöveget csak egy irányban (balról jobbra) dolgozzák fel, 
+A \textbf{kétirányú hosszú-rövid távú memória} (Bidirectional Long Short-Term Memory, BiLSTM) neurális hálózat a \textbf{rekurrens neurális hálók} (RNN) 
+egy továbbfejlesztett változata. A klasszikus LSTM modellekkel ellentétben, amelyek a szöveget csak egy irányban (balról jobbra) dolgozzák fel, 
 a BiLSTM architektúra két különálló LSTM réteget alkalmaz. Az egyik a bemeneti szekvenciát előre, a másik pedig visszafelé dolgozza fel. 
 Ennek eredményeként a modell minden token esetében hozzáfér mind az előző, mind a következő kontextushoz, 
 ami jelentősen javítja szöveges reprezentáció minőségét\cite{zhou2016textclassificationimprovedintegrating}.
 
 Szövegklasszifikációs feladatok esetében ez különösen előnyös, mivel a szavak jelentése erősen függ a környező tokenektől, 
 és gyakran a későbbi kontextus is szükséges a helyes értelmezéshez. 2016-ban kimutatták, hogy a kétirányú hosszú-rövid távú memória 
-modellek hatékonyabban képesek modellezni a hosszabb távú összefüggéseket a szövegben 
-mint az egyirányú hosszú-rövid távú memória modellek \cite{LIU2019325}.
+modellek hatékonyabban képesek modellezni a hosszabb távú összefüggéseket a szövegben mint az egyirányú hosszú-rövid távú memória modellek \cite{LIU2019325}.
 
 További módszerekkel még pontosabb eredményeket lehet elérni, például a \textbf{figyelm} (attention) mechanizmusának alkalmazásával,
  azonban ezekre a módszerekre a jelen dolgozat nem tér ki. 
@@ -165,21 +167,20 @@ Szóval a véletlenszerű keresés megtartva a rácskeresés előnyeit, (egyszer
 magas dimenziójú feladatokban komony hatákonyság növekedést eredményez \cite{randomsearch}.
 
 Az adott feladathoz egyszerűsége és gyors implementálhatósága elengedhetelen volt, mivel adott kérdésekre ad választ a dolgozat, nem egy gyártásba tervezett módszer, 
-így az időköltség volt az első szempont. Ez a módszer pedig megfelelő értékeket ad a hiperparaméterek optimalizálására, feltéve hogy a tartományok helyesen kerülnek 
-megállapításra.
+így az időköltség volt az első szempont. Ez a módszer pedig megfelelő értékeket ad a hiperparaméterek optimalizálására.
 }
 
 \subsubsection{Kiértékelés}
 
 A modell kiértékelésére több klasszikus mérőszám áll rendelkezésre, amelyek alkalmasak a szövegklasszifikációs 
 feladatok kiértékelésére. A vizsgálat részeként egy \textbf{kumulatív tanítási görbe} (Learning Curve) is 
-alkalmazásra került, mely a tanító adat fokozatos bóvítésébel mutatja a modell teljesítményének alakulását az F1-pontszám alapján.
+alkalmazásra került, mely a tanító adat fokozatos bővítésével mutatja a modell teljesítményének alakulását az F1-pontszám alapján.
 
 Ez a megközelítés lehetővé teszi annak vizsgálatát, hogy a rendelkezésre álló adatmennyiség növekedése hogyan befolyásolja a modell általánosító képességét. 
 A görbe így nem a tanítási folyamat konvergenciáját, hanem az adatméret és a model pontossága közötti kapcsolatot szemlélteti. 
 Amennyiben a görbe telítődést mutat, az arra utalhat, hogy a további adatmennyiség már nem eredményez jelentős javulást a modell F1-pontszám értékében.
 
-A klasszifikációs teljesítmény részletesebb elemzésére továbbá rendelkezésre áll az úgynevezett \textbf{konfuzziós mátrix} (Confusion Matrix), mely a 
+A klasszifikációs teljesítmény részletesebb elemzésére továbbá rendelkezésre áll az úgynevezett \textbf{konfúziós mátrix} (Confusion Matrix), mely a 
 valós és predikált osztályok közötti összefüggéseket mutatja. A mátrix elemei a következők: 
 
 \begin{table}[H]
@@ -202,7 +203,25 @@ valós és predikált osztályok közötti összefüggéseket mutatja. A mátrix
   \item \textbf{Hamis Negatív} (False Negative, FN): a modell hamnek jelöl egy valójában spam üzenetet (el nem kapott spam).
 \end{itemize}
 
-A confusion matrix alapján számítottuk ki a legfontosabb értékelési metrikákat, így a \textbf{pontosság} (precision), \textbf{visszahívás} (recall) és \textbf{F1-} (F1-score) értékeket. 
-A pontosság azt mutatja meg, hogy a pozitívnak prediktált minták közül hány volt valóban pozitív, 
-míg a visszahívás azt fejezi ki, hogy a tényleges pozitív minták hány százalékát sikerült helyesen azonosítani. 
-Az F1-score ezen két mutató harmonikus átlaga, amely kiegyensúlyozott teljesítménymutatót ad, különösen osztály-egyensúlytalanság esetén.
+A konfúziós mátrix alapján került kiszámításra a pontosság (precision), a visszahívás (recall) és az F1-érték (F1-score). 
+
+A pontosság azt mutatja meg, hogy a pozitívnak prediktált minták közül hány volt valóban pozitív, amelyet az \ref{eq:precision}. egyenlet definiál.
+
+\begin{equation}
+\text{Pontosság} = \frac{VP}{VP + HP}
+\label{eq:precision}
+\end{equation}
+
+A visszahívás azt fejezi ki, hogy a tényleges pozitív minták hány százalékát sikerült helyesen azonosítani, amelyet az \ref{eq:recall}. egyenlet ír le.
+
+\begin{equation}
+\text{Visszahívás} = \frac{VP}{VP + HN}
+\label{eq:recall}
+\end{equation}
+
+Az F1-érték a pontosság és visszahívás harmonikus átlaga, amely kiegyensúlyozott teljesítménymutatót biztosít, különösen osztály-egyensúlytalanság esetén. Az F1-érték számítását az \ref{eq:f1}. egyenlet mutatja be.
+
+\begin{equation}
+F1 = 2 \cdot \frac{\text{Pontosság} \cdot \text{Visszahívás}}{\text{Pontosság} + \text{Visszahívás}}
+\label{eq:f1}
+\end{equation}

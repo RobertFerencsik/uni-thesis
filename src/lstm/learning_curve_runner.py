@@ -2,6 +2,7 @@ from sklearn.model_selection import StratifiedKFold
 
 import matplotlib.pyplot as plt
 import pandas as pd
+import json
 
 from src.config.config import PATHS
 from src.evaluation.evaluate import evaluate
@@ -40,7 +41,7 @@ def plot_f1_curve(curve, out_path):
     plt.tight_layout()
 
     out_path.parent.mkdir(parents=True, exist_ok=True)
-    plt.savefig(out_path, dpi=150)
+    plt.savefig(out_path, dpi=300)
     plt.close()
 
 
@@ -57,15 +58,9 @@ class LearningCurveRunner:
         self.pipeline_hparams = pipeline_hparams
         self.seed = int(seed)
         self.eval_threshold = float(eval_threshold)
-
         self.split_dir = PATHS.corpora_processed / "learning_curve"
         self.model_root = PATHS.models / "learning_curve"
 
-    def _validate(self):
-        if self.num_portions < 1:
-            raise ValueError("--num-portions must be >= 1")
-
-    def _ensure_dirs(self):
         self.split_dir.mkdir(parents=True, exist_ok=True)
         self.model_root.mkdir(parents=True, exist_ok=True)
 
@@ -118,6 +113,8 @@ class LearningCurveRunner:
                 batch_size=EVAL_BATCH_SIZE,
                 threshold=self.eval_threshold,
             )
+            out = ckpt.parent / "eval_test_metrics.json"
+            out.write_text(json.dumps({"corpus_size": size, **metrics}, indent=2), encoding="utf-8")
             f1 = float(metrics["f1"])
             curve.append((size, f1))
             print(f"  size={size}, f1={f1:.4f}")
@@ -128,7 +125,5 @@ class LearningCurveRunner:
             print(f"[eval] saved plot: {plot_path}")
 
     def run(self):
-        self._validate()
-        self._ensure_dirs()
         run_info = self._build_run_info()
         self._evaluate(run_info)

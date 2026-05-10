@@ -9,10 +9,9 @@ class Trainer:
         model,
         train_loader,
         val_loader,
-        device,
-        learning_rate = 1e-3,
-        max_grad_norm = 1.0,
-        save_dir = './data/models'
+        learning_rate,
+        max_grad_norm,
+        save_dir
     ):
         self.model = model
         self.train_loader = train_loader
@@ -112,7 +111,7 @@ class Trainer:
             'val_accuracies': self.val_accuracies
         }
 
-    def save_checkpoint(self, epoch, is_best=False):
+    def save_best_checkpoint(self, epoch, is_best=False):
         checkpoint = {
             'epoch': epoch,
             'model_state_dict': self.model.state_dict(),

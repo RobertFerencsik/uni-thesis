@@ -1,5 +1,5 @@
 from pathlib import Path
-from typing import Optional, Dict, Any
+from typing import Dict, Any
 from torch.utils.data import DataLoader
 import sys
 
@@ -94,7 +94,6 @@ class LSTMTrainingPipeline:
             model=self.model,
             train_loader=self.train_loader,
             val_loader=self.val_loader,
-            device=None,
             learning_rate=self.learning_rate,
             max_grad_norm=self.max_grad_norm,
             save_dir=str(self.save_dir)

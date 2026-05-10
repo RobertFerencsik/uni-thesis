@@ -8,28 +8,14 @@ from src.config.config import PATHS
 from src.evaluation.evaluate import evaluate
 from src.lstm.pipeline import LSTMTrainingPipeline
 
-REQUIRED_HYPERPARAMETERS = {
-    "max_length",
-    "batch_size",
-    "embedding_dim",
-    "hidden_size",
-    "num_layers",
-    "dropout_rate",
-    "dense_hidden",
-    "learning_rate",
-    "max_grad_norm",
-    "num_epochs",
-}
-
-
 class RandomSearchTuner:
-    def __init__(self, config_path: Path, output_path: Path):
+    def __init__(self, config_path: Path, output_path: Path, num_trials: int):
         self.config_path = Path(config_path)
         self.output_path = Path(output_path)
         self.config = self._load_json(self.config_path)
-        self.seed = int(self.config.get("random_seed", 42))
+        self.seed = 42
         self.metric_name = str(self.config.get("metric", "f1"))
-        self.default_trials = int(self.config.get("num_trials", 10))
+        self.num_trials = num_trials
         self.search_space = self.config["search_space"]
         random.seed(self.seed)
 
@@ -56,12 +42,6 @@ class RandomSearchTuner:
         sampled: Dict[str, Any] = {}
         for name, spec in self.search_space.items():
             sampled[name] = self._sample_param(spec)
-        missing = sorted(REQUIRED_HYPERPARAMETERS - set(sampled.keys()))
-        if missing:
-            raise ValueError(
-                "Missing required hyperparameters in tuning config: "
-                + ", ".join(missing)
-            )
         return sampled
 
     def _run_trial(self, trial_idx: int, hyperparams: Dict[str, Any]) -> Tuple[float, Dict[str, Any]]:
@@ -94,13 +74,12 @@ class RandomSearchTuner:
         }
         return score, details
 
-    def run(self, num_trials: int | None = None) -> Dict[str, Any]:
-        trials = self.default_trials if num_trials is None else int(num_trials)
+    def run(self) -> Dict[str, Any]:
         all_results = []
         best_result = None
         best_score = float("-inf")
 
-        for trial_idx in range(1, trials + 1):
+        for trial_idx in range(1, self.num_trials + 1):
             hyperparams = self._sample_hyperparameters()
             score, details = self._run_trial(trial_idx, hyperparams)
             all_results.append(details)
@@ -109,7 +88,7 @@ class RandomSearchTuner:
                 best_result = details
             params_str = ", ".join(f"{k}={v}" for k, v in hyperparams.items())
             print(
-                f"[tune] trial={trial_idx}/{trials}, "
+                f"[tune] trial={trial_idx}/{self.num_trials}, "
                 f"{self.metric_name}={score:.4f}, params: {params_str}"
             )
 
@@ -119,7 +98,7 @@ class RandomSearchTuner:
         output = {
             "config_path": str(self.config_path),
             "metric": self.metric_name,
-            "num_trials": trials,
+            "num_trials": self.num_trials,
             "best_trial_index": best_result["trial_index"],
             "best_model_dir": best_result["trial_dir"],
             "best_model_checkpoint": str(Path(best_result["trial_dir"]) / "best_model.pt"),

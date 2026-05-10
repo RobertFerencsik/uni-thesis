@@ -1,30 +1,58 @@
-import json
 from pathlib import Path
-from typing import Dict, List, Optional, Sequence
+from typing import Any, Dict, List, Optional, Sequence, Union
 
 import torch
 from torch.utils.data import DataLoader
 
-from src.lstm.dataset import SpamHamDataset
-from src.lstm.model import BiLSTMSpamClassifier
-from src.lstm.tokenizer import SentencePieceTokenizer
+from src.data.dataset import SpamHamDataset
+from src.data.tokenizer import SentencePieceTokenizer
+from src.infrastructure.artifact_manager import ArtifactManager
+from src.models.bilstm import BiLSTMSpamClassifier
 
 
 DEFAULT_THRESHOLD = 0.5
 
 
-def load_checkpoint(checkpoint_path: Path, tokenizer: SentencePieceTokenizer):
-    checkpoint = torch.load(checkpoint_path, map_location='cpu')
-    info = checkpoint['model_info']
+def load_checkpoint(
+    checkpoint_path: Path,
+    tokenizer: SentencePieceTokenizer,
+    artifact_manager: ArtifactManager,
+):
+    model, _info = _load_model_and_info(
+        checkpoint_path, tokenizer, artifact_manager, map_location="cpu"
+    )
+    return model
+
+
+def _load_model_and_info(
+    checkpoint_path: Path,
+    tokenizer: SentencePieceTokenizer,
+    artifact_manager: ArtifactManager,
+    map_location: Union[str, torch.device],
+):
+    checkpoint = artifact_manager.load_torch(
+        checkpoint_path,
+        map_location=map_location,
+    )
+    info = checkpoint["model_info"]
 
     model = BiLSTMSpamClassifier(
-        **{k: info[k] for k in ['vocab_size', 'embedding_dim', 'hidden_size',
-                                 'num_layers', 'dropout_rate', 'dense_hidden']},
-        padding_idx=tokenizer.pad_id
+        **{
+            k: info[k]
+            for k in [
+                "vocab_size",
+                "embedding_dim",
+                "hidden_size",
+                "num_layers",
+                "dropout_rate",
+                "dense_hidden",
+            ]
+        },
+        padding_idx=tokenizer.pad_id,
     )
-    model.load_state_dict(checkpoint['model_state_dict'])
+    model.load_state_dict(checkpoint["model_state_dict"])
     model.eval()
-    return model
+    return model, info
 
 
 def compute_metrics(preds, labels) -> Dict[str, float]:
@@ -38,16 +66,20 @@ def compute_metrics(preds, labels) -> Dict[str, float]:
 
     precision = tp / (tp + fp) if (tp + fp) > 0 else 0.0
     recall = tp / (tp + fn) if (tp + fn) > 0 else 0.0
-    f1 = 2 * precision * recall / (precision + recall) if (precision + recall) > 0 else 0.0
+    f1 = (
+        2 * precision * recall / (precision + recall)
+        if (precision + recall) > 0
+        else 0.0
+    )
 
     return {
-        'tp': tp,
-        'tn': tn,
-        'fp': fp,
-        'fn': fn,
-        'precision': precision,
-        'recall': recall,
-        'f1': f1,
+        "tp": tp,
+        "tn": tn,
+        "fp": fp,
+        "fn": fn,
+        "precision": precision,
+        "recall": recall,
+        "f1": f1,
     }
 
 
@@ -58,14 +90,20 @@ def evaluate(
     batch_size: int = 64,
     device: str = None,
     threshold: float = DEFAULT_THRESHOLD,
-) -> Dict[str, float]:
-    device = device or ('cuda' if torch.cuda.is_available() else 'cpu')
+    artifact_manager: Optional[ArtifactManager] = None,
+    include_model_info: bool = False,
+) -> Dict[str, Any]:
+    am = artifact_manager or ArtifactManager()
+    device = device or ("cuda" if torch.cuda.is_available() else "cpu")
 
     tokenizer = SentencePieceTokenizer(str(tokenizer_path))
-    model = load_checkpoint(checkpoint_path, tokenizer)
+    model, model_info = _load_model_and_info(
+        checkpoint_path, tokenizer, am, map_location="cpu"
+    )
     model.to(device)
 
-    eval_dataset = SpamHamDataset(str(eval_csv_path), tokenizer)
+    eval_df = am.load_csv(eval_csv_path)
+    eval_dataset = SpamHamDataset(eval_df, tokenizer)
     eval_loader = DataLoader(eval_dataset, batch_size=batch_size, shuffle=False)
 
     model.eval()
@@ -87,27 +125,46 @@ def evaluate(
             all_labels.extend(labels.long().cpu().tolist())
 
     metrics = compute_metrics(all_preds, all_labels)
-    metrics['num_samples'] = len(all_labels)
-    metrics['threshold'] = threshold
+    metrics["num_samples"] = len(all_labels)
+    metrics["threshold"] = threshold
+    if include_model_info:
+        metrics["model_info"] = {
+            k: model_info[k]
+            for k in (
+                "vocab_size",
+                "embedding_dim",
+                "hidden_size",
+                "num_layers",
+                "dropout_rate",
+                "dense_hidden",
+                "total_parameters",
+                "trainable_parameters",
+            )
+            if k in model_info
+        }
     return metrics
 
 
-def _aggregate_metric_dicts(results: Sequence[Dict[str, float]]) -> Dict[str, float]:
+def _aggregate_metric_dicts(results: Sequence[Dict[str, Any]]) -> Dict[str, Any]:
     if not results:
         return {}
 
     aggregated = {}
     keys = results[0].keys()
     for key in keys:
+        if key == "model_info":
+            continue
         values = [r[key] for r in results]
-        if key in {'tp', 'tn', 'fp', 'fn', 'num_samples'}:
-            aggregated[f'{key}_sum'] = int(sum(values))
+        if key in {"tp", "tn", "fp", "fn", "num_samples"}:
+            aggregated[f"{key}_sum"] = int(sum(values))
         else:
-            aggregated[f'{key}_mean'] = sum(values) / len(values)
+            aggregated[f"{key}_mean"] = sum(values) / len(values)
             if len(values) > 1:
-                variance = sum((x - aggregated[f'{key}_mean']) ** 2 for x in values) / len(values)
-                aggregated[f'{key}_std'] = variance ** 0.5
-    aggregated['runs'] = len(results)
+                variance = sum((x - aggregated[f"{key}_mean"]) ** 2 for x in values) / len(
+                    values
+                )
+                aggregated[f"{key}_std"] = variance**0.5
+    aggregated["runs"] = len(results)
     return aggregated
 
 
@@ -118,23 +175,17 @@ def evaluate_learning_curve(
     batch_size: int = 64,
     device: Optional[str] = None,
     threshold: float = DEFAULT_THRESHOLD,
+    artifact_manager: Optional[ArtifactManager] = None,
+    include_model_info: bool = False,
 ) -> Dict[str, object]:
-    """
-    Evaluate multiple checkpoints for learning-curve experiments.
-
-    Each run config requires:
-      - corpus_size: int (or any sortable size indicator)
-      - checkpoint_path: path-like
-    Optional:
-      - run_name: str (for repeated runs per corpus size)
-    """
-    grouped: Dict[object, List[Dict[str, float]]] = {}
-    detailed_results: List[Dict[str, object]] = []
+    am = artifact_manager or ArtifactManager()
+    grouped: Dict[object, List[Dict[str, Any]]] = {}
+    detailed_results: List[Dict[str, Any]] = []
 
     for run in runs:
-        corpus_size = run['corpus_size']
-        checkpoint_path = Path(str(run['checkpoint_path']))
-        run_name = str(run.get('run_name', checkpoint_path.stem))
+        corpus_size = run["corpus_size"]
+        checkpoint_path = Path(str(run["checkpoint_path"]))
+        run_name = str(run.get("run_name", checkpoint_path.stem))
 
         metrics = evaluate(
             checkpoint_path=checkpoint_path,
@@ -143,13 +194,15 @@ def evaluate_learning_curve(
             batch_size=batch_size,
             device=device,
             threshold=threshold,
+            artifact_manager=am,
+            include_model_info=include_model_info,
         )
 
         detailed_results.append(
             {
-                'corpus_size': corpus_size,
-                'run_name': run_name,
-                'checkpoint_path': str(checkpoint_path),
+                "corpus_size": corpus_size,
+                "run_name": run_name,
+                "checkpoint_path": str(checkpoint_path),
                 **metrics,
             }
         )
@@ -158,15 +211,18 @@ def evaluate_learning_curve(
     learning_curve = []
     for corpus_size in sorted(grouped):
         summary = _aggregate_metric_dicts(grouped[corpus_size])
-        learning_curve.append({'corpus_size': corpus_size, **summary})
+        learning_curve.append({"corpus_size": corpus_size, **summary})
 
     return {
-        'detailed_runs': detailed_results,
-        'curve': learning_curve,
+        "detailed_runs": detailed_results,
+        "curve": learning_curve,
     }
 
 
-def save_learning_curve_results(results: Dict[str, object], output_path: Path) -> None:
-    output_path.parent.mkdir(parents=True, exist_ok=True)
-    with output_path.open('w', encoding='utf-8') as f:
-        json.dump(results, f, indent=2)
+def save_learning_curve_results(
+    results: Dict[str, object],
+    output_path: Path,
+    artifact_manager: Optional[ArtifactManager] = None,
+) -> None:
+    am = artifact_manager or ArtifactManager()
+    am.save_json(results, output_path)

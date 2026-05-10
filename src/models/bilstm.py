@@ -4,7 +4,7 @@ import torch.nn.functional as F
 
 
 class BiLSTMSpamClassifier(nn.Module):
-    
+
     def __init__(
         self,
         vocab_size,
@@ -13,9 +13,8 @@ class BiLSTMSpamClassifier(nn.Module):
         num_layers,
         dropout_rate,
         dense_hidden,
-        padding_idx
+        padding_idx,
     ):
-
         super(BiLSTMSpamClassifier, self).__init__()
 
         self.vocab_size = vocab_size
@@ -27,10 +26,10 @@ class BiLSTMSpamClassifier(nn.Module):
         self.padding_idx = padding_idx
 
         self.embedding = nn.Embedding(
-                vocab_size,
-                embedding_dim,
-                padding_idx=padding_idx
-            )
+            vocab_size,
+            embedding_dim,
+            padding_idx=padding_idx,
+        )
 
         self.lstm = nn.LSTM(
             embedding_dim,
@@ -38,7 +37,7 @@ class BiLSTMSpamClassifier(nn.Module):
             num_layers=num_layers,
             batch_first=True,
             bidirectional=True,
-            dropout=dropout_rate if num_layers > 1 else 0
+            dropout=dropout_rate if num_layers > 1 else 0,
         )
 
         lstm_output_size = hidden_size * 2
@@ -48,13 +47,9 @@ class BiLSTMSpamClassifier(nn.Module):
         self.dense1 = nn.Linear(lstm_output_size, dense_hidden)
         self.dense2 = nn.Linear(dense_hidden, 1)
 
-    def forward(
-        self,
-        token_ids,
-        attention_mask
-    ):
+    def forward(self, token_ids, attention_mask):
         embedded = self.embedding(token_ids)
-        
+
         attention_mask = attention_mask.unsqueeze(-1)
         embedded = embedded * attention_mask
 
@@ -75,14 +70,14 @@ class BiLSTMSpamClassifier(nn.Module):
     def get_model_info(self):
         total_params = sum(p.numel() for p in self.parameters())
         trainable_params = sum(p.numel() for p in self.parameters() if p.requires_grad)
-        
+
         return {
-            'vocab_size': self.vocab_size,
-            'embedding_dim': self.embedding_dim,
-            'hidden_size': self.hidden_size,
-            'num_layers': self.num_layers,
-            'dropout_rate': self.dropout_rate,
-            'dense_hidden': self.dense_hidden,
-            'total_parameters': total_params,
-            'trainable_parameters': trainable_params
-        }        
+            "vocab_size": self.vocab_size,
+            "embedding_dim": self.embedding_dim,
+            "hidden_size": self.hidden_size,
+            "num_layers": self.num_layers,
+            "dropout_rate": self.dropout_rate,
+            "dense_hidden": self.dense_hidden,
+            "total_parameters": total_params,
+            "trainable_parameters": trainable_params,
+        }

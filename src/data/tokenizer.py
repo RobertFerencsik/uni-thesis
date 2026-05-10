@@ -1,6 +1,7 @@
 import sentencepiece as spm
 from pathlib import Path
 
+
 class SentencePieceTokenizer:
     def __init__(self, model_path, max_length: int = 512):
         self.model_path = Path(model_path)
@@ -14,7 +15,6 @@ class SentencePieceTokenizer:
         self.eos_id = self.sp.eos_id() if self.sp.eos_id() >= 0 else 3
 
         self.vocab_size = self.sp.get_piece_size()
-        
 
     def encode(self, text):
         token_ids = self.sp.encode(text, out_type=int)
@@ -23,19 +23,16 @@ class SentencePieceTokenizer:
     def decode(self, token_ids):
         return self.sp.decode(token_ids)
 
-    def encode_batch(
-        self,
-        texts
-        ):
+    def encode_batch(self, texts):
         encoded = [self.encode(text) for text in texts]
-        encoded = [ids[:self.max_length] for ids in encoded]
+        encoded = [ids[: self.max_length] for ids in encoded]
 
-        lengths = [len(ids) for  ids in encoded]
+        lengths = [len(ids) for ids in encoded]
         max_length = max(lengths)
 
         padded = []
         for ids in encoded:
-            pad_length =  max_length - len(ids)
+            pad_length = max_length - len(ids)
             padded.append(ids + [self.pad_id] * pad_length)
         return padded, lengths
 

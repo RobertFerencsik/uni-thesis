@@ -1,26 +1,26 @@
 import pandas as pd
 import torch
+
 from .tokenizer import SentencePieceTokenizer
+
 
 class SpamHamDataset:
 
     def __init__(
         self,
-        csv_path,
-        tokenizer,
-        max_length = 512,
-        text_column = 'Message',
-        label_column = 'Spam/Ham',
-        ):
+        dataframe: pd.DataFrame,
+        tokenizer: SentencePieceTokenizer,
+        max_length: int = 512,
+        text_column: str = "Message",
+        label_column: str = "Spam/Ham",
+    ):
         self.tokenizer = tokenizer
         self.max_length = max_length
-
-        dataframe = pd.read_csv(csv_path)
 
         self.texts = dataframe[text_column].astype(str).tolist()
         self.labels = dataframe[label_column].astype(str).tolist()
 
-        self.labels = [1 if label == 'spam' else 0 for label in self.labels]
+        self.labels = [1 if label == "spam" else 0 for label in self.labels]
 
         self.encoded_texts, self.lengths = self.tokenizer.encode_batch(self.texts)
 

@@ -17,6 +17,40 @@
 \endgroup
 
 \datalist[entry]{nyt/global//global/global/global}
+  \entry{randomsearch}{article}{}{}
+    \name{author}{2}{}{%
+      {{hash=BJ}{%
+         family={Bergstra},
+         familyi={B\bibinitperiod},
+         given={James},
+         giveni={J\bibinitperiod},
+      }}%
+      {{hash=BY}{%
+         family={Bengio},
+         familyi={B\bibinitperiod},
+         given={Yoshua},
+         giveni={Y\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {JMLR.org}%
+    }
+    \strng{namehash}{BJBY1}
+    \strng{fullhash}{BJBY1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{B}
+    \field{sortinithash}{B}
+    \field{issn}{1532-4435}
+    \field{number}{null}
+    \field{pages}{281–305}
+    \field{title}{Random search for hyper-parameter optimization}
+    \field{volume}{13}
+    \field{journaltitle}{J. Mach. Learn. Res.}
+    \field{month}{02}
+    \field{year}{2012}
+  \endentry
+
   \entry{ibmThinkAI}{online}{}{}
     \name{author}{1}{}{%
       {{hash=I}{%
@@ -88,6 +122,7 @@
     \verb 10.3390/info10040150
     \endverb
     \field{number}{4}
+    \field{pages}{150}
     \field{title}{Text classification algorithms: A survey}
     \verb{url}
     \verb https://doi.org/10.3390/info10040150
@@ -95,6 +130,59 @@
     \field{volume}{10}
     \field{journaltitle}{Information}
     \field{year}{2019}
+  \endentry
+
+  \entry{kudo-richardson-2018-sentencepiece}{inproceedings}{}{}
+    \name{author}{2}{}{%
+      {{hash=KT}{%
+         family={Kudo},
+         familyi={K\bibinitperiod},
+         given={Taku},
+         giveni={T\bibinitperiod},
+      }}%
+      {{hash=RJ}{%
+         family={Richardson},
+         familyi={R\bibinitperiod},
+         given={John},
+         giveni={J\bibinitperiod},
+      }}%
+    }
+    \name{editor}{2}{}{%
+      {{hash=BE}{%
+         family={Blanco},
+         familyi={B\bibinitperiod},
+         given={Eduardo},
+         giveni={E\bibinitperiod},
+      }}%
+      {{hash=LW}{%
+         family={Lu},
+         familyi={L\bibinitperiod},
+         given={Wei},
+         giveni={W\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {Association for Computational Linguistics}%
+    }
+    \strng{namehash}{KTRJ1}
+    \strng{fullhash}{KTRJ1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{K}
+    \field{sortinithash}{K}
+    \field{booktitle}{Proceedings of the 2018 Conference on Empirical Methods
+  in Natural Language Processing: System Demonstrations}
+    \verb{doi}
+    \verb 10.18653/v1/D18-2012
+    \endverb
+    \field{pages}{66\bibrangedash 71}
+    \field{title}{{S}entence{P}iece: A simple and language independent subword
+  tokenizer and detokenizer for Neural Text Processing}
+    \list{location}{1}{%
+      {Brussels, Belgium}%
+    }
+    \field{month}{11}
+    \field{year}{2018}
   \endentry
 
   \entry{li2022surveytextclassification}{article}{}{}
@@ -161,13 +249,46 @@
     \field{pages}{1\bibrangedash 39}
     \field{title}{A Survey on Text Classification: From Traditional to Deep
   Learning}
-    \verb{url}
-    \verb https://dl.acm.org/doi/10.1145/3495162
-    \endverb
     \field{volume}{13}
     \field{journaltitle}{ACM Transactions on Intelligent Systems and
   Technology}
     \field{year}{2022}
+  \endentry
+
+  \entry{LIU2019325}{article}{}{}
+    \name{author}{2}{}{%
+      {{hash=LG}{%
+         family={Liu},
+         familyi={L\bibinitperiod},
+         given={Gang},
+         giveni={G\bibinitperiod},
+      }}%
+      {{hash=GJ}{%
+         family={Guo},
+         familyi={G\bibinitperiod},
+         given={Jiabao},
+         giveni={J\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{LGGJ1}
+    \strng{fullhash}{LGGJ1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{L}
+    \field{sortinithash}{L}
+    \verb{doi}
+    \verb https://doi.org/10.1016/j.neucom.2019.01.078
+    \endverb
+    \field{issn}{0925-2312}
+    \field{pages}{325\bibrangedash 338}
+    \field{title}{Bidirectional LSTM with attention mechanism and convolutional
+  layer for text classification}
+    \verb{url}
+    \verb https://www.sciencedirect.com/science/article/pii/S0925231219301067
+    \endverb
+    \field{volume}{337}
+    \field{journaltitle}{Neurocomputing}
+    \field{year}{2019}
   \endentry
 
   \entry{inproceedings}{inproceedings}{}{}
@@ -391,6 +512,64 @@
     \field{urlday}{06}
     \field{urlmonth}{05}
     \field{urlyear}{2026}
+  \endentry
+
+  \entry{zhou2016textclassificationimprovedintegrating}{misc}{}{}
+    \name{author}{6}{}{%
+      {{hash=ZP}{%
+         family={Zhou},
+         familyi={Z\bibinitperiod},
+         given={Peng},
+         giveni={P\bibinitperiod},
+      }}%
+      {{hash=QZ}{%
+         family={Qi},
+         familyi={Q\bibinitperiod},
+         given={Zhenyu},
+         giveni={Z\bibinitperiod},
+      }}%
+      {{hash=ZS}{%
+         family={Zheng},
+         familyi={Z\bibinitperiod},
+         given={Suncong},
+         giveni={S\bibinitperiod},
+      }}%
+      {{hash=XJ}{%
+         family={Xu},
+         familyi={X\bibinitperiod},
+         given={Jiaming},
+         giveni={J\bibinitperiod},
+      }}%
+      {{hash=BH}{%
+         family={Bao},
+         familyi={B\bibinitperiod},
+         given={Hongyun},
+         giveni={H\bibinitperiod},
+      }}%
+      {{hash=XB}{%
+         family={Xu},
+         familyi={X\bibinitperiod},
+         given={Bo},
+         giveni={B\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{ZP+1}
+    \strng{fullhash}{ZPQZZSXJBHXB1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{Z}
+    \field{sortinithash}{Z}
+    \verb{eprint}
+    \verb 1611.06639
+    \endverb
+    \field{title}{Text Classification Improved by Integrating Bidirectional
+  LSTM with Two-dimensional Max Pooling}
+    \verb{url}
+    \verb https://arxiv.org/abs/1611.06639
+    \endverb
+    \field{eprinttype}{arXiv}
+    \field{eprintclass}{cs.CL}
+    \field{year}{2016}
   \endentry
 \enddatalist
 \endinput

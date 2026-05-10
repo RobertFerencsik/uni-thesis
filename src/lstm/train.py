@@ -111,7 +111,7 @@ class Trainer:
             'val_accuracies': self.val_accuracies
         }
 
-    def save_best_checkpoint(self, epoch, is_best=False):
+    def save_checkpoint(self, epoch, is_best=False):
         checkpoint = {
             'epoch': epoch,
             'model_state_dict': self.model.state_dict(),

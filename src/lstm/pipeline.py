@@ -12,7 +12,7 @@ src = Path(__file__).resolve().parent.parent
 if str(src) not in sys.path:
     sys.path.insert(0, str(src))
 
-from config.config import PATHS, PROJECT_ROOT
+from config.config import PATHS
 
 
 class LSTMTrainingPipeline:    
@@ -108,22 +108,3 @@ class LSTMTrainingPipeline:
     def run(self) -> Dict[str, Any]:
         self.setup()
         return self.train()
-    
-    def get_config(self) -> Dict[str, Any]:
-        return {
-            'project_root': str(PROJECT_ROOT),
-            'tokenizer_path': str(self.tokenizer_path),
-            'train_csv': str(self.train_csv),
-            'val_csv': str(self.val_csv),
-            'max_length': self.max_length,
-            'batch_size': self.batch_size,
-            'embedding_dim': self.embedding_dim,
-            'hidden_size': self.hidden_size,
-            'num_layers': self.num_layers,
-            'dropout_rate': self.dropout_rate,
-            'dense_hidden': self.dense_hidden,
-            'learning_rate': self.learning_rate,
-            'max_grad_norm': self.max_grad_norm,
-            'num_epochs': self.num_epochs,
-            'save_dir': str(self.save_dir)
-        }

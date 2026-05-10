@@ -90,8 +90,16 @@ class RandomSearchTuner:
             self._artifacts,
             title=f"Trial {trial_idx:03d} - test set",
         )
+        trial_result = {
+            "trial_index": trial_idx,
+            "trial_dir": str(trial_dir),
+            "hyperparameters": hyperparams,
+            "metrics": metrics,
+            "score": score,
+            "score_metric": self.metric_name,
+        }
         self._artifacts.save_json(
-            metrics,
+            trial_result,
             trial_dir / "eval_test_metrics.json",
         )
         details = {

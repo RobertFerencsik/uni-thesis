@@ -3,7 +3,7 @@
   "search_space": {
     "max_length": {
       "type": "choice",
-      "values": [512, 800, 1024]
+      "values": [500, 600, 700, 800]
     },
 
     "batch_size": {
@@ -18,18 +18,18 @@
 
     "hidden_size": {
       "type": "choice",
-      "values": [64, 128, 256, 384]
+      "values": [64, 128, 256]
     },
 
     "num_layers": {
       "type": "choice",
-      "values": [1, 2, 3]
+      "values": [2, 3]
     },
 
     "dropout_rate": {
       "type": "float",
       "min": 0.15,
-      "max": 0.55
+      "max": 0.5
     },
 
     "dense_hidden": {
@@ -51,7 +51,7 @@
 
     "num_epochs": {
       "type": "choice",
-      "values": [2, 3, 4, 5]
+      "values": [2, 3, 4]
     }
   }
 }

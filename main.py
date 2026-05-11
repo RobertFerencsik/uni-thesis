@@ -1,7 +1,12 @@
 import argparse
+import os
+import random
 import sys
 from pathlib import Path
 from typing import Optional
+
+import numpy as np
+import torch
 
 REPO_ROOT = Path(__file__).resolve().parent
 if str(REPO_ROOT) not in sys.path:
@@ -13,6 +18,20 @@ from src.infrastructure.artifact_manager import ArtifactManager
 
 DEFAULT_SEARCH_CONFIG = REPO_ROOT / "src" / "config" / "hyperparameter_search_space.json"
 DEFAULT_BEST_HPARAMS = REPO_ROOT / "src" / "config" / "best_hyperparameters.json"
+DEFAULT_SEED = 42
+
+
+def set_determinism(seed: int = DEFAULT_SEED) -> None:
+    random.seed(seed)
+    np.random.seed(seed)
+    torch.manual_seed(seed)
+    if torch.cuda.is_available():
+        # CUDA determinisztikus GEMM-hez
+        os.environ.setdefault("CUBLAS_WORKSPACE_CONFIG", ":4096:8")
+        torch.cuda.manual_seed_all(seed)
+    torch.backends.cudnn.deterministic = True
+    torch.backends.cudnn.benchmark = False
+    torch.use_deterministic_algorithms(True)
 
 
 def load_best_hyperparameters(
@@ -48,6 +67,7 @@ def run_learning_curve(num_portions: int):
 
 
 def main():
+    set_determinism()
     parser = argparse.ArgumentParser(
         description="Tune LSTM hyperparameters or run learning curve"
     )

@@ -28,11 +28,9 @@ class RandomSearchTuner:
         self.config_path = Path(config_path)
         self.output_path = Path(output_path)
         self.config = self._artifacts.load_json(self.config_path)
-        self.seed = 42
         self.metric_name = str(self.config.get("metric", "f1"))
         self.num_trials = num_trials
         self.search_space = self.config["search_space"]
-        random.seed(self.seed)
 
     def _sample_param(self, spec: Dict[str, Any]) -> Any:
         param_type = spec["type"]
@@ -68,7 +66,7 @@ class RandomSearchTuner:
         metrics = evaluate(
             checkpoint_path=checkpoint_path,
             tokenizer_path=PATHS.lstm_tokenizer,
-            eval_csv_path=PATHS.test_processed,
+            eval_csv_path=PATHS.validation_processed,
             batch_size=64,
             threshold=0.5,
             artifact_manager=self._artifacts,
@@ -76,7 +74,10 @@ class RandomSearchTuner:
         )
         score = float(metrics[self.metric_name])
 
-        print_section(f"Tuning trial {trial_idx:03d} / {self.num_trials} ({self.metric_name}={score:.4f})")
+        print_section(
+            f"Tuning trial {trial_idx:03d} / {self.num_trials} "
+            f"(validation {self.metric_name}={score:.4f})"
+        )
         print_full_experiment_report(metrics, metrics.get("model_info"))
         save_training_history_figure(
             history,
@@ -148,9 +149,23 @@ class RandomSearchTuner:
 
         self._artifacts.save_json(output, self.output_path)
 
-        print_section("Best tuning trial (test-set summary)")
+        best_checkpoint = Path(best_result["trial_dir"]) / "best_model.pt"
+        best_test_metrics = evaluate(
+            checkpoint_path=best_checkpoint,
+            tokenizer_path=PATHS.lstm_tokenizer,
+            eval_csv_path=PATHS.test_processed,
+            batch_size=64,
+            threshold=0.5,
+            artifact_manager=self._artifacts,
+            include_model_info=True,
+        )
+        output["best_test_metrics"] = best_test_metrics
+
+        print_section("Best tuning trial (validation-set summary)")
         bm = best_result["metrics"]
         print_full_experiment_report(bm, bm.get("model_info"))
+        print_section("Best tuning trial (test-set summary)")
+        print_full_experiment_report(best_test_metrics, best_test_metrics.get("model_info"))
         print(
             f"  trial directory: {best_result['trial_dir']}\n"
             f"  checkpoint: {output['best_model_checkpoint']}\n"

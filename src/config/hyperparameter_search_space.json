@@ -18,12 +18,12 @@
 
     "hidden_size": {
       "type": "choice",
-      "values": [64, 128, 256]
+      "values": [64, 128]
     },
 
     "num_layers": {
       "type": "choice",
-      "values": [2, 3]
+      "values": [2]
     },
 
     "dropout_rate": {
@@ -40,7 +40,7 @@
     "learning_rate": {
       "type": "log_float",
       "min": 0.00005,
-      "max": 0.003
+      "max": 0.002
     },
 
     "max_grad_norm": {

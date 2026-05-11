@@ -3,7 +3,7 @@
   "search_space": {
     "max_length": {
       "type": "choice",
-      "values": [500, 600, 700, 800]
+      "values": [500, 600, 700]
     },
 
     "batch_size": {
@@ -51,7 +51,7 @@
 
     "num_epochs": {
       "type": "choice",
-      "values": [2, 3, 4]
+      "values": [2, 3]
     }
   }
 }

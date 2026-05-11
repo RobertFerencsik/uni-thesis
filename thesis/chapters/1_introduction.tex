@@ -49,15 +49,9 @@ amelyek jellemzőek lehetnek a kéretlen vagy a valódi levelekre.
 Az osztályozási döntés során nem kizárólag egyes kulcsszavak jelenlétét vizsgálja, hanem azok sorrendjét, gyakoriságát és környezetét is figyelembe veszi. 
 Ennek köszönhetően a modell képes összetettebb nyelvi és stilisztikai mintázatok felismerésére is, amelyek hozzájárulnak az e-mailek pontosabb osztályozásához.
 
-A legmodernebb nyelvi modellek működési elve alapvetően továbbra is szekvenciák modellezésére épül, azonban a felépítésük nagyban eltér a korábbi módszerektől. 
-A \textbf{nagy nyelvi modellek} (Large Language Model, LLM) jellemzően a transformer architektúrán alapulnak, és előtanítás által általános "nyelvi tudást" szereznek. 
-A tanító korpusz hatalmas mennyíségű természetes nyelvi adat melyből nyelvi reprezentációkat és statisztikai összefüggéseket sajátítanak el az adott nyelvről. 
-Ennek köszönhetően zajtűrőbbek, kevesebb előfeldolgozást igényelnek tanítás és \textbf{következtetés} (inference) közben.
-
-A dolgozat eredeti célja a mélytanulási módszerek közül a hosszú-rövid távú memória architektúra 
-és a modern nagy nyelvi modellek vizsgálata, különös tekintettel azok szövegfeldolgozási és osztályozási képességeire. 
-A LSTM-alapú megközelítés a dolgozat során gyakorlati formában, implementációval és kísérletekkel kerül bemutatásra, beleértve a modell felépítését, 
-tanítását és kiértékelését. Ezzel szemben a nagy nyelvi modellek említésre kerülnek a következtetések levonásakor, a vélt különbségek kiemelésével.
+A dolgozat fókusza a hosszú-rövid távú memória (LSTM) architektúrán alapuló szövegosztályozás gyakorlati vizsgálata. 
+A LSTM-alapú megközelítés a dolgozat során implementációval és kísérletekkel kerül bemutatásra, beleértve a modell felépítését, 
+tanítását és kiértékelését.
 
 A kutatás további célja a modell megfelelő felépítésének és optimális paraméterezésének kialakítása mellett 
 az előfeldolgozási lépések részletes és szisztematikus meghatározása is, mivel ezek alapvetően befolyásolják a tanítás hatékonyságát és a végső teljesítményt. 

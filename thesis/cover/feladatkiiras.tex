@@ -13,25 +13,27 @@ Alkalmazott Matematikai Tanszék\hspace*{4cm}\hfil \textbf{Szám:}
 Ferencsik Róbert (BQLOTW) BSc programtervező informatikus jelölt részére.
 
 \bigskip
-\noindent\textbf{A szakdolgozat tárgyköre:} gépi tanulás, klasszifikáció
+\noindent\textbf{A szakdolgozat tárgyköre:} természetes nyelvfeldolgozás, szövegosztályozás, mélytanulás
 
 \bigskip
-\noindent\textbf{A szakdolgozat címe:} SPAM/HAM üzenetek és forráskódok osztályozása neurális hálók és nagy nyelvi modellek (LLM) segítségével
+\noindent\textbf{A szakdolgozat címe:} SPAM/HAM üzenetek osztályozása mélytanulási módszerekkel
 
 \bigskip
 \noindent\textbf{A feladat részletezése:}
 
 \medskip
 
-\noindent A SPAM/HAM klasszifikációs feladat lényege annak eldöntése, hogy egy adott üzenet \emph{spam} (kéretlen, nem kívánt tartalom), vagy \emph{ham} (nem spam, hasznos tartalom). A probléma jól vizsgálható gépi tanulási és mélytanulási módszerekkel; különösen az LSTM (Long Short-Term Memory) architektúrák alkalmasak szekvenciális adatok---így szövegek---feldolgozására.
+\noindent A hallgató feladata egy SPAM/HAM szövegosztályozó rendszer megtervezése és megvalósítása mélytanulási módszerekkel. A dolgozatnak tartalmaznia kell:
 
 \medskip
-
-\noindent A szakdolgozatban a hallgató először a SPAM/HAM osztályozást valósítja meg, majd a megközelítést kiterjeszti forráskódokra: a programkódokat \emph{malware} vagy \emph{benign} kategóriába kell sorolni.
-
-\medskip
-
-\noindent A modern nagy nyelvi modellek (LLM) lehetőséget adnak mind a természetes nyelvi szövegek, mind a programkódok szemantikai feldolgozására. A dolgozat célja az LSTM- és LLM-alapú megközelítések \emph{összehasonlítása} és \emph{teljesítményük értékelése} (megfelelő validációs és tesztelési protokoll mellett).
+\begin{enumerate}
+    \item A szövegosztályozás elméleti hátterének bemutatását. A hagyományos és mélytanulási módszerek összevetését és a szekvenciális modellek szerepét.
+    \item A felhasznált adathalmaz részletes elemzését.
+    \item Az előfeldolgozási folyamat kidolgozását és implementálását.
+    \item Egy kétirányú LSTM (BiLSTM) modell megtervezését és megvalósítását.
+    \item Az elvégzett kísérletek és a kapott eredmények bemutatását.
+    \item A módszer korlátainak és továbbfejlesztési lehetőségeinek áttekintését.
+\end{enumerate}
 
 \vfill
 
@@ -58,7 +60,7 @@ Ferencsik Róbert (BQLOTW) BSc programtervező informatikus jelölt részére.
 \end{center}
 \vspace*{2cm}  
 
-Alulírott \textbf{Ferencsik Róbert}; Neptun-kód: \texttt{BQLOTW} a Miskolci Egyetem Gépészmérnöki és Informatikai Karának végzős Programtervező informatikus szakos hallgatója ezennel büntetőjogi és fegyelmi felelősségem tudatában nyilatkozom és aláírásommal igazolom, hogy \textit{SPAM/HAM üzenetek és forráskódok osztályozása neurális hálók és nagy nyelvi modellek (LLM) segítségével}
+Alulírott \textbf{Ferencsik Róbert}; Neptun-kód: \texttt{BQLOTW} a Miskolci Egyetem Gépészmérnöki és Informatikai Karának végzős Programtervező informatikus szakos hallgatója ezennel büntetőjogi és fegyelmi felelősségem tudatában nyilatkozom és aláírásommal igazolom, hogy \textit{SPAM/HAM üzenetek osztályozása mélytanulási módszerekkel}
 című szakdolgozatom saját, önálló munkám; az abban hivatkozott szakirodalom
 felhasználása a forráskezelés szabályai szerint történt.
 

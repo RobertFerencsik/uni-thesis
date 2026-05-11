@@ -73,6 +73,31 @@
     \field{urlyear}{2026}
   \endentry
 
+  \entry{ibm_confusion_matrix}{online}{}{}
+    \name{author}{1}{}{%
+      {{hash=I}{%
+         family={{IBM}},
+         familyi={I\bibinitperiod},
+      }}%
+    }
+    \list{organization}{1}{%
+      {{International Business Machines Corporation (IBM)}}%
+    }
+    \strng{namehash}{I1}
+    \strng{fullhash}{I1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{I}
+    \field{sortinithash}{I}
+    \field{title}{What is a confusion matrix?}
+    \verb{url}
+    \verb https://www.ibm.com/think/topics/confusion-matrix
+    \endverb
+    \field{urlday}{11}
+    \field{urlmonth}{05}
+    \field{urlyear}{2026}
+  \endentry
+
   \entry{kowsari2019textclassificationsurvey}{article}{}{}
     \name{author}{6}{}{%
       {{hash=KK}{%
@@ -431,56 +456,6 @@
     \field{volume}{54}
     \field{journaltitle}{Computer Science Review}
     \field{year}{2024}
-  \endentry
-
-  \entry{dlframeworkcovid19}{article}{}{}
-    \name{author}{5}{}{%
-      {{hash=TY}{%
-         family={Tashtoush},
-         familyi={T\bibinitperiod},
-         given={Yahya},
-         giveni={Y\bibinitperiod},
-      }}%
-      {{hash=ARB}{%
-         family={Al-Rababah},
-         familyi={A\bibinithyphendelim R\bibinitperiod},
-         given={Balqis},
-         giveni={B\bibinitperiod},
-      }}%
-      {{hash=DO}{%
-         family={Darwish},
-         familyi={D\bibinitperiod},
-         given={Omar},
-         giveni={O\bibinitperiod},
-      }}%
-      {{hash=MM}{%
-         family={Maabreh},
-         familyi={M\bibinitperiod},
-         given={Majdi},
-         giveni={M\bibinitperiod},
-      }}%
-      {{hash=AN}{%
-         family={Alsaedi},
-         familyi={A\bibinitperiod},
-         given={Nasser},
-         giveni={N\bibinitperiod},
-      }}%
-    }
-    \strng{namehash}{TY+1}
-    \strng{fullhash}{TYARBDOMMAN1}
-    \field{labelnamesource}{author}
-    \field{labeltitlesource}{title}
-    \field{sortinit}{T}
-    \field{sortinithash}{T}
-    \verb{doi}
-    \verb 10.3390/data7050065
-    \endverb
-    \field{title}{A Deep Learning Framework for Detection of COVID-19 Fake News
-  on Social Media Platforms}
-    \field{volume}{7}
-    \field{journaltitle}{Data}
-    \field{month}{05}
-    \field{year}{2022}
   \endentry
 
   \entry{uscensusDatascience}{online}{}{}

@@ -9,9 +9,8 @@ A természetes nyelvfeldolgozás olyan tudományág, amely lehetővé teszi a sz
 megértését és generálását. Integrálja a számítógépes nyelvészetet, a szabályalapú megközelítéseket, a statisztikai modellezést, 
 valamint a korszerű mélytanulási technikákat~\cite{ibmThinkNLP}.
 
-A természetes nyelvfeldolgozás területén folyó kutatások döntő szerepet játszottak a generatív mesterséges intelligencia kifejlődésében, 
-elősegítve a nagy nyelvi modellek kifinomult kommunikációs képességeit, amelyek képesek szöveges és beszélt nyelv értelmezésére, 
-generálására és összetett feladatok végrehajtására~\cite{ibmThinkNLP}.
+A természetes nyelvfeldolgozás területén folyó kutatások döntő szerepet játszottak a modern nyelvtechnológiai rendszerek fejlődésében, 
+elősegítve a szöveges és beszélt nyelv értelmezésére, generálására és összetett feladatok végrehajtására képes megoldások kialakulását~\cite{ibmThinkNLP}.
 
 \section{Szövegosztályozás}
 
@@ -82,7 +81,7 @@ Méghozzá \textbf{Tukey interkvartilis módszerén} (Tukey’s Interquartile Ra
 
 Az \textbf{interkvartilis tartomány} (interquartile range, IQR) egy statisztikai mutató mely információt ad az adatok eloszlásáról, 
 azonban egyike azon módszereknek melyet nem befolyásol jelentősen az adatok nem normális jellege, 
-esetünkben az eloszlás \textbf{ferdesége} (skewness). Az harmadik (Q3) és első kvartilis (Q3) különbsége adja értékét ~\cite{procogiaIQR}.
+esetünkben az eloszlás \textbf{ferdesége} (skewness). Az harmadik (Q3) és első kvartilis (Q1) különbsége adja értékét ~\cite{procogiaIQR}.
 
 \[
 IQR = Q_3 - Q_1
@@ -103,7 +102,6 @@ A Tukey-módszer alapján a kiugró értékek az alábbi határok segítségéve
 Az \textbf{entitások helyettesítése} (Entity Masking) számos természetesnyelv-feldolgozási feladat egyik fontos előfeldolgozási lépése.
 Az eljárás során a \textbf{megnevezett entitások} (Named Entities), például személynevek, telefonszámok, e-mail címek, dátumok vagy helynevek helyére előre definiált helyettesítő tokenek kerülnek, miközben az adott elem szemantikai szerepe továbbra is megmarad a szövegben.
 A módszer célja feladattól függően eltérő lehet, a jelen dolgozat esetében azonban elsősorban a szókészlet méretének csökkentése volt a cél.
-Ez különösen fontos a hosszú-rövid távú memórián alapuló neurális hálózatok esetében, mivel ezek a modellek korlátozottabb szókészlet kezelésére képesek, mint a modern nagy nyelvi modellek.
 Az entitások helyettesítésével a modell kevésbé a konkrét karakterláncokat, sokkal inkább azok kontextuális szerepét és a szövegben megjelenő mintázatokat tanulja meg.
 
 Az entitásmaszkolás további természetesnyelv-feldolgozási feladatok során is széles körben alkalmazott technika.
@@ -126,7 +124,7 @@ A működésének alapja egy statisztikai szegmentáló algoritmus alkalmazása 
  A módszer további előnye a veszteségmentes tokenizáció, mellyel a különleges karaterek sőt még a szóközök információja is megmarad. 
  Így visszaállítható az eredeti szöveg és bármikor biztonságosan reprodukálható a tokenizációs folyamat. 
  Illetve alkalmazása jelentősen csökkenti a hagyományos jellemzőtervezés szükségességét, és elősegíti a modellek számára a 
- releváns mintázatok tanulását cite{kudo-richardson-2018-sentencepiece}. A releváns mintázatok tanulása lehetséges, hogy csökkenti a tanítóhalmaz elégséges mennyiségét.
+ releváns mintázatok tanulását \cite{kudo-richardson-2018-sentencepiece}.
 
  E-mail (spam/ham) osztályozáskor a SentencePiece különösen előnyös a szövegek zajossága és változatossága miatt. 
  A spam üzenetek gyakran tartalmaznak elgépeléseket, felesleges karaktereket, melyeket szótári módszerekkel nehéz 
@@ -177,7 +175,7 @@ feladatok kiértékelésére. A vizsgálat részeként egy \textbf{kumulatív ta
 alkalmazásra került, mely a tanító adat fokozatos bővítésével mutatja a modell teljesítményének alakulását az F1-pontszám alapján.
 
 Ez a megközelítés lehetővé teszi annak vizsgálatát, hogy a rendelkezésre álló adatmennyiség növekedése hogyan befolyásolja a modell általánosító képességét. 
-A görbe így nem a tanítási folyamat konvergenciáját, hanem az adatméret és a model pontossága közötti kapcsolatot szemlélteti. 
+A görbe így nem a tanítási folyamat konvergenciáját, hanem az adatméret és a modell pontossága közötti kapcsolatot szemlélteti. 
 Amennyiben a görbe telítődést mutat, az arra utalhat, hogy a további adatmennyiség már nem eredményez jelentős javulást a modell F1-pontszám értékében.
 
 A klasszifikációs teljesítmény részletesebb elemzésére továbbá rendelkezésre áll az úgynevezett \textbf{konfúziós mátrix} (Confusion Matrix), mely a 
@@ -203,23 +201,23 @@ valós és predikált osztályok közötti összefüggéseket mutatja. A mátrix
   \item \textbf{Hamis Negatív} (False Negative, FN): a modell hamnek jelöl egy valójában spam üzenetet (el nem kapott spam).
 \end{itemize}
 
-A konfúziós mátrix alapján került kiszámításra a pontosság (precision), a visszahívás (recall) és az F1-érték (F1-score). 
+A konfúziós mátrix alapján került kiszámításra a pontosság (precision), a visszahívás (recall) és az F1-érték (F1-score) \cite{ibm_confusion_matrix}. 
 
-A pontosság azt mutatja meg, hogy a pozitívnak prediktált minták közül hány volt valóban pozitív, amelyet az \ref{eq:precision}. egyenlet definiál.
+A pontosság azt mutatja meg, hogy a pozitívnak prediktált minták közül mennyi volt valóban pozitív, amelyet az \ref{eq:precision}. egyenlet definiál.
 
 \begin{equation}
-\text{Pontosság} = \frac{VP}{VP + HP}
+\text{Pontosság} = \frac{TP}{TP + FP}
 \label{eq:precision}
 \end{equation}
 
 A visszahívás azt fejezi ki, hogy a tényleges pozitív minták hány százalékát sikerült helyesen azonosítani, amelyet az \ref{eq:recall}. egyenlet ír le.
 
 \begin{equation}
-\text{Visszahívás} = \frac{VP}{VP + HN}
+\text{Visszahívás} = \frac{TP}{TP + FN}
 \label{eq:recall}
 \end{equation}
 
-Az F1-érték a pontosság és visszahívás harmonikus átlaga, amely kiegyensúlyozott teljesítménymutatót biztosít, különösen osztály-egyensúlytalanság esetén. Az F1-érték számítását az \ref{eq:f1}. egyenlet mutatja be.
+Az F1-érték a pontosság és visszahívás harmonikus átlaga, amely kiegyensúlyozott teljesítménymutatót biztosít, különösen osztály-egyensúlytalanság esetén \cite{ibm_confusion_matrix}. Az F1-érték számítását az \ref{eq:f1}. egyenlet mutatja be.
 
 \begin{equation}
 F1 = 2 \cdot \frac{\text{Pontosság} \cdot \text{Visszahívás}}{\text{Pontosság} + \text{Visszahívás}}

@@ -181,11 +181,11 @@ Emellett legalább az \texttt{ipykernel} (7.2.0) csomag is kellett.
 
 A fejezet célja az adathalmaz szerkezetének és tulajdonságainak vizsgálata, valamint az előfeldolgozási döntések bemutatása. 
 A feltáró adatelemzésért felelős notebook a \texttt{1-eda-1.ipynb}, míg az adattisztítást végző notebook a \texttt{2-data-cleaning.ipynb} fájlban található. 
-Az első notebook bemenetét a nyers adathalmaz képezi, kimenete pedig a stratifikáltan felosztott adathalmazok és az előfeldolgozási döntések dokumentálása. 
+Az első notebook bemenetét a nyers adathalmaz képezi, kimenete pedig a rétegezetten felosztott adathalmazok és az előfeldolgozási döntések dokumentálása. 
 Az adattisztító notebook bemenetként a felosztott tanító-, validációs- és tesztkészleteket használja, kimeneteként pedig a tisztított adathalmazok állnak elő.
 
-Első lépésként megtörtént az adathalmaz \textbf{stratifikált szétválasztása} (stratified split) tanító (train), validációs (validation) és teszt (test) részhalmazokra. 
-A stratifikált felosztás biztosítja, hogy a spam és ham címkék aránya minden részhalmazban közel azonos maradjon. Ez különösen fontos bináris osztályozási feladatok esetén, mivel az osztályeloszlás torzulása kedvezőtlenül befolyásolhatja a modell tanítását és kiértékelését.
+Első lépésként megtörtént az adathalmaz \textbf{rétegezett felosztása} (stratified split) tanító (train), validációs (validation) és teszt (test) részhalmazokra. 
+A rétegezett felosztás biztosítja, hogy a spam és ham címkék aránya minden részhalmazban közel azonos maradjon. Ez különösen fontos bináris osztályozási feladatok esetén, mivel az osztályeloszlás torzulása kedvezőtlenül befolyásolhatja a modell tanítását és kiértékelését.
 
 Az adattisztítás során a dátum oszlop eltávolításra került, mivel nem hordoz releváns információt a spam-osztályozási feladat szempontjából. 
 A tárgymező (subject) az üzenet törzséhez került hozzáfűzésre annak érdekében, hogy a modell az e-mail teljes szöveges tartalmát egységes reprezentációként kezelhesse. 
@@ -285,5 +285,5 @@ Az első harminc token a tanító adathalmazban megfelelt a lefedettség ötven 
   \label{fig:vocab-coverage-training}
 \end{figure}
 
-Az úgynevezett \textbf{stopszavak} (Stop Word) nem kerültek eltávolításra, mivel a helyes használatuk információt adott az üzenet jó szándékáról, 
-így a gyakori tokenek egy jó része ilyen stopszó volt.
+A gyakori, jelentéssel nem bíró szavak, az irodalomban \textbf{stop-szavak} (Stop Word), nem kerültek eltávolításra. Helyes használatuk információt hordoz az üzenet jó szándékáról, 
+így a gyakori tokenek nagy része ilyen stop-szó.

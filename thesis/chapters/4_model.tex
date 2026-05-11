@@ -24,7 +24,7 @@ teljesen összekapcsolt réteg kimenete egyetlen neuront tartalmaz, amely logit 
 
 \subsection{Hiperparaméter-tér és optimalizálási stratégia}
 
-A megfelelő paraméterek kiválasztása az F1 érték maximalizálása szerint történik; random hiperparaméter-keresés során az előre definiált értéktartományokból 
+A megfelelő paraméterek kiválasztása az F1 érték maximalizálása szerint történik random hiperparaméter-keresés során az előre definiált értéktartományokból \cite{randomsearch}
 pszeudovéletlenszerűen kerül kiválasztásra az érték minden paraméter esetében a reprodukálhatóság érdekében. Az optimalizáció alapértelmezett célfüggvénye az F1 mérőszám, melynek jelentősége kiegyensúlyozatlan osztályozás esetén nagyobb. Helyes választás lehet a pontosság vagy a visszahívás is, a megoldandó feladattól függően.
 Magas pontosság esetén ha a "pozitív" osztályunk a kéretlen üzenet, kevés normális üzenet kerül a spam mappába, ez a valósághűbb működés. Míg a visszahívás arra ad választ hogy a valódi kéretlen üzenetek mekkora részét találja meg a modell. 
 Az F1-érték melletti döntést az általános kéretlen üzenet detektálás támasztja alá. 
@@ -32,37 +32,37 @@ Az F1-érték melletti döntést az általános kéretlen üzenet detektálás t
 Ezekkel a paraméterekkel egy új modell kerül betanításra és kiértékelésre. A tanítás folyamata a következő alfejezetben kerül bemutatásra.
 
 A cél a keresési tér kialakításakor olyan paramétertartományok meghatározása, amelyek megfelelő egyensúlyt biztosítanak a modell reprezentációs képessége, 
-a tanítás stabilitása és a számítási költség között. A vizsgált hiperparaméterek az alábbiak:
+a tanítás stabilitása és a számítási költség között.
+Az alább megadott konkrét numerikus tartományok a jelen dolgozat kísérleti keresési terét jelenti,  a hivatkozott irodalban elsősorban az egyes hiperparaméterek hatásmechanizmusáról és gyakorlati hangolási elveiről szerezhet tudást az olvasó.
 
 \begin{itemize}
 
     \item \textbf{Maximális szekvenciahossz}  
     A modell által feldolgozható tokenek maximális számát határozza meg. Az alsó határ olyan érték kell legyen, amely még elegendő kontextust biztosít a szöveg reprezentálásához, 
-     a maximális hossz növeli a memóriaigényt és a számítási költséget. A \Aref{fig:token-length-by-split} ábra alapján ez az érték \textbf{500--1000} token közé kell essen. Habár 800 token 
-    hossz felett már elenyésző az üzenetek száma.
+     a maximális hossz növeli a memóriaigényt és a számítási költséget. A \Aref{fig:token-length-by-split} ábra alapján ez az érték \textbf{500--1000} token körül helyezkedhet el. Habár 800 token hossz felett már elenyésző az üzenetek száma.
     
     \item \textbf{Batch méret}  
     Az egy iteráció során feldolgozott minták számát jelenti. A minimális értéket a tanítás stabilitása és a túl zajos gradiensfrissítések elkerülése indokolja, 
-    míg a maximális értéket a rendelkezésre álló memória és a generalizációs képesség korlátozza, és \textbf{32--128} közötti értéket érdemes választani.
+    míg a maximális értéket a rendelkezésre álló memória és a generalizációs képesség korlátozza. Ebben a dolgozatban \textbf{32--128} közötti batch méret került vizsgálatra.
     
     \item \textbf{Szóbeágyazási dimenzió}  
     A tokenek vektorreprezentációjának méretét adja meg a \textbf{beágyazási dimenzió} (embedding dimension). Méretének elegendőnek kell lennie a megfelelő szemantikai reprezentációhoz, 
-    de túl nagy dimenziószám esetén nő a túlilleszkedés veszélye és megnő a paraméterszám; ez a minimum- és maximumérték-elvárás a következő két rétegre is igaz, így nem lesz ismételten leírva. 
+    de túl nagy dimenziószám esetén nő a túlilleszkedés veszélye és megnő a paraméterszám. Ez a minimum- és maximumérték-elvárás a következő két rétegre is igaz, így nem lesz ismételve. 
     Tipikus dimenziószámok: \textbf{64, 128, 256}.
     
     \item \textbf{Rejtett réteg mérete}  
     A hosszú rövid távú memória rejtett rétegeinek dimenzióját határozza meg, azaz konkrétan az LSTM-réteg dimenzióját. 
-    Minimális és maximális értéke ugyanazt a kockázatot hordozza magában, mint a szóbeágyazási dimenzió. A dimenziószámok is megegyeznek.
+    Minimális és maximális értéke ugyanazt a kockázatot hordozza magában, mint a szóbeágyazási dimenzió. A dimenziószámok is hasonlóak \textbf{64, 128, 256, 384}.
 
     \item \textbf{Rejtett rétegek száma}  
-    Az egymásra épített LSTM-rétegek számát jelenti. Az alsó határ tulajdonképpen az egy réteg, de egy rejtett réteget tartalmazó neurális háló nem mélytanulási módszer. 
-    A felső érték pedig a túlilleszkedés veszélye miatt kerül korlátozásra. Így a \textbf{2, 3} értékeket érdemes választani, persze a felső határ lehet magasabb.
+    Az egymásra épített LSTM-rétegek számát jelenti. Az alsó határ jellemzően \textbf{1} réteg, a felső értéket pedig a túlilleszkedés veszélye és a számítási költség korlátozza. 
+    Ebben a dolgozatban \textbf{1}, \textbf{2} és \textbf{3} réteges konfigurációkat vizsgáltunk.
     
     \item \textbf{Dropout arány}  
     A dropout a regularizáció egyik módszere, amely során a tanítás alatt a neuronok egy része véletlenszerűen deaktiválásra kerül. 
     Alkalmazásának célja a túlilleszkedés csökkentése és a modell általánosító képességének javítása. 
     Túl alacsony érték esetén a regularizáció hatása elhanyagolható lehet, míg túl magas dropout arány mellett a modell tanulási képessége jelentősen romolhat. 
-    A gyakorlatban általában \textbf{0.1--0.5} közötti értékek használata tekinthető megfelelőnek.
+    Ebben a dolgozatban \textbf{0.1--0.5} közötti dropout tartományt alkalmaztunk.
 
     \item \textbf{Teljesen összekapcsolt rejtett réteg mérete}  
     Az osztályozó komponens \textbf{sűrű rétegének} (dense layer) dimenzióját határozza meg. 
@@ -73,25 +73,22 @@ a tanítás stabilitása és a számítási költség között. A vizsgált hipe
     \item \textbf{Tanulási ráta}  
     A tanulási ráta határozza meg a paraméterfrissítések lépésközét az optimalizáció során. 
     Túl alacsony érték esetén a modell konvergenciája lassúvá válhat, míg túl magas tanulási ráta instabil tanítást vagy divergenciát eredményezhet. 
-    Mélytanulási modellek esetén általánosan \textbf{$10^{-5}$ és $10^{-2}$} közötti tartomány használata tekinthető megfelelőnek.
+    A jelen kísérletekben a tanulási rátát \textbf{$10^{-5}$ és $10^{-2}$} közötti intervallumban mintavételeztük, logaritmikus skálán.
 
     \item \textbf{Maximális gradiensnorma}  
     A maximális gradiensnorma a gradiensklippelés felső korlátját adja meg, amely elsősorban a robbanó gradiens probléma kezelésére szolgál visszacsatolt neurális hálózatok esetén. 
     Túl alacsony érték mellett a tanulás lelassulhat, míg túl magas korlát esetén a klippelés hatása elenyészővé válhat. 
-    A gyakorlatban jellemzően \textbf{0.5--5.0} közötti értékeket alkalmaznak.
+    Ebben a dolgozatban a gradiensnorma felső korlátját \textbf{0.5--5.0} közötti tartományból választottuk.
 
     \item \textbf{Epochok száma}  
     Az epochok száma azt határozza meg, hogy a modell hányszor dolgozza fel a teljes tanítóhalmazt a tanítás során. 
     Túl alacsony epochszám esetén a modell alultanulhat, míg túl magas érték mellett növekedhet a túlilleszkedés veszélye és a tanítási idő. 
-    NLP feladatok esetén általában \textbf{2--20} epoch közötti tartomány használata jellemző.
+    A jelen kísérletekben \textbf{2--20} epoch közötti tartományt vizsgáltunk, korai megállítás és validációs teljesítmény monitorozása mellett.
     
     \end{itemize}
 
 A diszkrét hiperparaméterek esetében előre definiált értékkészletből történt a mintavételezés, míg a folytonos paramétereknél intervallumalapú keresést alkalmaztunk. 
 A tanulási ráta logaritmikus skálán került mintavételezésre, mivel annak optimális értéke jellemzően több nagyságrendet is lefedhet.
-
-A lehetséges értékek közül a batch méret, dropout arány, tanulási ráta, maximális gradiensnorma és epochok száma a \cite{dlframeworkcovid19} alapján került közelítőleg kiválasztásra, 
-a többi értéknél a döntés alapja megvan fogalmazva a fenti táblázatban.
 
 \subsubsection{Tanítási folyamat, hangolás és tanítóhalmaz növelés}
 

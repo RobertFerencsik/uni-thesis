@@ -29,12 +29,12 @@
 \select@language {magyar} \contentsline {subsection}{\numberline {4.1.1}Modell architektúra}{21}{subsection.4.1.1}%
 \select@language {magyar} \contentsline {subsection}{\numberline {4.1.2}Hiperparaméter-tér és optimalizálási stratégia}{22}{subsection.4.1.2}%
 \select@language {magyar} \contentsline {subsubsection}{Tanítási folyamat, hangolás és tanítóhalmaz növelés}{23}{section*.8}%
-\select@language {magyar} \contentsline {section}{\numberline {4.2}Implementáció}{23}{section.4.2}%
-\select@language {magyar} \contentsline {subsection}{\numberline {4.2.1}Modell implementáció}{25}{subsection.4.2.1}%
-\select@language {magyar} \contentsline {subsection}{\numberline {4.2.2}Adatbetöltés és előfeldolgozás}{25}{subsection.4.2.2}%
-\select@language {magyar} \contentsline {subsection}{\numberline {4.2.3}Hiperparaméter-keresés implementációja}{25}{subsection.4.2.3}%
-\select@language {magyar} \contentsline {subsection}{\numberline {4.2.4}Tanítási pipeline implementáció}{25}{subsection.4.2.4}%
-\select@language {magyar} \contentsline {subsection}{\numberline {4.2.5}Kiértékelési metrikák implementációja}{25}{subsection.4.2.5}%
-\select@language {magyar} \contentsline {chapter}{\numberline {5}Kísérletek futtatások és eredmények}{26}{chapter.5}%
-\select@language {magyar} \contentsline {chapter}{\numberline {6}Összefoglalás és továbbhaladási irány}{27}{chapter.6}%
-\select@language {magyar} \contentsline {chapter}{Források}{28}{chapter*.9}%
+\select@language {magyar} \contentsline {section}{\numberline {4.2}Implementáció}{25}{section.4.2}%
+\select@language {magyar} \contentsline {subsection}{\numberline {4.2.1}Állomány és konfigurációk kezelése}{25}{subsection.4.2.1}%
+\select@language {magyar} \contentsline {subsection}{\numberline {4.2.2}Modell, hiperparaméterek és tanulási görbe}{26}{subsection.4.2.2}%
+\select@language {magyar} \contentsline {chapter}{\numberline {5}Kísérletek futtatások és eredmények}{27}{chapter.5}%
+\select@language {magyar} \contentsline {section}{\numberline {5.1}Előfeldolgzoás és tokenizálás}{27}{section.5.1}%
+\select@language {magyar} \contentsline {section}{\numberline {5.2}Hiperparaméter keresés}{27}{section.5.2}%
+\select@language {magyar} \contentsline {section}{\numberline {5.3}Tanulási görbe}{27}{section.5.3}%
+\select@language {magyar} \contentsline {chapter}{\numberline {6}Összefoglalás és továbbhaladási irány}{28}{chapter.6}%
+\select@language {magyar} \contentsline {chapter}{Források}{29}{chapter*.9}%

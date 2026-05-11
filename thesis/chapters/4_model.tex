@@ -2,18 +2,111 @@
 
 \section{Modelltervezés}
 
-\subsection{BiLSTM alapú modell architektúra}
+A dolgozatban alkalmazott klasszifikációs modell egy kétirányú hosszú rövid távú memóriával rendelkező neurális architektúra, amely bináris szövegklasszifikációs feladatot valósít meg.
+A modell célja annak meghatározása, hogy egy elektronikus levél kéretlen vagy valódi üzenet kategóriába tartozik-e.
 
-\subsection{Kimeneti réteg és veszteségfüggvény}
+A modell bemenetét tokenazonosítók sorozata képezi, amelyeket a korábban ismertetett SentencePiece tokenizáló állít elő. Kimenete pedig egy 0 és 1 közé eső szám, 
+valószínűség annak, hogy a szekvencia kéretlen üzenet. Egy küszöbbel (értéke 0.5) bináris döntést hozunk. Ha a valószínűség nagyobb mint 0.5 akkor kéretlen az üzenet.
+
+\subsection{Modell architektúra}
+
+A kéretlen üzenetek bináris osztályozására egy kétirányú hossszú rövid távú memória neurális hálón alapuló architektúra használata mellett esett a döntés. 
+A modell célja a szöveges üzenetek szekvenciális reprezentációjának hatékony feldolgozása a szövegkörnyezet mindkét irányból való figyelembevételével.
+
+A bemenetek változó hosszúságúak, ezért feldolgozás során \textbf{kitöltés} (padding) alkalmazása szükséges, és ezek a kitöltő tokenek ne járulhassanak hozzá a tanulható tokenekhez. 
+A beágyazási réteg feladatai közé tartozik ezen tokenek kezelése, mely az első réteg az architektúrában. Ebben a rétegben történik a token azonosítók egész számokból való kontextus gazdag vektorrá alakítása.
+Ezt követően jönnek a hosszú rövid távú memória rétegek, ezek kimenete az utolsó réteg mindkét irányú rejtett állapotainak összefűzése.
+
+Ezt a kimenetet két \textbf{teljesen összekapcsolt} (Dense) lineáris réteg követi melyek feladata az osztályozás, közöttük egy \textbf{egyenirányíott lineáris egység} (Rectified Linear Unit, ReLU) aktivációs függvény 
+és egy \textbf{lemorzsolás} (\textbf{dropout}) regularizáció kerül alkalmazásra, a nem linearitás biztosítás és túlliszkedés csökkentése érdekében a modell általánosító képességének javítása érdekében. A második 
+teljesen összekapcsolt réteg kimenete egyetlen neuront tartalmaz, amely logit értéket állít elő.
+
 
 \subsection{Hiperparaméter-tér és optimalizálási stratégia}
 
-\subsection{Tanítási stratégia és konvergencia elvárások}
+A megfelelő paraméterek kiválasztása az F1 érték maximális értéke szerint történik, random hiperparaméter keresés során az előredefiniált értéktartományokból 
+pseudo véletlenszerűen kerül kiválasztásra az érték minden paraméter essetében a rekreálhatósáág érdekében, majd ezekkel a paraméterekkel egy új modell kerül tanításra. A tanítás folyamata a következő 
+alfelyezetben kerül bemutatásra.
 
+A cél a keresési tér kialakításakor olyan paramétertartományok meghatározása, amelyek megfelelő egyensúlyt biztosítanak a modell reprezentációs képessége, 
+a tanítás stabilitása és a számítási költség között. A vizsgált hiperparaméterek az alábbiak:
 
-\section{Implementáció}
+\begin{itemize}
 
-\subsection{Modell implementáció (BiLSTM osztály)}
+    \item \textbf{Maximális szekvenciahossz}  
+    A modell által feldolgozható tokenek maximális számát határozza meg. Az alsó határ olyan érték kell legyen, amely még elegendő kontextust biztosít a szöveg reprezentálásához, 
+     a maximális hossz növeli a memóriaigényt és a számítási költséget. A \Aref{fig:token-length-by-split} ábra alapján ez az érték \textbf{500--1000} token közé kell essen. Habár 800 token 
+    hossz felett már elenyésző az üzenetek száma.
+    
+    \item \textbf{Batch méret}  
+    Az egy iteráció során feldolgozott minták számát jelenti. A minimális értéket a tanítás stabilitása és a túl zajos gradiensfrissítések elkerülése indokolja, 
+    míg a maximális értéket a rendelkezésre álló memória és a generalizációs képesség korlátozza, és \textbf{32--128} közötti értéket érdemes választani.
+    
+    \item \textbf{Szóbeágyazási dimenzió}  
+    A tokenek vektorreprezentációjának méretét adja meg a \textbf{beágyazási dimenzió} (embedding dimension). Méretének elégnek kell lennie a megfelelő szemantikai reprezentációhoz, 
+    de túl nagy dimenziószám esetén nő a túlilleszkedés veszélyes és megnő a paraméter szám, ez minimum és maximum érték elvárás a következő két másik rétegre is igaz így nem lesz ísmételten leírva. 
+    Tipikus dimenziószámok: \textbf{64, 128, 256}.
+    
+    \item \textbf{Rejtett réteg mérete}  
+    A hosszú rövid távú memória rejtett rétegeinek dimenzióját határozza meg, azaz konkréten az LSTM rétege dimenzióját. 
+    Minimális és maximális értéke ugyan azt a veszélyt hordozza magában mint a szóbeágyazási dimenzió. A dimenziószámok is megegyeznek.
+
+    \item \textbf{Rejtett rétegek száma}  
+    Az egymásra épített LSTM-rétegek számát jelenti. Az alsó határ tulajdonképpen az egy réteg, de egy rejtett réteget tartalmazó neurális háló nem mélytanulási módszer. 
+    A felső érték pedig a túlilleszkedés veszélye miatt kerül korlátozásra. Így a \textbf{2, 3} értékeket érdemes választani, persze a felső határ lehet magasabb.
+    
+    \item \textbf{Dropout arány}  
+    A dropout a regularizáció egyik módszere, amely során a tanítás alatt a neuronok egy része véletlenszerűen deaktiválásra kerül. 
+    Alkalmazásának célja a túlilleszkedés csökkentése és a modell általánosító képességének javítása. 
+    Túl alacsony érték esetén a regularizáció hatása elhanyagolható lehet, míg túl magas dropout arány mellett a modell tanulási képessége jelentősen romolhat. 
+    A gyakorlatban általában \textbf{0.1--0.5} közötti értékek használata tekinthető megfelelőnek.
+
+    \item \textbf{Teljesen összekapcsolt rejtett réteg mérete}  
+    Az osztályozó komponens \textbf{sűrű rétegének} (dense layer) dimenzióját határozza meg. 
+    Feladata az LSTM által előállított reprezentáció további feldolgozása és az osztályozási döntés támogatása. 
+    A túl alacsony dimenzió korlátozhatja a modell reprezentációs képességét, míg túl nagy érték esetén növekedhet a túlilleszkedés és a számítási költség. 
+    Tipikus választások a \textbf{32, 64, 128} dimenziók.
+
+    \item \textbf{Tanulási ráta}  
+    A tanulási ráta határozza meg a paraméterfrissítések lépésközét az optimalizáció során. 
+    Túl alacsony érték esetén a modell konvergenciája lassúvá válhat, míg túl magas tanulási ráta instabil tanítást vagy divergenciát eredményezhet. 
+    Mélytanulási modellek esetén általánosan \textbf{$10^{-5}$ és $10^{-2}$} közötti tartomány használata tekinthető megfelelőnek.
+
+    \item \textbf{Maximális gradiensnorma}  
+    A maximális gradiensnorma a gradiensklippelés felső korlátját adja meg, amely elsősorban a robbanó gradiens probléma kezelésére szolgál visszacsatolt neurális hálózatok esetén. 
+    Túl alacsony érték mellett a tanulás lelassulhat, míg túl magas korlát esetén a klippelés hatása elenyészővé válhat. 
+    A gyakorlatban jellemzően \textbf{0.5--5.0} közötti értékeket alkalmaznak.
+
+    \item \textbf{Epochok száma}  
+    Az epochok száma azt határozza meg, hogy a modell hányszor dolgozza fel a teljes tanítóhalmazt a tanítás során. 
+    Túl alacsony epochszám esetén a modell alultanulhat, míg túl magas érték mellett növekedhet a túlilleszkedés veszélye és a tanítási idő. 
+    NLP feladatok esetén általában \textbf{2--20} epoch közötti tartomány használata jellemző.
+    
+    \end{itemize}
+
+A diszkrét hiperparaméterek esetében előre definiált értékkészletből történt a mintavételezés, míg a folytonos paramétereknél intervallumalapú keresést alkalmaztunk. 
+A tanulási ráta logaritmikus skálán került mintavételezésre, mivel annak optimális értéke jellemzően több nagyságrendet is lefedhet.
+
+A lehetséges értékek közül a batch méret, dropout arány, tanulási ráta, maximális gradiensnorma és epochok száma a \cite{dlframeworkcovid19} alapján került közelítőleg kiválasztásra, 
+a többi értéknél a döntés alapja megvan fogalmazva a fenti táblázatban.
+
+\subsubsection{Tanítási folyamat, hangolás és tanítóhalmaz növelés}
+
+A tanítási folyamat tulajdonképpen koncepcionálisan teljesen megegyezik a hangolás és a növekményes tanítóhalmaz vizsgálata között. Az eltérés logikusan abból áll, 
+hogy a hiperparaméterek keresése során a tanító-, validációs- és teszt adathalmazok változatlanok, míg a hiperparaméterek és az előző gejezetben megállapított rétegek mérete és számossága random változnak a megadott értéktartományaikon. 
+Míg a másik esetben a tanítóhalmaz mérete növekszik kumulatívan, másnéven halmozódóan miközben hiperparaméterek és a többi adathalmaz változatlan marad. A \Aref{fig:train-flowchart} ábra 
+szemlélteti a tanítási folyamatot, mely az előkészítés, tanítás és kiértékelés részekből áll. 
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=1.0\textwidth]{images/traning_flow.drawio.png}
+    \caption{A tanítás folyamata részletesen.}
+    \label{fig:train-flowchart}
+\end{figure}
+
+\section{Implementáció}S
+
+\subsection{Modell implementáció}
 
 \subsection{Adatbetöltés és előfeldolgozás}
 
@@ -22,11 +115,3 @@
 \subsection{Tanítási pipeline implementáció}
 
 \subsection{Kiértékelési metrikák implementációja}
-
-\section{Tanítási dinamika és eredmények}
-
-\subsection{Tanulási görbék elemzése}
-
-\subsection{Kumulatív adathalmazon végzett tanítás hatása}
-
-\subsection{Hiperparaméterek hatásának értékelése}

@@ -26,20 +26,15 @@
 \select@language {magyar} \contentsline {subsection}{\numberline {3.3.5}Tokenizálás és validálása}{18}{subsection.3.3.5}%
 \select@language {magyar} \contentsline {chapter}{\numberline {4}A klasszifikációs modell és tanítási folyamat}{21}{chapter.4}%
 \select@language {magyar} \contentsline {section}{\numberline {4.1}Modelltervezés}{21}{section.4.1}%
-\select@language {magyar} \contentsline {subsection}{\numberline {4.1.1}BiLSTM alapú modell architektúra}{21}{subsection.4.1.1}%
-\select@language {magyar} \contentsline {subsection}{\numberline {4.1.2}Kimeneti réteg és veszteségfüggvény}{21}{subsection.4.1.2}%
-\select@language {magyar} \contentsline {subsection}{\numberline {4.1.3}Hiperparaméter-tér és optimalizálási stratégia}{21}{subsection.4.1.3}%
-\select@language {magyar} \contentsline {subsection}{\numberline {4.1.4}Tanítási stratégia és konvergencia elvárások}{21}{subsection.4.1.4}%
-\select@language {magyar} \contentsline {section}{\numberline {4.2}Implementáció}{21}{section.4.2}%
-\select@language {magyar} \contentsline {subsection}{\numberline {4.2.1}Modell implementáció (BiLSTM osztály)}{21}{subsection.4.2.1}%
-\select@language {magyar} \contentsline {subsection}{\numberline {4.2.2}Adatbetöltés és előfeldolgozás}{21}{subsection.4.2.2}%
-\select@language {magyar} \contentsline {subsection}{\numberline {4.2.3}Hiperparaméter-keresés implementációja}{21}{subsection.4.2.3}%
-\select@language {magyar} \contentsline {subsection}{\numberline {4.2.4}Tanítási pipeline implementáció}{21}{subsection.4.2.4}%
-\select@language {magyar} \contentsline {subsection}{\numberline {4.2.5}Kiértékelési metrikák implementációja}{21}{subsection.4.2.5}%
-\select@language {magyar} \contentsline {section}{\numberline {4.3}Tanítási dinamika és eredmények}{21}{section.4.3}%
-\select@language {magyar} \contentsline {subsection}{\numberline {4.3.1}Tanulási görbék elemzése}{21}{subsection.4.3.1}%
-\select@language {magyar} \contentsline {subsection}{\numberline {4.3.2}Kumulatív adathalmazon végzett tanítás hatása}{21}{subsection.4.3.2}%
-\select@language {magyar} \contentsline {subsection}{\numberline {4.3.3}Hiperparaméterek hatásának értékelése}{21}{subsection.4.3.3}%
-\select@language {magyar} \contentsline {chapter}{\numberline {5}Kísérletek, tesztek és eredmények}{22}{chapter.5}%
-\select@language {magyar} \contentsline {chapter}{\numberline {6}Összefoglalás és továbbhaladási irány}{23}{chapter.6}%
-\select@language {magyar} \contentsline {chapter}{Források}{24}{chapter*.8}%
+\select@language {magyar} \contentsline {subsection}{\numberline {4.1.1}Modell architektúra}{21}{subsection.4.1.1}%
+\select@language {magyar} \contentsline {subsection}{\numberline {4.1.2}Hiperparaméter-tér és optimalizálási stratégia}{22}{subsection.4.1.2}%
+\select@language {magyar} \contentsline {subsubsection}{Tanítási folyamat, hangolás és tanítóhalmaz növelés}{23}{section*.8}%
+\select@language {magyar} \contentsline {section}{\numberline {4.2}Implementáció}{23}{section.4.2}%
+\select@language {magyar} \contentsline {subsection}{\numberline {4.2.1}Modell implementáció}{25}{subsection.4.2.1}%
+\select@language {magyar} \contentsline {subsection}{\numberline {4.2.2}Adatbetöltés és előfeldolgozás}{25}{subsection.4.2.2}%
+\select@language {magyar} \contentsline {subsection}{\numberline {4.2.3}Hiperparaméter-keresés implementációja}{25}{subsection.4.2.3}%
+\select@language {magyar} \contentsline {subsection}{\numberline {4.2.4}Tanítási pipeline implementáció}{25}{subsection.4.2.4}%
+\select@language {magyar} \contentsline {subsection}{\numberline {4.2.5}Kiértékelési metrikák implementációja}{25}{subsection.4.2.5}%
+\select@language {magyar} \contentsline {chapter}{\numberline {5}Kísérletek futtatások és eredmények}{26}{chapter.5}%
+\select@language {magyar} \contentsline {chapter}{\numberline {6}Összefoglalás és továbbhaladási irány}{27}{chapter.6}%
+\select@language {magyar} \contentsline {chapter}{Források}{28}{chapter*.9}%

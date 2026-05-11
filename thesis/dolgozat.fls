@@ -515,6 +515,13 @@ OUTPUT chapters\4_model.aux
 INPUT .\chapters\4_model.tex
 INPUT .\chapters\4_model.tex
 INPUT chapters\4_model.tex
+INPUT .\images\traning_flow.drawio.png
+INPUT .\images\traning_flow.drawio.png
+INPUT .\images\traning_flow.drawio.png
+INPUT .\images\traning_flow.drawio.png
+INPUT .\images\traning_flow.drawio.png
+INPUT .\images\traning_flow.drawio.png
+INPUT .\images\traning_flow.drawio.png
 INPUT .\chapters\5_test.tex
 INPUT .\chapters\5_test.tex
 OUTPUT chapters\5_test.aux
@@ -609,6 +616,8 @@ INPUT C:\Users\rober\AppData\Local\Programs\MiKTeX\fonts\type1\public\amsfonts\c
 INPUT C:\Users\rober\AppData\Local\Programs\MiKTeX\fonts\type1\public\amsfonts\cm\cmr8.pfb
 INPUT C:\Users\rober\AppData\Local\Programs\MiKTeX\fonts\type1\public\amsfonts\cm\cmsy10.pfb
 INPUT C:\Users\rober\AppData\Local\Programs\MiKTeX\fonts\type1\public\amsfonts\cm\cmsy10.pfb
+INPUT C:\Users\rober\AppData\Local\Programs\MiKTeX\fonts\type1\public\amsfonts\cm\cmsy8.pfb
+INPUT C:\Users\rober\AppData\Local\Programs\MiKTeX\fonts\type1\public\amsfonts\cm\cmsy8.pfb
 INPUT C:\Users\rober\AppData\Local\Programs\MiKTeX\fonts\type1\public\amsfonts\latxfont\lcircle1.pfb
 INPUT C:\Users\rober\AppData\Local\Programs\MiKTeX\fonts\type1\public\amsfonts\latxfont\lcircle1.pfb
 INPUT C:\Users\rober\AppData\Local\Programs\MiKTeX\fonts\type1\public\txfonts\t1xbtt.pfb

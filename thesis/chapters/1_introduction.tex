@@ -8,7 +8,7 @@ Az internet széles körű elterjedése egy korábbi jelentős fordulópontot je
 míg napjainkban a mesterséges intelligencia új eszközöket biztosít mind a támadók, mind a védekezők számára.
 
 A köztudatban élő kép, miszerint a kiberbiztonság valós idejű „programozói párbajként” értelmezhető, nem tükrözi a valóság összetettségét. 
-A gyakorlatban a hangsúly sokkal inkább a már működő rendszerekben található sérülékenységek feltárásán és kezelésén van, hogy a támadók ne is férjenek hozzá olyan felülethez ahol kódot tudnak futtatni. 
+A gyakorlatban a hangsúly sokkal inkább a már működő rendszerekben található sérülékenységek feltárásán és kezelésén van, hogy a támadók ne is férjenek hozzá olyan felülethez, ahol kódot tudnak futtatni. 
 Ez a védelem nem csupán a forráskód minőségétől függ, hanem számos egyéb tényező együttes hatásának eredménye. 
 Ilyen tényező például a titkosítás, a megfelelő jogosultságkezelés, a helyes konfigurációk, és az emberi figyelem és tudás.
 
@@ -23,7 +23,7 @@ Az e-mail szolgáltatók fejlett szűrőrendszereket használnak annak érdekéb
 üzeneteket még a felhasználóhoz való eljutás előtt azonosítsák és elkülönítsék habár ez nem jelenti, hogy nem kerül kéretlen üzenet a levélfiókba. 
 
 Ezt a folyamatot klasszifikációnak, osztályba sorolásnak tekintjük. 
-Gépi módszerek számos fajtája alkalmazható, és ugyancsak sokféle adatból lehet döntést hozni egy e-mail kéretlen voltáról. 
+Gépi módszerek számos fajtája alkalmazható, és ugyancsak sokféle adatból lehet döntést hozni arról, hogy egy e-mail kéretlen-e. 
 A szöveg alapú megközelítések mellett a metaadatokból, hálózati jellemzőkből és viselkedési mintákból automata vagy félautomata módon információt 
 kinyerő modellek és ezek konkrét megvalósítása végtelen számú megoldást nyújt a feladatra.
 
@@ -37,7 +37,7 @@ amely a klasszikus módszerek esetében gyakran időigényes, szakértelmet igé
 Ezzel szemben a mély neurális hálózatok képesek közvetlenül a nyers adatokból automatikusan kinyerni a releváns jellemzőket és mintázatokat, 
 ezáltal a tanulási folyamat sokkal inkább adatvezéreltté és kevésbé emberi beavatkozást igénylővé válik.
 Ennek eredményeként a modell nemcsak hatékonyabban képes kezelni a nagy mennyiségű és komplex adatokat, hanem jobb általánosító képességet is mutathat új, 
-korábban nem látott példák esetén. Egy nagy hátrányt érdemes megemlíteni, a mélytanulási módszerek számítási költsége jelentős
+korábban nem látott példák esetén. Egy nagy hátrányt érdemes megemlíteni, a mélytanulási módszerek számítási költsége jelentős.
 Az egyik megközelítés a \textbf{kéretlen levél} (spam) és \textbf{valódi levél} (ham) kategóriák osztályba sorolására a természetes nyelvű szekvenciák vizsgálata. 
 Ezen dolgozat ezt veszi alapul, és vizsgálja mélytanulási módszerekkel. 
 Időben vagy térben folytonos sorrendű adatok feldolgozására már korlátozottabb az eszköztár. 
@@ -50,7 +50,7 @@ Az osztályozási döntés során nem kizárólag egyes kulcsszavak jelenlétét
 Ennek köszönhetően a modell képes összetettebb nyelvi és stilisztikai mintázatok felismerésére is, amelyek hozzájárulnak az e-mailek pontosabb osztályozásához.
 
 A dolgozat fókusza a hosszú-rövid távú memória (LSTM) architektúrán alapuló szövegosztályozás gyakorlati vizsgálata. 
-A LSTM-alapú megközelítés a dolgozat során implementációval és kísérletekkel kerül bemutatásra, beleértve a modell felépítését, 
+Az LSTM-alapú megközelítés a dolgozat során implementációval és kísérletekkel kerül bemutatásra, beleértve a modell felépítését, 
 tanítását és kiértékelését.
 
 A kutatás további célja a modell megfelelő felépítésének és optimális paraméterezésének kialakítása mellett 

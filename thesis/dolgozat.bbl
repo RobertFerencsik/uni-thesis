@@ -51,6 +51,58 @@
     \field{year}{2012}
   \endentry
 
+  \entry{mlltclassificationbilstm}{article}{}{}
+    \name{author}{5}{}{%
+      {{hash=EL}{%
+         family={Enamoto},
+         familyi={E\bibinitperiod},
+         given={Liriam},
+         giveni={L\bibinitperiod},
+      }}%
+      {{hash=SA}{%
+         family={Santos},
+         familyi={S\bibinitperiod},
+         given={Andre},
+         giveni={A\bibinitperiod},
+      }}%
+      {{hash=MR}{%
+         family={Maia},
+         familyi={M\bibinitperiod},
+         given={Ricardo},
+         giveni={R\bibinitperiod},
+      }}%
+      {{hash=WL}{%
+         family={Weigang},
+         familyi={W\bibinitperiod},
+         given={Li},
+         giveni={L\bibinitperiod},
+      }}%
+      {{hash=FG}{%
+         family={Filho},
+         familyi={F\bibinitperiod},
+         given={Geraldo},
+         giveni={G\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{EL+1}
+    \strng{fullhash}{ELSAMRWLFG1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{E}
+    \field{sortinithash}{E}
+    \verb{doi}
+    \verb 10.1504/IJCAT.2022.125186
+    \endverb
+    \field{pages}{369}
+    \field{title}{Multi-label legal text classification with BiLSTM and
+  attention}
+    \field{volume}{68}
+    \field{journaltitle}{International Journal of Computer Applications in
+  Technology}
+    \field{month}{01}
+    \field{year}{2022}
+  \endentry
+
   \entry{ibmThinkAI}{online}{}{}
     \name{author}{1}{}{%
       {{hash=I}{%
@@ -94,6 +146,31 @@
     \verb https://www.ibm.com/think/topics/confusion-matrix
     \endverb
     \field{urlday}{11}
+    \field{urlmonth}{05}
+    \field{urlyear}{2026}
+  \endentry
+
+  \entry{ibmThinkLearningRate}{online}{}{}
+    \name{author}{1}{}{%
+      {{hash=I}{%
+         family={{IBM}},
+         familyi={I\bibinitperiod},
+      }}%
+    }
+    \list{organization}{1}{%
+      {{International Business Machines Corporation (IBM)}}%
+    }
+    \strng{namehash}{I1}
+    \strng{fullhash}{I1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{I}
+    \field{sortinithash}{I}
+    \field{title}{What is learning rate in machine learning?}
+    \verb{url}
+    \verb https://www.ibm.com/think/topics/learning-rate
+    \endverb
+    \field{urlday}{12}
     \field{urlmonth}{05}
     \field{urlyear}{2026}
   \endentry
@@ -372,6 +449,37 @@
     \field{urlyear}{2026}
   \endentry
 
+  \entry{qin2023bilstm_attention}{article}{}{}
+    \name{author}{1}{}{%
+      {{hash=QH}{%
+         family={Qin},
+         familyi={Q\bibinitperiod},
+         given={Hao},
+         giveni={H\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{QH1}
+    \strng{fullhash}{QH1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{Q}
+    \field{sortinithash}{Q}
+    \verb{doi}
+    \verb 10.25236/AJCIS.2023.061314
+    \endverb
+    \field{number}{13}
+    \field{pages}{92\bibrangedash 98}
+    \field{title}{BiLSTM Text Classification Incorporating Attentional
+  Mechanisms}
+    \verb{url}
+    \verb https://francis-press.com/uploads/papers/louD4xcIlZAI6NdXMO126npbxAqY
+    \verb c0cxIOMK41gW.pdf
+    \endverb
+    \field{volume}{6}
+    \field{journaltitle}{Academic Journal of Computing \& Information Science}
+    \field{year}{2023}
+  \endentry
+
   \entry{ibmThinkNLP}{online}{}{}
     \name{author}{2}{}{%
       {{hash=SC}{%
@@ -535,6 +643,29 @@
     \verb https://github.com/MWiechmann/enron_spam_data
     \endverb
     \field{urlday}{06}
+    \field{urlmonth}{05}
+    \field{urlyear}{2026}
+  \endentry
+
+  \entry{xbeat_gradient_clipping_lr_scheduling}{misc}{}{}
+    \name{author}{1}{}{%
+      {{hash=x}{%
+         family={{xbeat}},
+         familyi={x\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{x1}
+    \strng{fullhash}{x1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{X}
+    \field{sortinithash}{X}
+    \field{title}{Gradient Clipping and Learning Rate Scheduling in Python}
+    \verb{url}
+    \verb https://github.com/xbeat/Machine-Learning/blob/main/Gradient%20Clippi
+    \verb ng%20and%20Learning%20Rate%20Scheduling%20in%20Python.md
+    \endverb
+    \field{urlday}{12}
     \field{urlmonth}{05}
     \field{urlyear}{2026}
   \endentry

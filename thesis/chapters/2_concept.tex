@@ -52,11 +52,11 @@ A folyamat végén az \textbf{osztályozó} (classifier) a dokumentumot a megfel
 
 A hagyományos megközelítésekkel szemben a mélytanulási módszerek kiküszöbölik a kézzel készített szabályok és kézi jellemzőkinyerés szükségességét, mivel képesek az adatokból automatikusan, szemantikailag gazdag és kontextusérzékeny reprezentációkat tanulni. Ez a tulajdonság lehetővé teszi a \textbf{mély neurális hálózatok} (Deep Neural Network, DNN) számára, hogy olyan összetett nyelvi mintázatokat, hosszú távú függőségeket és finom szemantikai különbségeket is megragadjanak, amelyeket a hagyományos technikák jellemzően nem képesek megfelelő pontossággal modellezni. Ennek következtében a szövegosztályozás területén végzett jelenkori kutatások döntő része mély neurális hálózatokra épül, amelyek adatvezérelt architektúrákként automatikusan képesek hierarchikus jellemzők kinyerésére, és számos alkalmazási területen a legkorszerűbb teljesítményt biztosítják. Ugyanakkor a mélytanulási modellek hatékony működéséhez általában jelentős számítási kapacitásra és nagy méretű, annotált tanítóadatokra van szükség. Emiatt a \textbf{hagyományos gépi tanulási} (Traditional Machine Learning) módszerek iránti érdeklődés elsősorban azokban a szcenáriókban maradt fenn, ahol a számítási erőforrások korlátozottak, az adatmennyiség csekély, vagy valós idejű feldolgozási követelmények teszik szükségessé a könnyebb, kompaktabb modellek alkalmazását.
 
-Két nagy osztályba sorolhatók a szövegosztályozási technikák, az \textbf{adattudomány} (Data Science) és a \textbf{mesterséges intelligencia} (Artificial Intelligence) alá~\cite{taha2024textclassificationsurvey}.
+A szövegosztályozási technikák két nagy csoportba sorolhatók: \textbf{adattudomány} (Data Science) és \textbf{mesterséges intelligencia} (Artificial Intelligence)~\cite{taha2024textclassificationsurvey}.
 
 Itt érdemes megemlíteni, hogy ez a két osztály nem diszjunkt, hanem az adattudomány egy szélesebb terület, amelynek egyik eszköze lehet a mesterséges intelligencia. Ezt a következtetést definíciójukból le lehet vonni.
 
-Az adattudomány: Olyan tudományág, amely tudományos módszereket, folyamatokat és rendszereket alkalmaz az adatokból származó ismeretek és betekintések kinyerésére”~\cite{uscensusDatascience} (saját fordítás).
+Az adattudomány: „Olyan tudományág, amely tudományos módszereket, folyamatokat és rendszereket alkalmaz az adatokból származó ismeretek és betekintések kinyerésére”~\cite{uscensusDatascience} (saját fordítás).
 
 A mesterséges intelligencia egyik definíciója: „Egy technológia, amely felruházza a számítógépeket és gépeket az emberi tanulás, megértés, problémamegoldás, döntéshozatal, kreativitás és önállóság utánzásának képességével”~\cite{ibmThinkAI} (saját fordítás).
 
@@ -75,13 +75,13 @@ A felhasznált módszerek két csoportban kerülnek bemutatásra. Az első csopo
 
 \subsubsection{Tukey interkvartilis tartomány}
 
-Az adathalmazt tekintve az üzenetek hossza egy nagyon eltérő tartományon oszlik el. A rövid pár szavastól egészen a hosszú üzenet váltásokig, 
-melyek akár százezres nagyságrenbe is lépnek karakterszám tekintetében. A döntés meghozatala, hogy mely üzenet túl rövid mely túl hosszú statisztikai alapon fekszik. 
+Az adathalmazt tekintve az üzenetek hossza egy nagyon eltérő tartományon oszlik el. A rövid, pár szavas üzenetektől egészen a hosszú üzenetváltásokig, 
+melyek akár százezres nagyságrendbe is lépnek karakterszám tekintetében. A döntés meghozatala, hogy melyik üzenet túl rövid, és melyik túl hosszú, statisztikai alapon fekszik. 
 Méghozzá \textbf{Tukey interkvartilis módszerén} (Tukey’s Interquartile Range Method, Tukey’s IQR-method).
 
 Az \textbf{interkvartilis tartomány} (interquartile range, IQR) egy statisztikai mutató mely információt ad az adatok eloszlásáról, 
 azonban egyike azon módszereknek melyet nem befolyásol jelentősen az adatok nem normális jellege, 
-esetünkben az eloszlás \textbf{ferdesége} (skewness). Az harmadik (Q3) és első kvartilis (Q1) különbsége adja értékét ~\cite{procogiaIQR}.
+esetünkben az eloszlás \textbf{ferdesége} (skewness). A harmadik (Q3) és első kvartilis (Q1) különbsége adja értékét ~\cite{procogiaIQR}.
 
 \[
 IQR = Q_3 - Q_1
@@ -114,14 +114,14 @@ Az ilyen jellegű tanítás lehetővé teszi, hogy a modellek mélyebb szemantik
 \subsubsection{SentencePiece tokenizálás}
 
 A Kudo és Richardson által 2018-ban bemutatott SentencePiece egy nyelvfüggetlen résszavas tokenizáló rendszer mely képes nyers, zajos szövegekből 
-szókészlet tanulásra.
+szókészlet-tanulásra.
 
 A működésének alapja egy statisztikai szegmentáló algoritmus alkalmazása a szöveg apróbb egységekre bontására, előfeldolgozás (tokenizálás, kisbetűsítés stb.)
- szüksége nélkül. a teljes betanítás során a beviteli szövegben található karakterláncokat közvetlenül a modell megtanulja, nem kell előre tokenizált szavakkal dolgozni
+ szüksége nélkül. A teljes betanítás során a beviteli szövegben található karakterláncokat közvetlenül a modell megtanulja, nem kell előre tokenizált szavakkal dolgozni
  . Ennek eredményeként a SentencePiece nyelvfüggetlen feldolgozást tesz lehetővé: ugyanazon algoritmus alkalmazható bármilyen nyelven, akár szóközzel tagolt (angol), akár összefüggő (japán, kínai) szövegeken is, és egyetlen, előre rögzített méretű szótárra építve hozza létre a tokeneket
  \cite{kudo-richardson-2018-sentencepiece}.
 
- A módszer további előnye a veszteségmentes tokenizáció, mellyel a különleges karaterek sőt még a szóközök információja is megmarad. 
+ A módszer további előnye a veszteségmentes tokenizáció, mellyel a különleges karakterek, sőt még a szóközök információja is megmarad. 
  Így visszaállítható az eredeti szöveg és bármikor biztonságosan reprodukálható a tokenizációs folyamat. 
  Illetve alkalmazása jelentősen csökkenti a hagyományos jellemzőtervezés szükségességét, és elősegíti a modellek számára a 
  releváns mintázatok tanulását \cite{kudo-richardson-2018-sentencepiece}.
@@ -133,7 +133,7 @@ A működésének alapja egy statisztikai szegmentáló algoritmus alkalmazása 
 
  Az irodalomban nem sűrűn fordul elő, ha egyáltalán előfordul, a SentencePiece használata hosszú-rövid távú memória modellek esetében. Ennek oka a két módszer 
 megjelenésének időpontja és aktív használata lehet. A hosszú-rövid távú memória modellek korszakában, körülbelül 2015-től 2019-ig még a Word2Vec, 
-GloVe és sima szó tokenizálást volt a jellemző, míg a SentencePiece elsősorban a Tranformer, BERT, többnyelvű módszerekkel lett népszerű.
+GloVe és a sima szó-tokenizálás volt a jellemző, míg a SentencePiece elsősorban a Transformer, BERT, többnyelvű módszerekkel lett népszerű.
 
 \subsection{Modell}
 
@@ -143,13 +143,13 @@ A \textbf{kétirányú hosszú-rövid távú memória} (Bidirectional Long Short
 egy továbbfejlesztett változata. A klasszikus LSTM modellekkel ellentétben, amelyek a szöveget csak egy irányban (balról jobbra) dolgozzák fel, 
 a BiLSTM architektúra két különálló LSTM réteget alkalmaz. Az egyik a bemeneti szekvenciát előre, a másik pedig visszafelé dolgozza fel. 
 Ennek eredményeként a modell minden token esetében hozzáfér mind az előző, mind a következő kontextushoz, 
-ami jelentősen javítja szöveges reprezentáció minőségét\cite{zhou2016textclassificationimprovedintegrating}.
+ami jelentősen javítja a szöveges reprezentáció minőségét\cite{zhou2016textclassificationimprovedintegrating}.
 
 Szövegklasszifikációs feladatok esetében ez különösen előnyös, mivel a szavak jelentése erősen függ a környező tokenektől, 
 és gyakran a későbbi kontextus is szükséges a helyes értelmezéshez. 2016-ban kimutatták, hogy a kétirányú hosszú-rövid távú memória 
 modellek hatékonyabban képesek modellezni a hosszabb távú összefüggéseket a szövegben mint az egyirányú hosszú-rövid távú memória modellek \cite{LIU2019325}.
 
-További módszerekkel még pontosabb eredményeket lehet elérni, például a \textbf{figyelm} (attention) mechanizmusának alkalmazásával,
+További módszerekkel még pontosabb eredményeket lehet elérni, például a \textbf{figyelem} (attention) mechanizmusának alkalmazásával,
  azonban ezekre a módszerekre a jelen dolgozat nem tér ki. 
 
 \subsubsection{Véletlenszerű hiperparaméter-keresés}
@@ -162,9 +162,9 @@ hanem az előre megállapított tartományból véletlenszerűen mintavételez. 
 mivel hasonló teljesítményű beállítást talál a modellnek az idő töredéke alatt, és jelentősen kevesebb számítási kapacitást igényel. 
 Ugyanakkora számítási erőforrás mellett a véletlenszerű próbálkozás több különböző kombinációt fed le, így nagyobb eséllyel talál magára a fontos beállításokra. 
 Szóval a véletlenszerű keresés megtartva a rácskeresés előnyeit, (egyszerű implementálás, egyértelmű párhuzamosítás), 
-magas dimenziójú feladatokban komony hatákonyság növekedést eredményez \cite{randomsearch}.
+magas dimenziójú feladatokban komoly hatékonyság növekedést eredményez \cite{randomsearch}.
 
-Az adott feladathoz egyszerűsége és gyors implementálhatósága elengedhetelen volt, mivel adott kérdésekre ad választ a dolgozat, nem egy gyártásba tervezett módszer, 
+Az adott feladathoz egyszerűsége és gyors implementálhatósága elengedhetetlen volt, mivel adott kérdésekre ad választ a dolgozat, nem egy gyártásba tervezett módszer, 
 így az időköltség volt az első szempont. Ez a módszer pedig megfelelő értékeket ad a hiperparaméterek optimalizálására.
 }
 
@@ -203,21 +203,21 @@ valós és predikált osztályok közötti összefüggéseket mutatja. A mátrix
 
 A konfúziós mátrix alapján került kiszámításra a pontosság (precision), a visszahívás (recall) és az F1-érték (F1-score) \cite{ibm_confusion_matrix}. 
 
-A pontosság azt mutatja meg, hogy a pozitívnak prediktált minták közül mennyi volt valóban pozitív, amelyet az \ref{eq:precision}. egyenlet definiál.
+A pontosság azt mutatja meg, hogy a pozitívnak prediktált minták közül mennyi volt valóban pozitív, amelyet az \ref{eq:precision} egyenlet definiál.
 
 \begin{equation}
 \text{Pontosság} = \frac{TP}{TP + FP}
 \label{eq:precision}
 \end{equation}
 
-A visszahívás azt fejezi ki, hogy a tényleges pozitív minták hány százalékát sikerült helyesen azonosítani, amelyet az \ref{eq:recall}. egyenlet ír le.
+A visszahívás azt fejezi ki, hogy a tényleges pozitív minták hány százalékát sikerült helyesen azonosítani, amelyet az \ref{eq:recall} egyenlet ír le.
 
 \begin{equation}
 \text{Visszahívás} = \frac{TP}{TP + FN}
 \label{eq:recall}
 \end{equation}
 
-Az F1-érték a pontosság és visszahívás harmonikus átlaga, amely kiegyensúlyozott teljesítménymutatót biztosít, különösen osztály-egyensúlytalanság esetén \cite{ibm_confusion_matrix}. Az F1-érték számítását az \ref{eq:f1}. egyenlet mutatja be.
+Az F1-érték a pontosság és visszahívás harmonikus átlaga, amely kiegyensúlyozott teljesítménymutatót biztosít, különösen osztály-egyensúlytalanság esetén \cite{ibm_confusion_matrix}. Az F1-érték számítását az \ref{eq:f1} egyenlet mutatja be.
 
 \begin{equation}
 F1 = 2 \cdot \frac{\text{Pontosság} \cdot \text{Visszahívás}}{\text{Pontosság} + \text{Visszahívás}}

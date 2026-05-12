@@ -2,4 +2,249 @@
 
 \section{Előfeldolgozás és tokenizálás}
 
+Az előfeldolgozás és tokenizálás részletes szakmai indoklása a korábbi fejezetekben került bemutatásra; ebben a fejezetben ezekre a lépésekre mint kísérleti előfeltételekre hivatkozunk.
+A kísérletek célja itt már nem a nyelvi normalizálás vagy a tokenizáló algoritmus minősítése, hanem annak vizsgálata, hogy a kiválasztott előfeldolgozási lánc mellett milyen modellkonfiguráció ad stabil, reprodukálható és gyakorlati környezetben is használható osztályozási teljesítményt.
+
+A tokenizált bemenetek hossz-eloszlásának elemzése alapján a szekvenciahossz felső korlátja közvetlenül befolyásolja a memóriaigényt és a futási időt.
+Ez a kapcsolat a hiperparaméter-optimalizálás során különösen hangsúlyos volt, mert a futásidő-limit nem csupán kényelmi kérdésként jelent meg, hanem ténylegesen meghatározta, hogy egy teljes keresési tér lefuttatható-e a rendelkezésre álló hardveren.
+
 \section{Hiperparaméter-optimalizálás és tanulási görbe elemzés}
+
+Ebben a szakaszban a hiperparaméter-optimalizálás és a kumulatív tanítóhalmazos tanulási görbe elemzésének teljes, többfázisú folyamata kerül bemutatásra.
+A vizsgálat központi kérdése az volt, hogy hogyan lehet egy erős, de kezdetben instabil és számításigényes konfigurációs teret úgy átalakítani, hogy a tanítás futásideje vállalható maradjon, miközben a modell általánosító képessége ne romoljon.
+Az optimalizálás célfüggvénye minden fázisban az F1-érték volt, mert spamklasszifikáció esetén a pontosság (precision) és a visszahívás (recall) egyidejű kontrollja szükséges.
+A kísérleti folyamat három egymást követő fázisból állt:
+\begin{itemize}
+    \item \textbf{1. fázis:} széles hiperparaméter-tér, megszakított futás (\texttt{doc/data/tuning\_interrupt}),
+    \item \textbf{2. fázis:} szűkített, stabilabb tér (\texttt{doc/data/tuning\_train\_fitted\_hyperpar}),
+    \item \textbf{3. fázis:} konzervatívabb hiperparaméter-konfiguráció és tanulási görbe (\texttt{data/models/tuning}, \texttt{data/models/learning\_curve}).
+\end{itemize}
+
+\subsection{Kísérleti környezet, metrika és döntési szabály}
+
+A futtatások egyetlen lokális gépen történtek, ezért a számítási költség közvetlenül korlátozta a kipróbálható konfigurációk számát.
+A mérések során használt hardver és környezet:
+\begin{itemize}
+    \item \textbf{GPU:} NVIDIA GeForce RTX 5050 Laptop GPU,
+    \item \textbf{GPU memória:} 8151 MiB VRAM,
+    \item \textbf{Rendszermemória:} 33617924096 byte (kb. 31.3 GiB),
+    \item \textbf{Python:} 3.10.0,
+    \item \textbf{PyTorch:} 2.11.0+cu130,
+    \item \textbf{CUDA runtime:} 13.0.
+\end{itemize}
+
+A kiértékelés minden trial végén azonos döntési küszöbbel (\texttt{threshold = 0.5}) történt.
+Ez az egységes küszöb összehasonlíthatóvá tette a futásokat, ugyanakkor a későbbi elemzésben láthatóvá vált, hogy szélsőséges konfigurációk esetén a fix küszöb nagy kilengéseket is felerősíthet (például túl sok hamis negatív vagy hamis pozitív döntés esetén).
+
+\subsection{A három fázis keresési tere}
+
+A három kísérleti fázis közötti legfontosabb különbség a hiperparaméter-tér fokozatos szűkítése volt.
+Az \ref{tab:search-space-phases}. táblázat összefoglalja a változtatások irányát.
+
+\begin{table}[htbp]
+    \centering
+    \caption{A hiperparaméter-tér módosítása a három fázisban.}
+    \label{tab:search-space-phases}
+    \begin{tabular}{|l|l|l|l|}
+        \hline
+        \textbf{Hiperparaméter} & \textbf{1. fázis} & \textbf{2. fázis} & \textbf{3. fázis} \\
+        \hline
+        Max. szekvenciahossz & [512, 800, 1024] & [500, 600, 700, 800] & [500, 600, 700] \\
+        \hline
+        Batch méret & [32, 64, 128] & [32, 64, 128] & [32, 64, 128] \\
+        \hline
+        Embedding dimenzió & [64, 128, 256] & [64, 128, 256] & [64, 128, 256] \\
+        \hline
+        Hidden size & [64, 128, 256, 384] & [64, 128, 256] & [64, 128] \\
+        \hline
+        LSTM rétegek száma & [1, 2, 3] & [2, 3] & [2] \\
+        \hline
+        Dropout & [0.15, 0.55] & [0.15, 0.50] & [0.15, 0.50] \\
+        \hline
+        Dense hidden & [32, 64, 128] & [32, 64, 128] & [32, 64, 128] \\
+        \hline
+        Learning rate & [0.00005, 0.003] & [0.00005, 0.003] & [0.00005, 0.002] \\
+        \hline
+        Max grad norm & [0.2, 3.0] & [0.5, 3.0] & [0.5, 3.0] \\
+        \hline
+        Epochok száma & [2, 3, 4, 5] & [2, 3, 4] & [2, 3] \\
+        \hline
+    \end{tabular}
+\end{table}
+
+A táblázatból látható, hogy a második fázisban a szélsőségesen drága és instabil konfigurációk kizárása volt a fő cél, a harmadik fázisban pedig már tudatosan konzervatív, alacsonyabb varianciát adó keresési tér kialakítása történt.
+Ez a gyakorlatban azt jelentette, hogy a modellcsalád expresszivitása nem szűnt meg, de az erősen túlparaméterezett és kis mintán instabil viselkedésre hajlamos kombinációk aránya jelentősen csökkent.
+
+\subsection{Első fázis: széles keresési tér és megszakított futás}
+
+Az első fázis (\texttt{doc/data/tuning\_interrupt}) célja eredetileg az volt, hogy széles keresési térben felmérhető legyen, milyen teljesítményszint érhető el a rendelkezésre álló architektúrával.
+A futtatás azonban gyakorlati okból megszakadt: a 10. trial több mint négy órán keresztül futott, ezért a kísérlet manuálisan leállításra került.
+Ez a pont már önmagában fontos eredmény, mert rámutat arra, hogy a keresési tér nemcsak statisztikai, hanem \textit{üzemeltetési} szempontból is optimalizálandó.
+
+A mappában 9 teljesen kiértékelt trial található.
+Ezek alapján:
+\begin{itemize}
+    \item \textbf{legjobb F1:} 0.9807 (\texttt{trial\_006}),
+    \item \textbf{legrosszabb F1:} 0.0033 (\texttt{trial\_007}),
+    \item \textbf{átlagos F1:} 0.8514.
+\end{itemize}
+
+Az első fázis egyik legfontosabb tanulsága a szélsőséges variancia.
+A legjobb és legrosszabb trial közötti különbség több nagyságrendnyi minőségeltérést jelentett.
+A \texttt{trial\_007} esete különösen informatív, mert bár a precision érték magas volt, a recall gyakorlatilag összeomlott, ezért az F1 szinte nullához közeli lett.
+Ez tipikusan azt jelzi, hogy a modell döntési felülete nagyon egyoldalúvá vált, vagyis a konfiguráció a pozitív osztály nagyon kis részét találta meg.
+
+Módszertani szempontból ez a fázis két okból is hasznos maradt a megszakítás ellenére:
+\begin{enumerate}
+    \item bizonyította, hogy a keresési tér tartalmaz kiváló konfigurációkat;
+    \item kimutatta, hogy ugyanebben a térben számos olyan kombináció is van, amely instabil, és a rendelkezésre álló hardveren aránytalanul drága.
+\end{enumerate}
+
+Ennek alapján a második fázis tervezése már célzottan a kockázatos tartományok visszaszorítására épült.
+
+\subsection{Második fázis: szűkített keresési tér és stabilabb tuning}
+
+A második fázisban (\texttt{doc/data/tuning\_train\_fitted\_hyperpar}) a keresési tér szűkítésével 20 trial teljes lefutása megtörtént.
+Ez önmagában is minőségi előrelépés az első fázishoz képest, mert megszűnt az a helyzet, hogy egyetlen trial aránytalanul hosszú futási ideje miatt a teljes keresési ciklus félbeszakadjon.
+
+A 20 trial összesített képe:
+\begin{itemize}
+    \item \textbf{átlagos F1:} 0.9536,
+    \item \textbf{legjobb F1:} 0.9814 (\texttt{trial\_003}),
+    \item \textbf{legrosszabb F1:} 0.8900 (\texttt{trial\_002}).
+\end{itemize}
+
+A fázis legjobb három konfigurációja:
+\begin{itemize}
+    \item \texttt{trial\_003}: max\_length=800, batch=32, emb=128, hidden=256, layers=3, dropout=0.4333, lr=0.001117, grad\_norm=0.899, epoch=3;
+    \item \texttt{trial\_014}: max\_length=500, batch=64, emb=128, hidden=64, layers=3, dropout=0.1511, lr=0.001805, grad\_norm=1.158, epoch=4;
+    \item \texttt{trial\_018}: max\_length=600, batch=32, emb=256, hidden=128, layers=2, dropout=0.2428, lr=0.000283, grad\_norm=1.029, epoch=4.
+\end{itemize}
+
+Ezek a top konfigurációk fontos közös mintázatot mutatnak:
+\begin{itemize}
+    \item egyik sem épít a korábbi legszélsőségesebb méretre (például 384-es hidden),
+    \item a learning rate mindhárom esetben kontrollált tartományban marad,
+    \item a rétegszám 2--3 között stabilan működik.
+\end{itemize}
+
+Ez a fázis tehát azt igazolta, hogy a keresési tér átgondolt szűkítésével egyszerre javítható a gyakorlati futtathatóság és a teljesítmény reprodukálhatósága.
+Különösen fontos eredmény, hogy a legrosszabb trial is elfogadható F1-et adott, vagyis a futások közötti variancia érdemben csökkent.
+
+\subsection{Harmadik fázis: konzervatívabb tér és tanulási görbe}
+
+A harmadik fázis célja már nem elsősorban a maximális csúcsteljesítmény keresése volt, hanem a kumulatív tanítóhalmazos tanulási görbe stabilizálása.
+Ehhez a keresési tér tovább szűkült (\texttt{data/models/tuning}), majd a kiválasztott konfigurációval a learning curve futtatás a \texttt{data/models/learning\_curve} mappába készült.
+
+A tuningfázis összesítése ebben a körben:
+\begin{itemize}
+    \item \textbf{trialek száma:} 20,
+    \item \textbf{átlagos F1:} 0.9473,
+    \item \textbf{legjobb F1:} 0.9817 (\texttt{trial\_006}),
+    \item \textbf{legrosszabb F1:} 0.8364 (\texttt{trial\_001}).
+\end{itemize}
+
+A legjobb trial hiperparaméterei:
+\begin{itemize}
+    \item max\_length=700,
+    \item batch\_size=32,
+    \item embedding\_dim=64,
+    \item hidden\_size=64,
+    \item num\_layers=2,
+    \item dropout\_rate=0.4948,
+    \item dense\_hidden=32,
+    \item learning\_rate=0.001222,
+    \item max\_grad\_norm=1.450,
+    \item num\_epochs=3.
+\end{itemize}
+
+Ez a konfiguráció jól illeszkedik a konzervatívabb keresési stratégiához: kisebb hidden méret, fixen két LSTM réteg, rövidebb tanítási ciklus.
+
+\subsubsection{Tanulási görbe: részhalmazonkénti eredmények}
+
+A kumulatív tanítóhalmaz-növelés 10 részhalmazos futásban készült.
+Az \ref{tab:learning-curve-portions}. táblázat a fő metrikákat tartalmazza.
+
+\begin{table}[htbp]
+    \centering
+    \caption{Tanulási görbe metrikák részhalmazonként (kumulatív tanítóhalmaz).}
+    \label{tab:learning-curve-portions}
+    \begin{tabular}{|l|r|r|r|r|}
+        \hline
+        \textbf{Részhalmaz} & \textbf{Corpus size} & \textbf{Precision} & \textbf{Recall} & \textbf{F1} \\
+        \hline
+        portion\_01\_of\_10 & 1739 & 0.8814 & 0.7903 & 0.8334 \\
+        \hline
+        portion\_02\_of\_10 & 3478 & 0.8988 & 0.9356 & 0.9168 \\
+        \hline
+        portion\_03\_of\_10 & 5217 & 0.9307 & 0.9620 & 0.9461 \\
+        \hline
+        portion\_04\_of\_10 & 6956 & 0.9658 & 0.9049 & 0.9344 \\
+        \hline
+        portion\_05\_of\_10 & 8695 & 0.9585 & 0.9696 & 0.9640 \\
+        \hline
+        portion\_06\_of\_10 & 10434 & 0.9595 & 0.9538 & 0.9566 \\
+        \hline
+        portion\_07\_of\_10 & 12173 & 0.9801 & 0.9581 & 0.9689 \\
+        \hline
+        portion\_08\_of\_10 & 13911 & 0.9736 & 0.9762 & 0.9749 \\
+        \hline
+        portion\_09\_of\_10 & 15649 & 0.9705 & 0.9663 & 0.9684 \\
+        \hline
+        portion\_10\_of\_10 & 17387 & 0.9665 & 0.9812 & 0.9738 \\
+        \hline
+    \end{tabular}
+\end{table}
+
+A táblázat két fontos mintázatot mutat:
+\begin{enumerate}
+    \item \textbf{globális javulási trend:} a korai részhalmazhoz képest az F1 a teljes tanítóhalmaz közelében érdemben magasabb;
+    \item \textbf{lokális fluktuációk:} a görbe nem szigorúan monoton, de a második felében tartósan magas teljesítményszintet tart.
+\end{enumerate}
+
+Ez gyakorlati szempontból azt jelenti, hogy a modell általánosító képessége növekvő adatmennyiséggel javul, miközben a kisebb visszaesések már nem jelentenek teljesítmény-összeomlást, csak lokális varianciát.
+Az utolsó három részhalmaz F1-értékei közel vannak egymáshoz, ezért a görbe a végső szakaszban platójellegű viselkedést mutat.
+
+\subsection{A 0.5-ös küszöb és az instabil konfigurációk hatása}
+
+A fix \texttt{threshold = 0.5} beállítás minden futásban egységes értékelést biztosított.
+Ugyanakkor az első fázisban látott szélsőséges esetek rámutattak, hogy instabil konfigurációknál a küszöb hatása felerősödhet: a modellpredikciók eltolódása miatt nagyon aszimmetrikus precision--recall párok is megjelenhetnek.
+Ez különösen akkor kritikus, ha a modell egy osztály felé torzul.
+
+A második és harmadik fázis eredményei alapján viszont látható, hogy a probléma elsődlegesen nem a küszöbben, hanem a túl széles és részben agresszív hiperparaméter-térben volt.
+Amint a keresési tér konzervatívabbá vált, a 0.5-ös küszöb mellett is lényegesen stabilabb metrikák adódtak.
+Ezért ebben a dolgozatban a küszöböt nem külön optimalizáltuk, hanem kontrollált konstansként kezeltük.
+
+\subsection{Összegzés: kompromisszumok és tanulságok}
+
+A teljes kísérletsor alapján a következő következtetések fogalmazhatók meg:
+\begin{itemize}
+    \item \textbf{Futásidő kontra keresési szélesség:} a túl széles tér gyakorlati futtatásban nem hatékony, mert hosszú és instabil trialeket generálhat.
+    \item \textbf{Stabilitás kontra csúcsteljesítmény:} a konzervatívabb tér kis mértékben szűkíti a potenciális maximumot, de jelentősen javítja a reprodukálhatóságot.
+    \item \textbf{Generalizáció kontra komplexitás:} a kisebb és visszafogottabb konfigurációk a tanulási görbében kiegyensúlyozottabb trendet adtak.
+    \item \textbf{Metrika-választás:} az F1 célfüggvényként jól működött, mert egyszerre érzékeny a precision és recall változására.
+\end{itemize}
+
+Összességében a többfázisú optimalizálási stratégia nemcsak a legjobb trial megtalálását szolgálta, hanem egy olyan kísérleti protokoll kialakítását is, amely hardverkorlát mellett is megbízható.
+A fő eredmény ezért nem pusztán egyetlen maximális F1-érték, hanem az a folyamat, amelyben a keresési tér, a futási költség és a teljesítménystabilitás közötti kompromisszum kontrollálhatóvá vált.
+
+\subsection{Korlátok és továbbfejlesztési lehetőségek}
+
+A bemutatott eredmények mellett fontos a korlátok rögzítése:
+\begin{itemize}
+    \item a futások egyetlen hardverkörnyezetben történtek;
+    \item a trialek száma véges, ezért ritka, de jó konfigurációk kimaradhatnak;
+    \item a learning curve egyetlen futásra épül részhalmazonként, ismétlések nélküli átlagolással;
+    \item a döntési küszöb fixen 0.5 maradt.
+\end{itemize}
+
+A következő fejlesztési lépések szakmailag indokoltak:
+\begin{enumerate}
+    \item több seedes futtatás és átlagolt learning curve;
+    \item validációs küszöboptimalizálás (precision--recall kompromisszum mentén);
+    \item erőforrás-függő, adaptív keresési stratégia (korai leállítással);
+    \item a legjobb konfigurációk környezetében finomabb, lokális hiperparaméter-keresés.
+\end{enumerate}
+
+Ezekkel a lépésekkel a dolgozatban felépített keretrendszer könnyen továbbvihető lenne ipari vagy kutatási környezetben is, anélkül hogy az eddigi eredmények reprodukálhatósága sérülne.
+

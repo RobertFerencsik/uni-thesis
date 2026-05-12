@@ -51,15 +51,15 @@ Message ID,Subject,Message,Spam/Ham,Date
 \end{verbatim}
 
 A címkék egyensúlyban vannak, csupán egy százalékponttal tér el a két osztály aránya. Számszerűsítve a spam üzenetek száma 17.171 azaz 50.93\%, 
-míg ham üzenetek száma 16.545 azaz 49.07\%. Ez fontos információ a modellezés során, mivel így a \textbf{torzítás} (bias) könnyebben elkerülhető,
+míg a ham üzenetek száma 16.545 azaz 49.07\%. Ez fontos információ a modellezés során, mivel így a \textbf{torzítás} (bias) könnyebben elkerülhető,
 és a pontosság kiértékelésekor nem félrevezető. 
 
 A tárgy és az üzenet törzse fontos információ, mivel ezek alapján kerül implementálásra az osztályba sorolás, ezek nyers karakteres formátumúak, 
-és tartalmaznak metadatokat is, idő feladó stb. Zajosak, speciális karaktereket, táblázatokat, linkeket, és a az Enron céghez kapcsolódó specikius nyelvezetet tartalmaznak. 
+és tartalmaznak metadatokat is, idő, feladó stb. Zajosak, speciális karaktereket, táblázatokat, linkeket, és az Enron céghez kapcsolódó specifikus nyelvezetet tartalmaznak. 
 Azonban nem tartalmaznak nagybetűt, és a speciális karakterek köré szóközöket illesztettek, melyek elméletben az adatok gépi módszerrel való feldolgozását nehezítik.
 A címkék formátuma szöveges spam és ham alakban jelenik meg. A dátum oszlopban a bejegyzések alakja éééé-hh-nn formátumot követi. 
 
-A hiányzó adatokról, különböző mintázatokról és duplikációk számáról a következő táblázatok adnak informácitó.
+A hiányzó adatokról, különböző mintázatokról és duplikációk számáról a következő táblázatok adnak információt.
 
 \begin{table}[H]
     \centering
@@ -101,8 +101,8 @@ A hiányzó adatokról, különböző mintázatokról és duplikációk számár
     \caption{A szöveges adatokban detektált mintázatok és előfordulások}
 \end{table}
 
-Az üzentek hossz eloszlása karakter szerint erősen jobbra ferde (\Aref{fig:raw-corpus-message-length-char}. ábra), az átlag jóval nagyobb mint a medián (átlag: 1365, medián: 613), 
-mely azt jelenit, hogy a rövid üzenetek száma magas, azonban van néhány extrém hosszú üzenet ami felfeléhúzza az átlagot. A maximális karakterszámú üzenet 214.422 terjedelmű.
+Az üzenetek hosszának eloszlása karakter szerint erősen jobbra ferde (\Aref{fig:raw-corpus-message-length-char}. ábra), az átlag jóval nagyobb, mint a medián (átlag: 1365, medián: 613), 
+mely azt jelenti, hogy a rövid üzenetek száma magas, azonban van néhány extrém hosszú üzenet, ami felfelé húzza az átlagot. A maximális karakterszámú üzenet 214.422 terjedelmű.
 
 \begin{figure}[htbp]
   \centering
@@ -115,12 +115,12 @@ mely azt jelenit, hogy a rövid üzenetek száma magas, azonban van néhány ext
 
 \subsection{Előfeldolgozás szükségessége}
 
-Különböző feladatok és eszközök használatakor különböző kihívások és célok merülnek fel. A rövid-hosszú távú memóra modellek esetében két fő célja van az előfeldolgozási lépésnek.
+Különböző feladatok és eszközök használatakor különböző kihívások és célok merülnek fel. A hosszú-rövid távú memória modellek esetében két fő célja van az előfeldolgozási lépésnek.
 Az egyik a zaj csökkentése, hogy a tanítás során a helyes összefüggések kerüljenek feltárásra. A másik a szókincs csökkentése mely nagy összetett feladatok esetében is 30.000 maximum 50.000 token. 
 
 \subsection{Előfeldolgozási folyamat}
 
-\Aref{fig:preproc-notebook-flow}. folyamat ábra magasszinten mutatja be a lépések közötti kapcsolatot és alapot ad az ábrát követő magyarázatokhoz.
+\Aref{fig:preproc-notebook-flow}. folyamatábra magas szinten mutatja be a lépések közötti kapcsolatot és alapot ad az ábrát követő magyarázatokhoz.
 
 \begin{figure}[htbp]
 \centering
@@ -240,9 +240,9 @@ A notebook bemenetét a feldolgozott tanító-, validációs- és tesztadathalma
 a generált tokenkészlet, valamint az egyes szövegek tokenazonosító-sorozatai pickle formátumban.
 
 A tokenizáló tanítását a train metódus biztosította, az alábbi kódrészleten látszódik, 
-hogy ebben a lépésben került meghatározásra a szószedet mérete, melynek értéke 30.000 (különböző) token volt.
+hogy ebben a lépésben került meghatározásra a szókészlet mérete, melynek értéke 30.000 (különböző) token volt.
 A \texttt{user\_defined\_symbols} paraméterben kerültek megadásra a speciális szimbólumok, amelyeket a tokenizáló modellnek nem kellett tovább bontania.
-A Unigram modell előnye az volt, hogy az ismeretlen szavakat jól kezelte, rugalmas részszavas szegmentálást biztosított, és az \texttt{character\_coverage} 1.0 értéke biztosította, 
+Az Unigram modell előnye az volt, hogy az ismeretlen szavakat jól kezelte, rugalmas részszavas szegmentálást biztosított, és az \texttt{character\_coverage} 1.0 értéke biztosította, 
 hogy az összes karakter feldolgozásra került.
 
 \begin{python}[caption={Példa: tokenizálás memóriában},label=py:token-ex]
@@ -272,10 +272,10 @@ szintén kirajzolásra került, itt azonban a tokenek száma alapján, és az \A
 
 A tokenizált tanítóhalmazon szókészlet-lefedettségi elemzés is készült. Az elemzés során meghatározásra kerültek az egyes tokenek előfordulási gyakoriságai, 
 majd kiszámításra került a kumulatív lefedettségük. Az eredmények alapján megfigyelhető volt, hogy a leggyakoribb tokenek viszonylag kis része a teljes tokenállomány jelentős részét lefedte, 
-ami összhangban állt a természetes nyelvekre jellemző Zipf-eloszlással. Ezzel alátámasztva a tokenizálás sikerességét, azonban a 30 leggyakoribb token is kiiratásra került, mert fontos volt ellenőrizni
+ami összhangban állt a természetes nyelvekre jellemző Zipf-eloszlással. Ezzel alátámasztva a tokenizálás sikerességét, azonban a 30 leggyakoribb token is kiíratásra került, mert fontos volt ellenőrizni
 a gyakori tokenek jelentését. Nem meglepő módon a leggyakoribb token a szóköz karakter volt, amely aláhúzással lett reprezentálva. 
 Az első tíz között sok speciális karakter található volt még, mint például a vessző és kettőspont, de itt szerepelt a szám- és URL-maszk is. 
-A továbbiak között már megjelentek a rövidebb gyakori szavak és szó részletek, mint a your, of, \texttt{\_to, \_ing}. 
+A továbbiak között már megjelentek a rövidebb gyakori szavak és szórészletek, mint a your, of, \texttt{\_to, \_ing}. 
 Az első harminc token a tanító adathalmazban megfelelt a lefedettség ötven százalékának. 
 
 \begin{figure}[htbp]

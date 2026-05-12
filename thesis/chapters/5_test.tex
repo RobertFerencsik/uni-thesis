@@ -2,15 +2,15 @@
 
 \section{Hiperparaméter-optimalizálás és tanulási görbe}
 
-Ebben a fejezetben a hiperparaméter-optimalizálás folyamata, valamint a kumulatív tanítóhalmazos tanulási görbe elemzése kerül bemutatásra. 
+Ebben a fejezetben a hiperparaméter-optimalizálás folyamata, valamint a kumulatív tanítóhalmazos tanulási görbe elemzése kerül bemutatásra.
 A vizsgálat elsődleges célja annak meghatározása volt, hogy milyen hiperparaméter-konfiguráció mellett képes a modell stabil és reprodukálható teljesítményt nyújtani, illetve hogyan változik az általánosító képessége a tanítóhalmaz méretének fokozatos növelésével.
 
-A hiperparaméter-optimalizálás során nem kizárólag a lehető legmagasabb teljesítmény elérése volt a cél, bár a végső kiválasztása a paramétereknek a maximális F1-érték alapján történt, 
-így stabil modelviselkedést a keresési tér szűkítésével lehetett elérni. Az F1-érték a pontosság és visszahívás harmonikus átlaga, bünteti a torzítást és kiegyensúlyozott képet ad modell teljesítményéről.
+A hiperparaméter-optimalizálás során nem kizárólag a lehető legmagasabb teljesítmény elérése volt a cél. Bár a paraméterek végső kiválasztása a maximális F1-érték alapján történt, a stabil modellviselkedést a keresési tér szűkítésével lehetett elérni.
+Az F1-érték a precízió és a visszahívás harmonikus átlaga, érzékeny az osztályozási torzításokra, és kiegyensúlyozott képet ad a modell teljesítményéről.
 
-A teljes optimalizálási folyamat három egymásra épülő fázisban valósult meg. 
-Az első fázis célja a széles hiperparaméter-tér feltérképezése volt annak érdekében, hogy megállapítható legyen a paraméter tér megfelelő beállítása.
-A második fázisban a keresési tér szűkítésére került sor, amelynek célja a stabilabb és hatékonyabban futtatható konfigurációk előtérbe helyezése volt. 
+A teljes optimalizálási folyamat három egymásra épülő fázisban valósult meg.
+Az első fázis célja a széles hiperparaméter-tér feltérképezése volt annak érdekében, hogy megállapítható legyen a paramétertér megfelelő beállítása.
+A második fázisban a keresési tér szűkítésére került sor, amelynek célja a stabilabb és hatékonyabban futtatható konfigurációk előtérbe helyezése volt.
 A harmadik fázisban már egy tudatosan konzervatívabb keresési stratégia került alkalmazásra, amely a tanulási görbe vizsgálatához szükséges stabil modellviselkedést támogatta.
 
 \subsection{Kísérleti környezet}
@@ -25,13 +25,13 @@ A futtatások egyetlen lokális gépen történtek, a mérések során használt
     \item \textbf{CUDA runtime:} 13.0.
 \end{itemize}
 
-Erőforrás igény és futási idő metrikák nem kerültek rögzítésre.
+Erőforrás-igény és futásidő-metrikák nem kerültek rögzítésre.
 
 \subsection{A három fázis keresési tere}
 
 A három kísérleti fázis közötti legfontosabb különbséget a hiperparaméter-tér fokozatos szűkítése jelentette.
 Az egyes iterációk során a korábbi futások tapasztalatai alapján kerültek módosításra a keresési tartományok annak érdekében, hogy csökkenjen az instabil vagy aránytalanul erőforrás-igényes konfigurációk száma.
-Az \ref{tab:search-space-phases}. táblázat összefoglalja a három fázisban alkalmazott keresési tereket.
+A \ref{tab:search-space-phases} táblázat összefoglalja a három fázisban alkalmazott keresési tereket.
 
 \begin{table}[htbp]
     \centering
@@ -66,3 +66,42 @@ Az \ref{tab:search-space-phases}. táblázat összefoglalja a három fázisban a
 
 A második fázisban a cél elsősorban a szélsőségesen lassú konfigurációk kizárása volt, míg a harmadik fázisban már egy tudatosan konzervatívabb, kisebb varianciát és stabil működést eredményező keresési tér került kialakításra.
 Ennek eredményeként jelentősen csökkent az olyan túlparaméterezett konfigurációk aránya, amelyek instabil tanulási viselkedést vagy aránytalanul magas futási költséget okoztak.
+
+\subsection{Első fázis: kezdetleges keresési tér}
+
+Az első fázis célja egy széles hiperparaméter-tér feltérképezése volt annak érdekében, hogy meghatározható legyen, milyen teljesítményszint érhető el a választott BiLSTM architektúrával.
+Ebben a szakaszban a hangsúly még nem a stabilitáson vagy a futási költségen volt, hanem a keresési tér általános viselkedésének megfigyelésén.
+A futtatás azonban gyakorlati okból megszakításra került.
+A tizedik próba futási ideje meghaladta a négy órát, ezért a folyamat manuálisan leállításra került.
+Ez már önmagában fontos eredménynek tekinthető, mivel rámutat arra, hogy a hiperparaméter-optimalizálás során nem elegendő kizárólag a metrikák maximalizálására koncentrálni.
+A keresési tér kialakításánál a rendelkezésre álló hardver, a memóriahasználat és a futási idő is meghatározó szempont.
+
+A megszakítás ellenére összesen kilenc teljesen kiértékelt próba állt rendelkezésre.
+Az eredmények alapján:
+\begin{itemize}
+    \item \textbf{legjobb F1-érték:} 0.9807 (a hatodik próbában),
+    \item \textbf{legrosszabb F1-érték:} 0.0033 (a hetedik próbában),
+    \item \textbf{átlagos F1-érték:} 0.8514.
+\end{itemize}
+
+Különösen informatívnak bizonyult a \texttt{trial\_007} eredménye.
+Ebben az esetben a precízió értéke magas maradt, miközben a visszahívás közel nullára csökkent, ezért az F1-érték gyakorlatilag összeomlott.
+Ez arra utal, hogy a modell erősen egyoldalú döntési viselkedést vett fel, vagyis csak nagyon kevés pozitív mintát ismert fel helyesen.
+Ilyen jelenség tipikusan akkor figyelhető meg, amikor a konfiguráció túl agresszív tanulási dinamikát vagy instabil reprezentációt eredményez.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.55\textwidth]{images/7_interrupted_test_confusion_matrix.png}
+    \caption{A \texttt{trial\_007} konfúziós mátrixa. A modell egyoldalú döntése alapján a teszt halmazon öt darab kivételével az összes üzenet helytelenül valódi üzenetként került felcímkézésre.}
+    \label{fig:trial007-confusion}
+\end{figure}
+
+A \ref{fig:trial007-confusion} ábrán látható konfúziós mátrix jól mutatja, hogy a \textbf{precízió} (precision) önmagában nem tekinthető megfelelő mérőszámnak, amit a \ref{fig:trial007-loss} ábra is alátámaszt.
+A precízió akár 0.5 körüli értékre is adódhat akkor, ha a modell szinte kizárólag egyetlen osztályt prediktál.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.55\textwidth]{images/7_interrupted_training_curves.png}
+    \caption{A \texttt{trial\_007} tanulási görbéje. Leolvasható a precízió értéke, amely önmagában nem jelenti a tanítás sikerességét.}
+    \label{fig:trial007-loss}
+\end{figure}

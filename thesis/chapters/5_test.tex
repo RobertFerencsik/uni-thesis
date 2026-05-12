@@ -92,16 +92,27 @@ Ilyen jelenség tipikusan akkor figyelhető meg, amikor a konfiguráció túl ag
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=0.55\textwidth]{images/7_interrupted_test_confusion_matrix.png}
-    \caption{A \texttt{trial\_007} konfúziós mátrixa. A modell egyoldalú döntése alapján a teszt halmazon öt darab kivételével az összes üzenet helytelenül valódi üzenetként került felcímkézésre.}
+    \caption{A \texttt{trial\_007} konfúziós mátrixa. A modell egyoldalú döntése alapján a teszthalmazon öt darab kivételével az összes üzenet helytelenül valódi üzenetként került felcímkézésre.}
     \label{fig:trial007-confusion}
 \end{figure}
 
-A \ref{fig:trial007-confusion} ábrán látható konfúziós mátrix jól mutatja, hogy a \textbf{precízió} (precision) önmagában nem tekinthető megfelelő mérőszámnak, amit a \ref{fig:trial007-loss} ábra is alátámaszt.
-A precízió akár 0.5 körüli értékre is adódhat akkor, ha a modell szinte kizárólag egyetlen osztályt prediktál.
+A \ref{fig:trial007-confusion} ábrán látható konfúziós mátrix jól mutatja, hogy a \textbf{pontosság} (accuracy) önmagában nem tekinthető megfelelő mérőszámnak, amit a \ref{fig:trial007-curve} ábra is alátámaszt.
+A pontosság akár 0.5 körüli értékre is adódhat akkor, ha a modell szinte kizárólag egyetlen osztályt prediktál.
 
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=0.55\textwidth]{images/7_interrupted_training_curves.png}
-    \caption{A \texttt{trial\_007} tanulási görbéje. Leolvasható a precízió értéke, amely önmagában nem jelenti a tanítás sikerességét.}
-    \label{fig:trial007-loss}
+    \caption{A \texttt{trial\_007} tanulási görbéje. Leolvasható a pontosság értéke, amely önmagában nem jelenti a tanítás sikerességét.}
+    \label{fig:trial007-curve}
+\end{figure}
+
+A \textbf{tanulási veszteség} (training loss) a tanító adathalmazon, batch-ekre bontva számított veszteségfüggvény értéke, amely a modell predikciói és a valódi címkék közötti eltérést méri, és a tanulási folyamat során a súlyok frissítésének alapját képezi. Ezzel szemben a \textbf{validációs veszteség} (validation loss) a validációs adathalmazon számított veszteség, amely a modell általánosító képességének értékelésére szolgál, és nem vesz részt a paraméterek frissítésében.
+
+A legrosszabb tanítási futás (\ref{fig:trial007-curve}) és a legjobb futás (\ref{fig:trial006-curve}) összehasonlítása alapján megfigyelhető, hogy a megfelelően tanított modell esetében mind a tanulási, mind a validációs veszteség csökken, míg a gyengébb teljesítményű futás során mindkét érték kis mértékben nőtt.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.55\textwidth]{images/6_interrupted_training_curves.png}
+    \caption{A \texttt{trial\_006} tanulási görbéje. Leolvasható a pontosság értéke, amely önmagában nem jelenti a tanítás sikerességét.}
+    \label{fig:trial006-curve}
 \end{figure}

@@ -33,9 +33,8 @@
 \select@language {magyar} \contentsline {subsection}{\numberline {4.2.1}Állomány és konfigurációk kezelése}{24}{subsection.4.2.1}%
 \select@language {magyar} \contentsline {subsection}{\numberline {4.2.2}Modell, hiperparaméterek és tanulási görbe}{25}{subsection.4.2.2}%
 \select@language {magyar} \contentsline {chapter}{\numberline {5}Kísérletek és eredmények}{26}{chapter.5}%
-\select@language {magyar} \contentsline {section}{\numberline {5.1}Előfeldolgozás és tokenizálás}{26}{section.5.1}%
-\select@language {magyar} \contentsline {section}{\numberline {5.2}Hiperparaméter-optimalizálás és tanulási görbe}{26}{section.5.2}%
-\select@language {magyar} \contentsline {subsection}{\numberline {5.2.1}Kísérleti környezet, metrika és döntési szabály}{26}{subsection.5.2.1}%
-\select@language {magyar} \contentsline {subsection}{\numberline {5.2.2}A három fázis keresési tere}{27}{subsection.5.2.2}%
+\select@language {magyar} \contentsline {section}{\numberline {5.1}Hiperparaméter-optimalizálás és tanulási görbe}{26}{section.5.1}%
+\select@language {magyar} \contentsline {subsection}{\numberline {5.1.1}Kísérleti környezet}{26}{subsection.5.1.1}%
+\select@language {magyar} \contentsline {subsection}{\numberline {5.1.2}A három fázis keresési tere}{27}{subsection.5.1.2}%
 \select@language {magyar} \contentsline {chapter}{\numberline {6}Összefoglalás és továbbhaladási irány}{28}{chapter.6}%
 \select@language {magyar} \contentsline {chapter}{Források}{29}{chapter*.9}%

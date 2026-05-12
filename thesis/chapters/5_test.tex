@@ -1,27 +1,19 @@
 \chapter{Kísérletek és eredmények}
 
-\section{Előfeldolgozás és tokenizálás}
-
-Az előfeldolgozás és tokenizálás részletes szakmai indoklása a korábbi fejezetekben került bemutatásra, ebben a fejezetben ezekre a lépésekre mint kísérleti előfeltételekre hivatkozunk.
-A kísérletek célja itt már nem a nyelvi normalizálás vagy a tokenizáló algoritmus minősítése, hanem annak vizsgálata, hogy a kiválasztott előfeldolgozási lánc mellett milyen modellkonfiguráció ad stabil, reprodukálható és gyakorlati környezetben is használható osztályozási teljesítményt.
-
-A tokenizált bemenetek hossz-eloszlásának elemzése alapján a szekvenciahossz felső korlátja közvetlenül befolyásolja a memóriaigényt és a futási időt.
-Ez a kapcsolat a hiperparaméter-optimalizálás során különösen hangsúlyos volt, mert a futásidő-limit nem csupán kényelmi kérdésként jelent meg, hanem a számítást végző laptop korltjait is számításba került.
-
 \section{Hiperparaméter-optimalizálás és tanulási görbe}
 
-Ebben az alfejezetben a hiperparaméter-optimalizálás és a kumulatív tanítóhalmazos tanulási görbe többfázisú folyamata kerül bemutatásra.
-A vizsgálat központi kérdése az volt, hogy hogyan hat a modell álltalánosító képességére a tanító halmaz méretének növelése, ezt megelőzően pedig az adathalmahoz a megfelelő hiper paraméterek meghatározása volt a feladat.
-Az optimalizálás célfüggvénye minden fázisban az F1-érték volt, mert álltalános spam klasszifikáció esetén ez egy megfelelő megközelítés, a címkék aránya kiegyensúlyozott.
+Ebben a fejezetben a hiperparaméter-optimalizálás folyamata, valamint a kumulatív tanítóhalmazos tanulási görbe elemzése kerül bemutatásra. 
+A vizsgálat elsődleges célja annak meghatározása volt, hogy milyen hiperparaméter-konfiguráció mellett képes a modell stabil és reprodukálható teljesítményt nyújtani, illetve hogyan változik az általánosító képessége a tanítóhalmaz méretének fokozatos növelésével.
 
-A kísérleti folyamat három iterációban valósult meg:
-\begin{itemize}
-    \item \textbf{1. fázis:} széles hiperparaméter-tér, megszakított futás,
-    \item \textbf{2. fázis:} szűkített, stabilabb tér,
-    \item \textbf{3. fázis:} konzervatívabb hiperparaméter-konfiguráció és tanulási görbe.
-\end{itemize}
+A hiperparaméter-optimalizálás során nem kizárólag a lehető legmagasabb teljesítmény elérése volt a cél, bár a végső kiválasztása a paramétereknek a maximális F1-érték alapján történt, 
+így stabil modelviselkedést a keresési tér szűkítésével lehetett elérni. Az F1-érték a pontosság és visszahívás harmonikus átlaga, bünteti a torzítást és kiegyensúlyozott képet ad modell teljesítményéről.
 
-\subsection{Kísérleti környezet, metrika és döntési szabály}
+A teljes optimalizálási folyamat három egymásra épülő fázisban valósult meg. 
+Az első fázis célja a széles hiperparaméter-tér feltérképezése volt annak érdekében, hogy megállapítható legyen a paraméter tér megfelelő beállítása.
+A második fázisban a keresési tér szűkítésére került sor, amelynek célja a stabilabb és hatékonyabban futtatható konfigurációk előtérbe helyezése volt. 
+A harmadik fázisban már egy tudatosan konzervatívabb keresési stratégia került alkalmazásra, amely a tanulási görbe vizsgálatához szükséges stabil modellviselkedést támogatta.
+
+\subsection{Kísérleti környezet}
 
 A futtatások egyetlen lokális gépen történtek, a mérések során használt hardver és környezet a következő volt:
 \begin{itemize}
@@ -33,13 +25,13 @@ A futtatások egyetlen lokális gépen történtek, a mérések során használt
     \item \textbf{CUDA runtime:} 13.0.
 \end{itemize}
 
-A kiértékelés minden trial végén azonos döntési küszöbbel (\texttt{threshold = 0.5}) történt.
-Ez az egységes küszöb összehasonlíthatóvá tette a futásokat, ugyanakkor a későbbi elemzésben láthatóvá vált, hogy szélsőséges konfigurációk esetén a fix küszöb nagy kilengéseket is felerősíthet, legrosszabb esetben a teszt halmazon való predikció az összes levelezést egy kategóriába sorolta.
+Erőforrás igény és futási idő metrikák nem kerültek rögzítésre.
 
 \subsection{A három fázis keresési tere}
 
-A három kísérleti fázis közötti legfontosabb különbség a hiperparaméter-tér fokozatos szűkítése volt.
-Az \ref{tab:search-space-phases}. táblázat összefoglalja a változtatások irányát.
+A három kísérleti fázis közötti legfontosabb különbséget a hiperparaméter-tér fokozatos szűkítése jelentette.
+Az egyes iterációk során a korábbi futások tapasztalatai alapján kerültek módosításra a keresési tartományok annak érdekében, hogy csökkenjen az instabil vagy aránytalanul erőforrás-igényes konfigurációk száma.
+Az \ref{tab:search-space-phases}. táblázat összefoglalja a három fázisban alkalmazott keresési tereket.
 
 \begin{table}[htbp]
     \centering
@@ -72,5 +64,5 @@ Az \ref{tab:search-space-phases}. táblázat összefoglalja a változtatások ir
     \end{tabular}
 \end{table}
 
-A táblázatból látható, hogy a második fázisban a szélsőségesen drága és instabil konfigurációk kizárása volt a fő cél, a harmadik fázisban pedig már tudatosan konzervatív, alacsonyabb varianciát adó keresési tér kialakítása történt.
-Ez a gyakorlatban azt jelentette, hogy az erősen túlparaméterezett instabil viselkedésre hajlamos kombinációk aránya jelentősen csökkent.
+A második fázisban a cél elsősorban a szélsőségesen lassú konfigurációk kizárása volt, míg a harmadik fázisban már egy tudatosan konzervatívabb, kisebb varianciát és stabil működést eredményező keresési tér került kialakításra.
+Ennek eredményeként jelentősen csökkent az olyan túlparaméterezett konfigurációk aránya, amelyek instabil tanulási viselkedést vagy aránytalanul magas futási költséget okoztak.

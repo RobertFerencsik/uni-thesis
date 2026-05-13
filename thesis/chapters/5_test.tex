@@ -72,19 +72,19 @@ Ennek eredményeként jelentősen csökkent az olyan túlparaméterezett konfigu
 Az első fázis célja egy széles hiperparaméter-tér feltérképezése volt annak érdekében, hogy meghatározható legyen, milyen teljesítményszint érhető el a választott BiLSTM architektúrával.
 Ebben a szakaszban a hangsúly még nem a stabilitáson vagy a futási költségen volt, hanem a keresési tér általános viselkedésének megfigyelésén.
 A futtatás azonban gyakorlati okból megszakításra került.
-A tizedik próba futási ideje meghaladta a négy órát, ezért a folyamat manuálisan leállításra került.
+A tizedik kísérlet futási ideje meghaladta a négy órát, ezért a folyamat manuálisan leállításra került.
 Ez már önmagában fontos eredménynek tekinthető, mivel rámutat arra, hogy a hiperparaméter-optimalizálás során nem elegendő kizárólag a metrikák maximalizálására koncentrálni.
 A keresési tér kialakításánál a rendelkezésre álló hardver, a memóriahasználat és a futási idő is meghatározó szempont.
 
-A megszakítás ellenére összesen kilenc teljesen kiértékelt próba állt rendelkezésre.
+A megszakítás ellenére összesen kilenc teljesen kiértékelt kísérlet állt rendelkezésre.
 Az eredmények alapján:
 \begin{itemize}
-    \item \textbf{legjobb F1-érték:} 0.9807 (a hatodik próbában),
-    \item \textbf{legrosszabb F1-érték:} 0.0033 (a hetedik próbában),
+    \item \textbf{legjobb F1-érték:} 0.9807 (a hatodik kísérlet),
+    \item \textbf{legrosszabb F1-érték:} 0.0033 (a hetedik kísérlet),
     \item \textbf{átlagos F1-érték:} 0.8514.
 \end{itemize}
 
-Különösen informatívnak bizonyult a \texttt{trial\_007} eredménye.
+Különösen informatívnak bizonyult a \texttt{7. kísérlet} eredménye.
 Ebben az esetben a precízió értéke magas maradt, miközben a visszahívás közel nullára csökkent, ezért az F1-érték gyakorlatilag összeomlott.
 Ez arra utal, hogy a modell erősen egyoldalú döntési viselkedést vett fel, vagyis csak nagyon kevés pozitív mintát ismert fel helyesen.
 Ilyen jelenség tipikusan akkor figyelhető meg, amikor a konfiguráció túl agresszív tanulási dinamikát vagy instabil reprezentációt eredményez.
@@ -92,7 +92,7 @@ Ilyen jelenség tipikusan akkor figyelhető meg, amikor a konfiguráció túl ag
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=0.55\textwidth]{images/7_interrupted_test_confusion_matrix.png}
-    \caption{A \texttt{trial\_007} konfúziós mátrixa. A modell egyoldalú döntése alapján a teszthalmazon öt darab kivételével az összes üzenet helytelenül valódi üzenetként került felcímkézésre.}
+    \caption{A \texttt{7. kísérlet} konfúziós mátrixa. A modell egyoldalú döntése alapján a teszthalmazon öt darab kivételével az összes üzenet helytelenül valódi üzenetként került felcímkézésre.}
     \label{fig:trial007-confusion}
 \end{figure}
 
@@ -113,6 +113,61 @@ A legrosszabb tanítási futás (\ref{fig:trial007-curve}) és a legjobb futás 
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=0.55\textwidth]{images/6_interrupted_training_curves.png}
-    \caption{A \texttt{trial\_006} tanulási görbéje. Leolvasható a pontosság értéke, amely önmagában nem jelenti a tanítás sikerességét.}
+    \caption{A 6. kísérlet tanulási görbéje. Leolvasható a pontosság értéke, amely önmagában nem jelenti a tanítás sikerességét.}
     \label{fig:trial006-curve}
 \end{figure}
+
+\subsection{Második fázis: szűkítet tér}
+
+A második fázisban a keresési tér szűkítésével 20 kísérlet teljes futása megtörtént. Mely a növekményes tanítási halmazhoz kapcsolódó tanulási görbe futtatását is lehetővé tette. A keresési értéktartományok közül a hosszú-rövid távú memória rétegek mérete és száma, a szekvenciahossz és az epochok száma csökkentésre került a futási idő rövidítésére és a \textbf{túlillesztés} (overfitting) elkerülése érdekében. Míg a gradiens normalizálás alsó határa emelésre került.
+
+\begin{table}[htbp]
+    \centering
+    \caption{A top 5 konfiguráció hiperparaméterei a \texttt{tuning\_train\_fitted\_hyperpar} futásból (F1 szerint rendezve).}
+    \label{tab:top5-fitted-hparams-transposed}
+    \scriptsize
+    \begin{tabular}{|l|c|c|c|c|c|}
+        \hline
+        \textbf{Hiperparaméter} & \textbf{trial\_003} & \textbf{trial\_001} & \textbf{trial\_010} & \textbf{trial\_007} & \textbf{trial\_005} \\
+        \hline
+        F1 & 0.9814 & 0.9729 & 0.9681 & 0.9657 & 0.9630 \\
+        \hline
+        Max. szekvenciahossz & 800 & 500 & 700 & 500 & 700 \\
+        \hline
+        Batch méret & 32 & 32 & 32 & 64 & 32 \\
+        \hline
+        Embedding dimenzió & 128 & 256 & 256 & 128 & 256 \\
+        \hline
+        Hidden size & 256 & 128 & 128 & 128 & 128 \\
+        \hline
+        LSTM rétegek száma & 3 & 2 & 3 & 3 & 2 \\
+        \hline
+        Dropout & 0.4333 & 0.2281 & 0.4596 & 0.2069 & 0.4906 \\
+        \hline
+        Dense hidden & 32 & 128 & 128 & 64 & 64 \\
+        \hline
+        Learning rate & 0.001117 & 0.000076 & 0.000327 & 0.000118 & 0.000069 \\
+        \hline
+        Max grad norm & 0.899 & 2.352 & 1.162 & 1.167 & 1.233 \\
+        \hline
+        Epochok száma & 3 & 4 & 2 & 4 & 4 \\
+        \hline
+    \end{tabular}
+\end{table}
+
+
+Az öt legjobban teljesítő beállítás vizsgálatával észrevehető, hogy a szekvencia hossz ezekben a mintákban csak az első esetén emelkedett fel 800 token hosszra, míg a többi esetben a 700 és 500 as hossz érték szerepelt fele fele arányban, már ez előre vetíti, hogy a maximális tokenek száma lehetséges, hogy csökkentésre szorul. Ugyan ez látható a rejtett hosszú-rövid távú memória réteg méreténél is, 1:5 arányban a 128 -as szám dominál, még ezek mellett az epochok száma is csökkentésre került, mivel a \ref{fig:phase2-cumulative-curve} ábrán látható hogy a növekményes tanulási görbe egy megbízhatatlan modellt mutat be.
+
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.55\textwidth]{images/phase_2_cummulative_curve.png}
+    \caption{Instabill modell növekményes tanulási görbéje a második fázisban.}
+    \label{fig:phase2-cumulative-curve}
+\end{figure}
+
+
+
+Ez a fázis tehát azt igazolta, hogy a keresési tér átgondolt szűkítésével javítható a gyakorlati futtathatóság, megfigyelhető hogy a legrosszabb kísérlet is elfogadható F1-et adott, vagyis a futások közötti variancia érdemben csökkent. Azonban túltanulás elkerülése érdekében további lépésekre volt szükség.
+
+\subsection{Harmadik fázis: Álltalánosító képesség}

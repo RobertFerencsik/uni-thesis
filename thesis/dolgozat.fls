@@ -559,6 +559,14 @@ INPUT .\images\6_interrupted_training_curves.png
 INPUT .\images\6_interrupted_training_curves.png
 INPUT .\images\6_interrupted_training_curves.png
 INPUT .\images\6_interrupted_training_curves.png
+INPUT C:\Users\rober\AppData\Local\Programs\MiKTeX\fonts\tfm\jknappen\ec\ecbx0800.tfm
+INPUT .\images\phase_2_cummulative_curve.png
+INPUT .\images\phase_2_cummulative_curve.png
+INPUT .\images\phase_2_cummulative_curve.png
+INPUT .\images\phase_2_cummulative_curve.png
+INPUT .\images\phase_2_cummulative_curve.png
+INPUT .\images\phase_2_cummulative_curve.png
+INPUT .\images\phase_2_cummulative_curve.png
 INPUT .\chapters\6_summary.tex
 INPUT .\chapters\6_summary.tex
 OUTPUT chapters\6_summary.aux
@@ -605,6 +613,8 @@ INPUT dolgozat.run.xml
 OUTPUT dolgozat.run.xml
 INPUT C:\Users\rober\AppData\Local\MiKTeX\fonts\pk\ljfour\jknappen\ec\dpi600\eccc1200.pk
 INPUT C:\Users\rober\AppData\Local\MiKTeX\fonts\pk\ljfour\jknappen\ec\dpi600\eccc1200.pk
+INPUT C:\Users\rober\AppData\Local\MiKTeX\fonts\pk\ljfour\jknappen\ec\dpi600\ecbx0800.pk
+INPUT C:\Users\rober\AppData\Local\MiKTeX\fonts\pk\ljfour\jknappen\ec\dpi600\ecbx0800.pk
 INPUT C:\Users\rober\AppData\Local\MiKTeX\fonts\pk\ljfour\jknappen\ec\dpi600\ecrm1000.pk
 INPUT C:\Users\rober\AppData\Local\MiKTeX\fonts\pk\ljfour\jknappen\ec\dpi600\ecrm1000.pk
 INPUT C:\Users\rober\AppData\Local\MiKTeX\fonts\pk\ljfour\jknappen\ec\dpi600\ecrm0700.pk

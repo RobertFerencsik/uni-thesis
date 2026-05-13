@@ -103,6 +103,46 @@
     \field{year}{2022}
   \endentry
 
+  \entry{goodfellow2016deep}{online}{}{}
+    \name{author}{3}{}{%
+      {{hash=GI}{%
+         family={Goodfellow},
+         familyi={G\bibinitperiod},
+         given={Ian},
+         giveni={I\bibinitperiod},
+      }}%
+      {{hash=BY}{%
+         family={Bengio},
+         familyi={B\bibinitperiod},
+         given={Yoshua},
+         giveni={Y\bibinitperiod},
+      }}%
+      {{hash=CA}{%
+         family={Courville},
+         familyi={C\bibinitperiod},
+         given={Aaron},
+         giveni={A\bibinitperiod},
+      }}%
+    }
+    \list{organization}{1}{%
+      {{National AI Portal of India}}%
+    }
+    \strng{namehash}{GIBYCA1}
+    \strng{fullhash}{GIBYCA1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{G}
+    \field{sortinithash}{G}
+    \field{title}{{Deep Learning} {\normalfont [\texttt{PDF}]}}
+    \verb{url}
+    \verb https://aikosh.indiaai.gov.in/static/Deep+Learning+Ian+Goodfellow.pdf
+    \endverb
+    \field{year}{2016}
+    \field{urlday}{13}
+    \field{urlmonth}{05}
+    \field{urlyear}{2026}
+  \endentry
+
   \entry{ibmThinkAI}{online}{}{}
     \name{author}{1}{}{%
       {{hash=I}{%
@@ -146,31 +186,6 @@
     \verb https://www.ibm.com/think/topics/confusion-matrix
     \endverb
     \field{urlday}{11}
-    \field{urlmonth}{05}
-    \field{urlyear}{2026}
-  \endentry
-
-  \entry{ibmThinkLearningRate}{online}{}{}
-    \name{author}{1}{}{%
-      {{hash=I}{%
-         family={{IBM}},
-         familyi={I\bibinitperiod},
-      }}%
-    }
-    \list{organization}{1}{%
-      {{International Business Machines Corporation (IBM)}}%
-    }
-    \strng{namehash}{I1}
-    \strng{fullhash}{I1}
-    \field{labelnamesource}{author}
-    \field{labeltitlesource}{title}
-    \field{sortinit}{I}
-    \field{sortinithash}{I}
-    \field{title}{What is learning rate in machine learning?}
-    \verb{url}
-    \verb https://www.ibm.com/think/topics/learning-rate
-    \endverb
-    \field{urlday}{12}
     \field{urlmonth}{05}
     \field{urlyear}{2026}
   \endentry
@@ -643,29 +658,6 @@
     \verb https://github.com/MWiechmann/enron_spam_data
     \endverb
     \field{urlday}{06}
-    \field{urlmonth}{05}
-    \field{urlyear}{2026}
-  \endentry
-
-  \entry{xbeat_gradient_clipping_lr_scheduling}{misc}{}{}
-    \name{author}{1}{}{%
-      {{hash=x}{%
-         family={{xbeat}},
-         familyi={x\bibinitperiod},
-      }}%
-    }
-    \strng{namehash}{x1}
-    \strng{fullhash}{x1}
-    \field{labelnamesource}{author}
-    \field{labeltitlesource}{title}
-    \field{sortinit}{X}
-    \field{sortinithash}{X}
-    \field{title}{Gradient Clipping and Learning Rate Scheduling in Python}
-    \verb{url}
-    \verb https://github.com/xbeat/Machine-Learning/blob/main/Gradient%20Clippi
-    \verb ng%20and%20Learning%20Rate%20Scheduling%20in%20Python.md
-    \endverb
-    \field{urlday}{12}
     \field{urlmonth}{05}
     \field{urlyear}{2026}
   \endentry

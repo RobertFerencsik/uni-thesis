@@ -31,62 +31,45 @@ Az F1-érték melletti döntést az általános kéretlen üzenetek detektálás
 
 Ezekkel a paraméterekkel egy új modell kerül betanításra és kiértékelésre. A tanítás folyamata a következő alfejezetben kerül bemutatásra.
 
-A cél a keresési tér kialakításakor olyan paramétertartományok meghatározása, amelyek megfelelő egyensúlyt biztosítanak a modell reprezentációs képessége, 
-a tanítás stabilitása és a számítási költség között.
-Az alább megadott konkrét numerikus tartományok a jelen dolgozat kísérleti keresési terét jelentik,  a hivatkozott irodalban elsősorban az egyes hiperparaméterek hatásmechanizmusáról és gyakorlati hangolási elveiről szerezhet tudást az olvasó.
+A keresési tér kialakításának célja olyan hiperparaméter-intervallumok meghatározása volt, amelyek egyensúlyt biztosítanak a modell reprezentációs kapacitása, a tanítás stabilitása és a számítási költség között. A vizsgált tartományok nem univerzális optimális értékek, hanem a szakirodalomban és korábbi BiLSTM-alapú szövegosztályozási megközelítésekben alkalmazott konfigurációk, valamint a feladat sajátosságai alapján meghatározott kísérleti keresési tér részei \cite{mlltclassificationbilstm, qin2023bilstm_attention}.  
 
 \begin{itemize}
 
-    \item \textbf{Maximális szekvenciahossz}  
-    A modell által feldolgozható tokenek maximális számát határozza meg. Az alsó határnak olyan értéknek kell lennie, amely még elegendő kontextust biztosít a szöveg reprezentálásához, 
-     a maximális hossz növeli a memóriaigényt és a számítási költséget. A \Aref{fig:token-length-by-split} ábra alapján ez az érték \textbf{500--1000} token körül helyezkedhet el. Habár 800 token hossz felett már elenyésző az üzenetek száma.
-    
-    \item \textbf{Batch méret}  
-    Az egy iteráció során feldolgozott minták számát jelenti. A minimális értéket a tanítás stabilitása és a túl zajos gradiensfrissítések elkerülése indokolja, 
-    míg a maximális értéket a rendelkezésre álló memória és a generalizációs képesség korlátozza. Ebben a dolgozatban \textbf{32, 64, 128} közötti batch méret került vizsgálatra \cite{mlltclassificationbilstm}.
-    
-    \item \textbf{Szóbeágyazási dimenzió}  
-    A tokenek vektorreprezentációjának méretét adja meg a \textbf{beágyazási dimenzió} (embedding dimension). Méretének elegendőnek kell lennie a megfelelő szemantikai reprezentációhoz, 
-    de túl nagy dimenziószám esetén nő a túlilleszkedés veszélye és megnő a paraméterszám. Ez a minimum- és maximumérték-elvárás a következő két rétegre is igaz, így nem lesz ismételve. Vizsgált dimenziószámok: \textbf{64, 128, 256} \footnotemark{}.
-    
-    \item \textbf{Rejtett réteg mérete}  
-    A hosszú rövid távú memória rejtett rétegeinek dimenzióját határozza meg, azaz konkrétan az LSTM-réteg dimenzióját. 
-    Minimális és maximális értéke ugyanazt a kockázatot hordozza magában, mint a szóbeágyazási dimenzió. A vizsgált dimenziószámok is hasonlóak \textbf{64, 128, 256, 384} \footnotemark{}.
+\item \textbf{Maximális szekvenciahossz}  
+A bemeneti szekvencia maximális hossza meghatározza, hogy a modell mennyi kontextuális információt képes feldolgozni egy mintából. A túl rövid szekvenciák információvesztéshez vezethetnek, míg a túl hosszú szekvenciák jelentősen növelik a memória- és számítási igényt. A korábbi statisztikai elemzés alapján a bemeneti szövegek túlnyomó része 500–800 token között helyezkedik el, ezért a vizsgált intervallum 500–1000 token volt.
 
-    \item \textbf{Rejtett rétegek száma}  
-    Az egymásra épített LSTM-rétegek számát jelenti. Az alsó határ jellemzően \textbf{1} réteg, a felső értéket pedig a túlilleszkedés veszélye és a számítási költség korlátozza. 
-    Ebben a dolgozatban \textbf{1}, \textbf{2} és \textbf{3} réteges konfigurációkat vizsgáltunk \footnotemark{}.
-    
-    \item \textbf{Dropout arány}  
-    A dropout a regularizáció egyik módszere, amely során a tanítás alatt a neuronok egy része véletlenszerűen deaktiválásra kerül. 
-    Alkalmazásának célja a túlilleszkedés csökkentése és a modell általánosító képességének javítása. 
-    Túl alacsony érték esetén a regularizáció hatása elhanyagolható lehet, míg túl magas dropout arány mellett a modell tanulási képessége jelentősen romolhat. 
-    Ebben a dolgozatban \textbf{0.15--0.55} közötti dropout tartományt alkalmaztunk, az alsó felső határ egy kicsit alacsonyabb mint a referencia, de nagyságrendben megegyezik \cite{mlltclassificationbilstm}.
+\item \textbf{Batch méret}  
+A batch size az egy iteráció során feldolgozott minták számát határozza meg. Kis batch méret zajosabb gradiensbecslést eredményez, míg túl nagy batch esetén a generalizáció romolhat a csökkent gradiensvariancia miatt. A szakirodalomban gyakran alkalmazott tartományokkal összhangban a vizsgált értékek 32, 64 és 128 voltak \cite{mlltclassificationbilstm}.
 
-    \item \textbf{Teljesen összekapcsolt rejtett réteg mérete}  
-    Az osztályozó komponens \textbf{sűrű rétegének} (dense layer) dimenzióját határozza meg. 
-    Feladata az LSTM által előállított reprezentáció további feldolgozása és az osztályozási döntés támogatása. 
-    A túl alacsony dimenzió korlátozhatja a modell reprezentációs képességét, míg túl nagy érték esetén növekedhet a túlilleszkedés és a számítási költség. 
-    Tipikus választások a \textbf{32, 64, 128} dimenziók \footnotemark{}.
+\item \textbf{Szóbeágyazási dimenzió}  
+Az embedding dimenzió a tokenek sűrű vektorreprezentációjának méretét határozza meg. Alacsony dimenzió esetén a reprezentáció kapacitása korlátozott, míg túl magas dimenzió esetén a modell paraméterszáma és a túltanulás kockázata növekszik. A vizsgált értékek 64, 128 és 256 voltak, összhangban korábbi BiLSTM-alapú szövegklasszifikációs megközelítésekkel \cite{mlltclassificationbilstm, qin2023bilstm_attention}.
 
-    \item \textbf{Tanulási ráta}  
-    A tanulási ráta határozza meg a paraméterfrissítések lépésközét az optimalizáció során. 
-    Túl alacsony érték esetén a modell konvergenciája lassúvá válhat, míg túl magas tanulási ráta instabil tanítást vagy divergenciát eredményezhet. 
-    A jelen kísérletekben a tanulási rátát \textbf{$5 \times 10^{-5}$ és $3 \times 10^{-3}$} közötti intervallumban mintavételeztük, logaritmikus skálán \cite{ibmThinkLearningRate}.
+\item \textbf{Rejtett réteg mérete}  
+A LSTM rejtett állapotának dimenziója közvetlenül befolyásolja a modell reprezentációs kapacitását. A kisebb méret gyorsabb tanítást eredményez, míg a nagyobb dimenzió jobb reprezentációt biztosíthat, de növeli a túltanulás és a számítási költség kockázatát. A vizsgált értékek 64, 128, 256 és 384 voltak, a korábbi szövegklasszifikációs BiLSTM architektúrák gyakorlati beállításai alapján \cite{qin2023bilstm_attention}.
 
-    \item \textbf{Maximális gradiensnorma}  
-    A maximális gradiensnorma a gradiensklippelés felső korlátját adja meg, amely elsősorban a robbanó gradiens probléma kezelésére szolgál visszacsatolt neurális hálózatok esetén. 
-    Túl alacsony érték mellett a tanulás lelassulhat, míg túl magas korlát esetén a klippelés hatása elenyészővé válhat. 
-    Ebben a dolgozatban a gradiensnorma felső korlátját \textbf{0.2--3.0} közötti tartományból került kiválasztásra \cite{xbeat_gradient_clipping_lr_scheduling}.
+\item \textbf{Rejtett rétegek száma}  
+Az egymásra épített LSTM rétegek száma a modell mélységét határozza meg. A mélyebb architektúrák elméletileg nagyobb reprezentációs kapacitást biztosítanak, ugyanakkor érzékenyebbek a túlilleszkedésre és nehezebben optimalizálhatók. A vizsgált konfigurációk 1–3 réteget tartalmaztak, összhangban korábbi BiLSTM alapú szövegosztályozási modellekkel \cite{mlltclassificationbilstm, qin2023bilstm_attention}.
 
-    \item \textbf{Epochok száma}  
-    Az epochok száma azt határozza meg, hogy a modell hányszor dolgozza fel a teljes tanítóhalmazt a tanítás során. 
-    Túl alacsony epochszám esetén a modell alultanulhat, míg túl magas érték mellett növekedhet a túlilleszkedés veszélye és a tanítási idő. 
-    A jelen kísérletekben \textbf{2--5} epoch közötti tartomány került vizsgálatra, korai megállítás és validációs teljesítmény monitorozása mellett \footnotemark{}.
-    
-    \end{itemize}
+\item \textbf{Dropout arány}  
+A dropout regularizációs technika, amely a neuronok véletlenszerű elhagyásával csökkenti a túlilleszkedést és javítja a generalizációt. Alacsony dropout érték esetén a regularizáció hatása gyenge, míg túl magas érték esetén a modell alultanulhat. A vizsgált intervallum 0.15–0.55 volt, amely a korábbi BiLSTM szövegklasszifikációs modellekben alkalmazott tartományokkal összhangban van \cite{mlltclassificationbilstm}.
 
-    \footnotetext{A rétegek méreteit és számosságát, illetve az epochok számát a \cite{qin2023bilstm_attention} befolyásolta, mivel az ott megoldott feladat rövid mondatokat osztályozott negatív és pozitív szemantikai jelentés szerint, az üzenetek itt jóval hosszabbak is lehetnek, így a rétegek felső határa magasabb lett a kezdeti keresési térben. Azonban a számítási kapacitás korlátja és a terjedelmes adathalmaz miatt az epochok száma jóval alacsonyabb határon mozog.}
+\item \textbf{Teljesen összekapcsolt réteg mérete}  
+A kimeneti osztályozó sűrű rétegének mérete a végső reprezentációs transzformáció kapacitását határozza meg. Kis méret esetén a döntési tér korlátozott, míg nagy méret esetén a túlilleszkedés kockázata növekszik. A vizsgált értékek 32, 64 és 128 voltak, a korábbi BiLSTM alapú osztályozási architektúrák gyakorlati beállításai alapján \cite{mlltclassificationbilstm}.
+
+\item \textbf{Tanulási ráta}  
+A tanulási ráta az optimalizációs lépések nagyságát határozza meg. Túl alacsony érték esetén a konvergencia lassú, míg túl magas érték esetén a tanítás instabillá válhat vagy divergálhat. A vizsgált tartomány $5 \times 10^{-5}$ és $3 \times 10^{-3}$ között került meghatározásra, logaritmikus skálán mintavételezve. \cite{goodfellow2016deep}.
+
+\item \textbf{Maximális gradiensnorma}  
+A gradiensklippelés célja a robbanó gradiensek hatásának mérséklése, különösen rekurzív neurális hálózatok esetén. A túl alacsony küszöb korlátozhatja a tanulást, míg túl magas érték esetén a klippelés hatása elhanyagolható. A vizsgált intervallum 0.2–3.0 volt, amely a stabil tanítási gyakorlatokban alkalmazott tartományokkal összhangban került meghatározásra.
+
+\item \textbf{Epochok száma}  
+Az epochok száma a teljes tanítóhalmazon történő áthaladások számát határozza meg. Alacsony epoch szám esetén a modell alultanulhat, míg túl magas érték esetén a túlilleszkedés kockázata nő. A vizsgált tartomány 2–5 epoch volt, korai megállítás (early stopping) és validációs teljesítmény monitorozása mellett \cite{qin2023bilstm_attention}.
+
+\end{itemize}
+
+\footnotetext{
+A rétegek számosságát és méretét, valamint az epochok számát a \cite{qin2023bilstm_attention} tanulmány inspirálta, amely rövid szövegek bináris szentimentklasszifikációjára fókuszált. A jelen feladat hosszabb szövegek feldolgozását igényli, ezért a keresési tér felső határai tágabbak voltak. Ugyanakkor a számítási erőforrások korlátai és a dataset mérete indokolták az epochok alacsonyabb tartományban történő vizsgálatát.
+}
 
 A diszkrét hiperparaméterek esetében előre definiált értékkészletből történt a mintavételezés, míg a folytonos paramétereknél intervallumalapú keresést alkalmaztunk. 
 A tanulási ráta logaritmikus skálán került mintavételezésre, mivel annak optimális értéke jellemzően több nagyságrendet is lefedhet.

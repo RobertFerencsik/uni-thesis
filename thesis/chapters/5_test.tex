@@ -9,7 +9,7 @@ A hiperparaméter-optimalizálás során nem kizárólag a lehető legmagasabb t
 Az F1-érték a precizitás és a visszahívás harmonikus átlaga, érzékeny az osztályozási torzításokra, és kiegyensúlyozott képet ad a modell teljesítményéről.
 
 A teljes optimalizálási folyamat három egymásra épülő fázisban valósult meg.
-Az első fázis célja a széles hiperparaméter-tér feltérképezése volt annak érdekében, hogy megállapítható legyen a paramétertér megfelelő beállítása.
+Az első fázis célja a széles hiperparaméter-tér feltérképezése volt annak érdekében, hogy meg lehessen állapítani a paramétertér megfelelő beállítását.
 A második fázisban a keresési tér szűkítésére került sor, amelynek célja a stabilabb és hatékonyabban futtatható konfigurációk előtérbe helyezése volt.
 A harmadik fázisban már egy tudatosan konzervatívabb keresési stratégia került alkalmazásra, amely a tanulási görbe vizsgálatához szükséges stabil modellviselkedést támogatta.
 
@@ -19,7 +19,7 @@ A futtatások egyetlen lokális gépen történtek, a mérések során használt
 \begin{itemize}
     \item \textbf{GPU:} NVIDIA GeForce RTX 5050 Laptop GPU,
     \item \textbf{GPU memória:} 8151 MiB VRAM,
-    \item \textbf{Rendszermemória:} 33617924096 byte (kb. 31.3 GiB),
+    \item \textbf{Rendszermemória:} 33617924096 bájt (kb. 31,3 GiB),
     \item \textbf{Python:} 3.10.0,
     \item \textbf{PyTorch:} 2.11.0+cu130,
     \item \textbf{CUDA runtime:} 13.0.
@@ -93,7 +93,7 @@ Ez a jelenség gyakran a mély hálók tanításának instabil dinamikájára ve
     \label{fig:trial007-confusion}
 \end{figure}
 
-A konfúziós mátrix (\ref{fig:trial007-confusion}) jól szemlélteti, hogy a  pontosság önmagában nem megfelelő teljesítménymérő, amit a tanulási görbe (\ref{fig:trial007-curve}) is alátámaszt. Erősen kiegyensúlyozatlan predikció esetén a modell akár 0.5 körüli pontosságot is elérhet úgy, hogy gyakorlatilag egyetlen osztályt prediktál \cite{goodfellow2016deep}.
+A konfúziós mátrix (\ref{fig:trial007-confusion}) jól szemlélteti, hogy a pontosság önmagában nem megfelelő teljesítménymérő, amit a tanulási görbe (\ref{fig:trial007-curve}) is alátámaszt. Erősen kiegyensúlyozatlan predikció esetén a modell akár 0.5 körüli pontosságot is elérhet úgy, hogy gyakorlatilag egyetlen osztályt prediktál \cite{goodfellow2016deep}.
 
 \begin{figure}[htbp]
     \centering
@@ -115,7 +115,7 @@ A legrosszabb tanítási futás (\ref{fig:trial007-curve}) és a legjobb futás 
 
 \subsection{Második fázis: szűkített tér}
 
-A második fázisban a keresési tér szűkítésével összesen 20 kísérlet teljes lefuttatására került sor, amely lehetővé tette a növekményesen bővített tanítási halmazhoz tartozó tanulási görbék részletes vizsgálatát is, illetve a modellek F1-score alapján kirajzolt tanulási görbéje is elkészült. A cél ebben a szakaszban már nem a teljes hiperparaméter-tér feltérképezése volt, hanem egy szűkebb, számításilag hatékonyabb keresési tér vizsgálata, amely várhatóan jobb általánosítási teljesítményt eredményez.
+A második fázisban a keresési tér szűkítésével összesen 20 kísérlet teljes lefuttatására került sor, amely lehetővé tette a növekményesen bővített tanítási halmazhoz tartozó tanulási görbék részletes vizsgálatát is, illetve a modellek F1-score alapján kirajzolt tanulási görbéi is elkészültek. A cél ebben a szakaszban már nem a teljes hiperparaméter-tér feltérképezése volt, hanem egy szűkebb, számításilag hatékonyabb keresési tér vizsgálata, amely várhatóan jobb általánosítási teljesítményt eredményez.
 
 A keresési tér szűkítése során a hosszú-rövid távú memória (LSTM) rétegek számát és rejtett dimenzióját, a szekvenciahosszt, valamint az epochok számát csökkentettük. Ennek célja egyrészt a tanítási idő mérséklése, másrészt a túlilleszkedés (overfitting) kockázatának csökkentése volt. Ezzel párhuzamosan a gradiensnormalizálás alsó határát növeltük annak érdekében, hogy a túl kisméretű gradiensértékek ne vezessenek elhanyagolható frissítésekhez és instabil tanulási dinamikához.
 
@@ -126,7 +126,7 @@ Hasonló irányultság figyelhető meg az LSTM rejtett rétegméret esetében is
 Az öt legjobban teljesítő konfiguráció összefoglalása az alábbi táblázatban látható.
 
 \begin{table}[htbp]
-    \caption{ A top 5 konfiguráció hiperparaméterei (F1 szerint rendezve).}
+    \caption{A top 5 konfiguráció hiperparaméterei (F1 szerint rendezve).}
     \label{tab:top5-fitted-hparams-transposed}
     \centering
     \scriptsize
@@ -159,9 +159,9 @@ Az öt legjobban teljesítő konfiguráció összefoglalása az alábbi tábláz
     \end{tabular}
 \end{table}
 
-A top-5 konfigurációk elemzése után a következő lépésben a modell viselkedését vizsgáljuk a tanítóhalmaz növekvő részhalmazain történő tanítás esetén. A \ref{fig:phase2-cummulative_learning-curve} ábra azonos architektúrájú és hiperparaméterű modellek F1-értékét mutatja a tanítóadatok fokozatos növelése mellett.
+A top-5 konfigurációk elemzése után a következő lépésben a modellek viselkedését vizsgáljuk a tanítóhalmaz növekvő részhalmazain történő tanítás esetén. A \ref{fig:phase2-cummulative_learning-curve} ábra azonos architektúrájú és hiperparaméterű modellek F1-értékét mutatja a tanítóadatok fokozatos növelése mellett.
 
-\begin{figure}[htbp]
+\begin{figure}[H]
     \centering
     \includegraphics[width=0.55\textwidth]{images/phase_2_cummulative_learning_curve_f1.png}
     \caption{Instabil modell növekményes tanulási görbéje az F1-érték szerint, a második fázisban.}
@@ -170,25 +170,22 @@ A top-5 konfigurációk elemzése után a következő lépésben a modell viselk
 
 A görbe alapján megfigyelhető, hogy a modell teljesítménye a tanítás kezdeti szakaszában jelentős ingadozást mutat, 0,6 és 0,9 közötti F1-értékekkel. A tanítóadatok mennyiségének növekedésével a teljesítmény részben stabilizálódik, és a görbe kisebb varianciát mutat.
 
-A későbbi szakaszban azonban két alkalommal is megfigyelhető anomália, amikor az F1-érték gyakorlatilag nullára csökken. Ez a jelenség tipikusan akkor fordul elő, amikor a modell teljesen hibás predikciókat ad az adott szakaszban. Matematikailag ez azzal magyarázható, hogy az F1-score a precizitás (precision) és a visszahívás (recall) harmonikus közepe, így amennyiben a precizitás vagy a visszahívás nullához közelít, az F1-érték is nullához tart. A ábrán látható, hogy ebben az esetben a 
+A későbbi szakaszban azonban két alkalommal is megfigyelhető anomália, amikor az F1-érték gyakorlatilag nullára csökken. Ez a jelenség tipikusan akkor fordul elő, amikor a modell teljesen hibás predikciókat ad az adott szakaszban. Matematikailag ez azzal magyarázható, hogy az F1-score a precizitás (precision) és a visszahívás (recall) harmonikus átlaga, így amennyiben a precizitás vagy a visszahívás nullához közelít, az F1-érték is nullához tart. A \ref{fig:phase2-performance-curve} ábrán látható, hogy ebben az esetben a visszahívás értéke tartott a nullához, azaz a modell a teszthalmaz majdnem minden üzenetét a negatív osztályba sorolta. A negatív osztály ebben az esetben a valós üzeneteket jelenti. 
 
-Az ilyen jellegű kiugrások általában adatminőségi problémákra, osztályeloszlási egyenlőtlenségre vagy a modell instabil viselkedésére utalhatnak a tanítás bizonyos szakaszaiban.
-
-\begin{figure}[htbp]
+\begin{figure}[H]
     \centering
-    \includegraphics[width=0.55\textwidth]{images/phase_2_cummulative_learning_curve_f1.png}
+    \includegraphics[width=0.55\textwidth]{images/phase_2_cummulative_performance_curve.png}
     \caption{Instabil modell növekményes tanulási görbéje az F1-érték szerint, a második fázisban.}
-    \label{fig:phase2-cummulative_learning-curve}
+    \label{fig:phase2-performance-curve}
 \end{figure}
 
+Szintén beszédes mutató az egyes modellek tanítható paramétereinek száma. A legrosszabb és legjobb konfiguráció közötti különbséget véve példaként arra következtethetünk, hogy a rejtett rétegek számát érdemes tovább csökkenteni, hiszen a hetedik kísérlet modelljének 4\,189\,313 tanítható paramétere több mint másfélszerese a hatodik kísérlet modelljének.
 
-
-
-Ez a fázis tehát azt igazolta, hogy a keresési tér átgondolt szűkítésével javítható a gyakorlati futtathatóság, megfigyelhető, hogy a legrosszabb kísérlet is elfogadható F1-et adott a hiperparaméterek keresése esetében, vagyis a futások közötti variancia érdemben csökkent. Azonban túltanulás elkerülése érdekében további lépésekre van szükség.
+Ez a fázis tehát azt igazolta, hogy a keresési tér átgondolt szűkítésével javítható a gyakorlati futtathatóság. Megfigyelhető továbbá, hogy a hiperparaméter-keresés során még a legrosszabb konfigurációk is elfogadható F1-értéket eredményeztek, ami arra utal, hogy a futások közötti variancia érdemben csökkent. Ugyanakkor bizonyos esetekben továbbra is instabil viselkedés volt tapasztalható.
 
 \subsection{Harmadik fázis: Általánosító képesség}
 
 A harmadik fázis célja a növekményes tanítóhalmazos tanulási görbe stabilizálása.
-Ehhez a keresési tér tovább szűkült, majd a kiválasztott konfigurációval a learning curve futtatás következett. 
+Ehhez a keresési tér tovább szűkült, majd a kiválasztott konfigurációval a tanulási görbe (learning curve) futtatása következett.
 
 

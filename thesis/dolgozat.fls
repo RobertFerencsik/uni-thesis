@@ -567,10 +567,13 @@ INPUT .\images\phase_2_cummulative_learning_curve_f1.png
 INPUT .\images\phase_2_cummulative_learning_curve_f1.png
 INPUT .\images\phase_2_cummulative_learning_curve_f1.png
 INPUT .\images\phase_2_cummulative_learning_curve_f1.png
-INPUT .\images\phase_2_cummulative_learning_curve_f1.png
-INPUT .\images\phase_2_cummulative_learning_curve_f1.png
-INPUT .\images\phase_2_cummulative_learning_curve_f1.png
-INPUT .\images\phase_2_cummulative_learning_curve_f1.png
+INPUT .\images\phase_2_cummulative_performance_curve.png
+INPUT .\images\phase_2_cummulative_performance_curve.png
+INPUT .\images\phase_2_cummulative_performance_curve.png
+INPUT .\images\phase_2_cummulative_performance_curve.png
+INPUT .\images\phase_2_cummulative_performance_curve.png
+INPUT .\images\phase_2_cummulative_performance_curve.png
+INPUT .\images\phase_2_cummulative_performance_curve.png
 INPUT .\chapters\6_summary.tex
 INPUT .\chapters\6_summary.tex
 OUTPUT chapters\6_summary.aux

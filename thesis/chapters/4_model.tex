@@ -25,8 +25,8 @@ teljesen összekapcsolt réteg kimenete egyetlen neuront tartalmaz, amely logit 
 \subsection{Hiperparaméter-tér és optimalizálási stratégia}
 
 A megfelelő paraméterek kiválasztása az F1 érték maximalizálása szerint történik random hiperparaméter-keresés során az előre definiált értéktartományokból \cite{randomsearch}
-pszeudovéletlenszerűen kerül kiválasztásra az érték minden paraméter esetében a reprodukálhatóság érdekében. Az optimalizáció alapértelmezett célfüggvénye az F1 mérőszám, melynek jelentősége kiegyensúlyozatlan osztályozás esetén nagyobb. Helyes választás lehet a pontosság vagy a visszahívás is, a megoldandó feladattól függően.
-Magas pontosság esetén, ha a "pozitív" osztályunk a kéretlen üzenet, kevés normális üzenet kerül a spam mappába, ez a valósághűbb működés. Míg a visszahívás arra ad választ, hogy a valódi kéretlen üzenetek mekkora részét találja meg a modell. 
+pszeudovéletlenszerűen kerül kiválasztásra az érték minden paraméter esetében a reprodukálhatóság érdekében. Az optimalizáció alapértelmezett célfüggvénye az F1 mérőszám, melynek jelentősége kiegyensúlyozatlan osztályozás esetén nagyobb. Helyes választás lehet a precizitás vagy a visszahívás is, a megoldandó feladattól függően.
+Magas precizitás esetén, ha a "pozitív" osztályunk a kéretlen üzenet, kevés normális üzenet kerül a spam mappába, ez a valósághűbb működés. Míg a visszahívás arra ad választ, hogy a valódi kéretlen üzenetek mekkora részét találja meg a modell. 
 Az F1-érték melletti döntést az általános kéretlen üzenetek detektálása támasztja alá. 
 
 Ezekkel a paraméterekkel egy új modell kerül betanításra és kiértékelésre. A tanítás folyamata a következő alfejezetben kerül bemutatásra.

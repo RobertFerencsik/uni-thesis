@@ -78,8 +78,7 @@ A tanulási ráta logaritmikus skálán került mintavételezésre, mivel annak 
 
 A tanítási folyamat tulajdonképpen koncepcionálisan teljesen megegyezik a hangolás és a növekményes tanítóhalmaz vizsgálata között. Az eltérés logikusan abból áll, 
 hogy a hiperparaméterek keresése során a tanító-, validációs- és tesztadathalmazok változatlanok, míg a hiperparaméterek és az előző fejezetben megállapított rétegek mérete és számossága véletlenszerűen változnak a megadott értéktartományaiban. 
-Míg a másik esetben a tanítóhalmaz mérete növekszik kumulatívan, más néven halmozódóan, miközben a hiperparaméterek és a többi adathalmaz változatlan marad. A \Aref{fig:train-flowchart} ábra 
-szemlélteti a tanítási folyamatot, mely az előkészítés, tanítás és kiértékelés részekből áll. 
+Míg a másik esetben a tanítóhalmaz mérete növekszik kumulatívan, más néven halmozódóan, miközben a hiperparaméterek és a többi adathalmaz változatlan marad. A \Aref{fig:train-flowchart} ábra szemlélteti a tanítási folyamatot, mely az előkészítés, tanítás és kiértékelés részekből áll. 
 
 \begin{figure}[htbp]
     \centering
@@ -155,4 +154,4 @@ A tanulási görbe osztálya a LearningCurveRunner osztály, feladata a tanító
 a már említett állomány kezelő osztály segítségével. 
 
 A kumulatívfelosztást végző külső segédfüggvény érdekessége, hogy a scikit-learn könyvtár StratifiedKFold osztályának `split` metódusát alkalmazza, 
-mely pszeudorandom módon megkeveri az adatokat és biztosítja a közel azonos osztályeloszlást a részhalmazok között. Kódja:
+mely pszeudorandom módon megkeveri az adatokat és biztosítja a közel azonos osztályeloszlást a részhalmazok között.

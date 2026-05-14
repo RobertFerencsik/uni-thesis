@@ -24,20 +24,20 @@
 \select@language {magyar} \contentsline {subsection}{\numberline {3.3.3}Előfeldolgozás implementálása}{14}{subsection.3.3.3}%
 \select@language {magyar} \contentsline {subsection}{\numberline {3.3.4}Feltáró adatelemzés, adattisztítás és ellenőrzés}{15}{subsection.3.3.4}%
 \select@language {magyar} \contentsline {subsection}{\numberline {3.3.5}Tokenizálás és validálása}{17}{subsection.3.3.5}%
-\select@language {magyar} \contentsline {chapter}{\numberline {4}A klasszifikációs modell és tanítási folyamat}{20}{chapter.4}%
-\select@language {magyar} \contentsline {section}{\numberline {4.1}Modelltervezés}{20}{section.4.1}%
-\select@language {magyar} \contentsline {subsection}{\numberline {4.1.1}Modell architektúra}{20}{subsection.4.1.1}%
-\select@language {magyar} \contentsline {subsection}{\numberline {4.1.2}Hiperparaméter-tér és optimalizálási stratégia}{21}{subsection.4.1.2}%
-\select@language {magyar} \contentsline {subsubsection}{Tanítási folyamat, hangolás és tanítóhalmaz növelés}{22}{section*.8}%
-\select@language {magyar} \contentsline {section}{\numberline {4.2}Implementáció}{23}{section.4.2}%
-\select@language {magyar} \contentsline {subsection}{\numberline {4.2.1}Állomány és konfigurációk kezelése}{24}{subsection.4.2.1}%
-\select@language {magyar} \contentsline {subsection}{\numberline {4.2.2}Modell, hiperparaméterek és tanulási görbe}{24}{subsection.4.2.2}%
-\select@language {magyar} \contentsline {chapter}{\numberline {5}Kísérletek és eredmények}{26}{chapter.5}%
-\select@language {magyar} \contentsline {section}{\numberline {5.1}Hiperparaméter-optimalizálás és tanulási görbe}{26}{section.5.1}%
-\select@language {magyar} \contentsline {subsection}{\numberline {5.1.1}Kísérleti környezet}{26}{subsection.5.1.1}%
-\select@language {magyar} \contentsline {subsection}{\numberline {5.1.2}A három fázis keresési tere}{27}{subsection.5.1.2}%
-\select@language {magyar} \contentsline {subsection}{\numberline {5.1.3}Első fázis: kezdetleges keresési tér}{27}{subsection.5.1.3}%
-\select@language {magyar} \contentsline {subsection}{\numberline {5.1.4}Második fázis: szűkített tér}{29}{subsection.5.1.4}%
+\select@language {magyar} \contentsline {chapter}{\numberline {4}A klasszifikációs modell és tanítási folyamat}{19}{chapter.4}%
+\select@language {magyar} \contentsline {section}{\numberline {4.1}Modelltervezés}{19}{section.4.1}%
+\select@language {magyar} \contentsline {subsection}{\numberline {4.1.1}Modell architektúra}{19}{subsection.4.1.1}%
+\select@language {magyar} \contentsline {subsection}{\numberline {4.1.2}Hiperparaméter-tér és optimalizálási stratégia}{20}{subsection.4.1.2}%
+\select@language {magyar} \contentsline {subsubsection}{Tanítási folyamat, hangolás és tanítóhalmaz növelés}{21}{section*.8}%
+\select@language {magyar} \contentsline {section}{\numberline {4.2}Implementáció}{22}{section.4.2}%
+\select@language {magyar} \contentsline {subsection}{\numberline {4.2.1}Állomány és konfigurációk kezelése}{23}{subsection.4.2.1}%
+\select@language {magyar} \contentsline {subsection}{\numberline {4.2.2}Modell, hiperparaméterek és tanulási görbe}{23}{subsection.4.2.2}%
+\select@language {magyar} \contentsline {chapter}{\numberline {5}Kísérletek és eredmények}{25}{chapter.5}%
+\select@language {magyar} \contentsline {section}{\numberline {5.1}Hiperparaméter-optimalizálás és tanulási görbe}{25}{section.5.1}%
+\select@language {magyar} \contentsline {subsection}{\numberline {5.1.1}Kísérleti környezet}{25}{subsection.5.1.1}%
+\select@language {magyar} \contentsline {subsection}{\numberline {5.1.2}A három fázis keresési tere}{26}{subsection.5.1.2}%
+\select@language {magyar} \contentsline {subsection}{\numberline {5.1.3}Első fázis: kezdetleges keresési tér}{26}{subsection.5.1.3}%
+\select@language {magyar} \contentsline {subsection}{\numberline {5.1.4}Második fázis: szűkített tér}{28}{subsection.5.1.4}%
 \select@language {magyar} \contentsline {subsection}{\numberline {5.1.5}Harmadik fázis: Általánosító képesség}{31}{subsection.5.1.5}%
 \select@language {magyar} \contentsline {chapter}{\numberline {6}Összefoglalás és továbbhaladási irány}{32}{chapter.6}%
 \select@language {magyar} \contentsline {chapter}{Források}{33}{chapter*.9}%

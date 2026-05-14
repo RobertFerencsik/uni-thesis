@@ -441,6 +441,33 @@
     \field{year}{2006}
   \endentry
 
+  \entry{piantadosi2014zipf}{article}{}{}
+    \name{author}{1}{}{%
+      {{hash=PST}{%
+         family={Piantadosi},
+         familyi={P\bibinitperiod},
+         given={Steven\bibnamedelima T.},
+         giveni={S\bibinitperiod\bibinitdelim T\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {Springer}%
+    }
+    \strng{namehash}{PST1}
+    \strng{fullhash}{PST1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{P}
+    \field{sortinithash}{P}
+    \field{number}{5}
+    \field{pages}{1112\bibrangedash 1130}
+    \field{title}{Zipf's word frequency law in natural language: A critical
+  review and future directions}
+    \field{volume}{21}
+    \field{journaltitle}{Psychonomic Bulletin \& Review}
+    \field{year}{2014}
+  \endentry
+
   \entry{procogiaIQR}{online}{}{}
     \name{author}{1}{}{%
       {{hash=P}{%

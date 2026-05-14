@@ -270,20 +270,19 @@ szintén kirajzolásra került, itt azonban a tokenek száma alapján, és az \A
   \label{fig:token-length-by-split}
 \end{figure}
 
-A tokenizált tanítóhalmazon szókészlet-lefedettségi elemzés is készült. Az elemzés során meghatározásra kerültek az egyes tokenek előfordulási gyakoriságai, 
-majd kiszámításra került a kumulatív lefedettségük. Az eredmények alapján megfigyelhető volt, hogy a leggyakoribb tokenek viszonylag kis része a teljes tokenállomány jelentős részét lefedte, 
-ami összhangban állt a természetes nyelvekre jellemző Zipf-eloszlással. Ezzel alátámasztva a tokenizálás sikerességét, azonban a 30 leggyakoribb token is kiíratásra került, mert fontos volt ellenőrizni
-a gyakori tokenek jelentését. Nem meglepő módon a leggyakoribb token a szóköz karakter volt, amely aláhúzással lett reprezentálva. 
-Az első tíz között sok speciális karakter található volt még, mint például a vessző és kettőspont, de itt szerepelt a szám- és URL-maszk is. 
-A továbbiak között már megjelentek a rövidebb gyakori szavak és szórészletek, mint a your, of, \texttt{\_to, \_ing}. 
-Az első harminc token a tanító adathalmazban megfelelt a lefedettség ötven százalékának. 
+A tokenizált tanítóhalmazon szókészlet-lefedettségi elemzés is készült (\ref{fig:vocab-coverage-training}. ábra) annak érdekében, hogy jobban megérthető legyen a tokeneloszlás és a tokenizáló működése. Az elemzés során először meghatározásra kerültek az egyes tokenek előfordulási gyakoriságai, majd ezek alapján kiszámításra került a kumulatív lefedettségük is. Az eredmények azt mutatták, hogy a leggyakrabban előforduló tokenek viszonylag kis része a teljes tokenállomány jelentős hányadát lefedte, ami jól illeszkedik a természetes nyelvekre jellemző Zipf-eloszláshoz.
+
+Zipf-törvény egy empirikus statisztikai törvény, amely szerint számos természetes eloszlás, egy elem előfordulási gyakorisága fordítottan arányos annak gyakorisági rangsorban elfoglalt helyével \cite{piantadosi2014zipf}.
+
+A vizsgálat alapján az első harminc leggyakoribb token már a teljes tanítóhalmaz tokenjeinek körülbelül ötven százalékát lefedte. Ez arra utal, hogy a tokenizálás megfelelően működött, és a modell számára sikerült azonosítani a nyelvben leggyakrabban előforduló elemeket. A leggyakoribb tokenek listája külön is kiíratásra került annak ellenőrzésére, hogy azok nyelvileg és technikailag is értelmezhető mintázatokat képviselnek-e.
+
+Nem meglepő módon a leggyakoribb token a szóköz karakter volt, amely aláhúzással került reprezentálásra. Az első tíz leggyakoribb token között számos speciális karakter is megjelent, például a vessző és a kettőspont, továbbá itt szerepeltek a szám- és URL-maszkok is. A lista további részében már gyakori rövid szavak és szórészletek jelentek meg, például a your, of, valamint az olyan gyakori tokenrészletek, mint a \texttt{\_to} és a \texttt{\_ing}. Ezek az eredmények összességében arra utalnak, hogy a tokenizáló képes volt a nyelv gyakori mintázatait és szerkezeti elemeit megfelelően reprezentálni.
 
 \begin{figure}[htbp]
   \centering
   \includegraphics[width=0.9\textwidth]{images/4_vocab_coverage_traning_tokenized.png}
-  \caption{A szókincs lefedettségi elemzése a tanító halmazon.}
+  \caption{A szókincs növekményes lefedettségi elemzése a tanító halmazon.}
   \label{fig:vocab-coverage-training}
 \end{figure}
 
-A gyakori, jelentéssel nem bíró szavak, az irodalomban \textbf{stop-szavak} (Stop Word), nem kerültek eltávolításra. Helyes használatuk információt hordoz az üzenet jó szándékáról, 
-így a gyakori tokenek nagy része ilyen stop-szó.
+A gyakori, önálló jelentéstartalommal általában nem rendelkező szavak, az irodalomban úgynevezett \textbf{stop-szavak} (stop words), nem kerültek eltávolításra. Ennek oka, hogy ezek helyes és természetes használata fontos nyelvi mintázatokat hordozhat, amelyek hozzájárulhatnak az üzenetek jóindulatú vagy legitim jellegének felismeréséhez. Emiatt a leggyakrabban előforduló tokenek jelentős része ilyen stop-szó volt.

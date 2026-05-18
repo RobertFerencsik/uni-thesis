@@ -103,6 +103,41 @@
     \field{year}{2022}
   \endentry
 
+  \entry{goodfellow2016deepbook}{book}{}{}
+    \name{author}{3}{}{%
+      {{hash=GI}{%
+         family={Goodfellow},
+         familyi={G\bibinitperiod},
+         given={Ian},
+         giveni={I\bibinitperiod},
+      }}%
+      {{hash=BY}{%
+         family={Bengio},
+         familyi={B\bibinitperiod},
+         given={Yoshua},
+         giveni={Y\bibinitperiod},
+      }}%
+      {{hash=CA}{%
+         family={Courville},
+         familyi={C\bibinitperiod},
+         given={Aaron},
+         giveni={A\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {MIT Press}%
+    }
+    \strng{namehash}{GIBYCA1}
+    \strng{fullhash}{GIBYCA1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{G}
+    \field{sortinithash}{G}
+    \field{note}{\url{http://www.deeplearningbook.org}}
+    \field{title}{Deep Learning}
+    \field{year}{2016}
+  \endentry
+
   \entry{ibmThinkAI}{online}{}{}
     \name{author}{1}{}{%
       {{hash=I}{%

@@ -44,45 +44,45 @@ Warning--I didn't find a database entry for "goodfellow2016deep"
 Biblatex version: 3.21
 Reallocating 'wiz_functions' (item size: 4) to 9000 items.
 Reallocating 'singl_function' (item size: 4) to 100 items.
-You've used 19 entries,
+You've used 20 entries,
             6402 wiz_defined-function locations,
-            1343 strings with 13070 characters,
-and the built_in function-call counts, 155662 in all, are:
-= -- 11911
-> -- 3738
-< -- 735
-+ -- 5997
-- -- 2174
-* -- 10143
-:= -- 18505
+            1348 strings with 13203 characters,
+and the built_in function-call counts, 164121 in all, are:
+= -- 12576
+> -- 3888
+< -- 778
++ -- 6277
+- -- 2236
+* -- 10745
+:= -- 19481
 add.period$ -- 0
-call.type$ -- 19
-change.case$ -- 344
+call.type$ -- 20
+change.case$ -- 363
 chr.to.int$ -- 210
-cite$ -- 36
-duplicate$ -- 16888
-empty$ -- 12718
-format.name$ -- 1285
-if$ -- 29925
+cite$ -- 38
+duplicate$ -- 17845
+empty$ -- 13394
+format.name$ -- 1373
+if$ -- 31618
 int.to.chr$ -- 0
-int.to.str$ -- 46
+int.to.str$ -- 49
 missing$ -- 0
-newline$ -- 699
-num.names$ -- 939
-pop$ -- 6745
+newline$ -- 734
+num.names$ -- 992
+pop$ -- 7124
 preamble$ -- 1
-purify$ -- 453
+purify$ -- 480
 quote$ -- 0
-skip$ -- 3688
+skip$ -- 3907
 stack$ -- 0
-substring$ -- 21055
-swap$ -- 3167
-text.length$ -- 581
-text.prefix$ -- 18
+substring$ -- 22189
+swap$ -- 3332
+text.length$ -- 617
+text.prefix$ -- 19
 top$ -- 1
-type$ -- 634
+type$ -- 668
 warning$ -- 0
-while$ -- 2326
+while$ -- 2451
 width$ -- 0
-write$ -- 681
+write$ -- 715
 (There was 1 warning)

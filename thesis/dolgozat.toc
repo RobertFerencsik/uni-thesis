@@ -40,4 +40,6 @@
 \select@language {magyar} \contentsline {subsection}{\numberline {5.1.4}Második fázis: szűkített tér}{28}{subsection.5.1.4}%
 \select@language {magyar} \contentsline {subsection}{\numberline {5.1.5}Harmadik fázis: Általánosító képesség}{31}{subsection.5.1.5}%
 \select@language {magyar} \contentsline {chapter}{\numberline {6}Összefoglalás és továbbhaladási irány}{34}{chapter.6}%
-\select@language {magyar} \contentsline {chapter}{Források}{35}{chapter*.9}%
+\select@language {magyar} \contentsline {section}{\numberline {6.1}Összefoglalás (magyar)}{34}{section.6.1}%
+\select@language {magyar} \contentsline {section}{\numberline {6.2}Summary (english)}{35}{section.6.2}%
+\select@language {magyar} \contentsline {chapter}{Források}{37}{chapter*.9}%

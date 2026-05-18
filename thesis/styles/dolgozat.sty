@@ -81,5 +81,10 @@ backend=bibtex,sorting=nyt]{biblatex}
 \addbibresource{dolgozat.bib}
 \usepackage{csquotes}
 
+% Lazább tördelés az irodalomjegyzékben (long URL/DOI miatti overfull elkerülésére).
+% A biblatex a bibliográfiát saját \begingroup...\endgroup pár közé teszi,
+% tehát nem kell explicit \AtEndBibliography/\fussy (és régebbi biblatex-nél ez utóbbi nem is létezik).
+\AtBeginBibliography{\sloppy\emergencystretch=3em\relax}
+
 %irodalomjegyzék bevétele a tartalomjegyzékbe, biblatex nélkül:
 %\usepackage[nottoc]{tocbibind}

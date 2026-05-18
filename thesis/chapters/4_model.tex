@@ -57,7 +57,7 @@ A dropout regularizációs technika, amely a neuronok véletlenszerű elhagyás�
 A kimeneti osztályozó sűrű rétegének mérete a végső reprezentációs transzformáció kapacitását határozza meg. Kis méret esetén a döntési tér korlátozott, míg nagy méret esetén a túlilleszkedés kockázata növekszik. A vizsgált értékek 32, 64 és 128 voltak, a korábbi BiLSTM alapú osztályozási architektúrák gyakorlati beállításai alapján \cite{mlltclassificationbilstm}.
 
 \item \textbf{Tanulási ráta}  
-A tanulási ráta az optimalizációs lépések nagyságát határozza meg. Túl alacsony érték esetén a konvergencia lassú, míg túl magas érték esetén a tanítás instabillá válhat vagy divergálhat. A vizsgált tartomány $5 \times 10^{-5}$ és $3 \times 10^{-3}$ között került meghatározásra, logaritmikus skálán mintavételezve. \cite{goodfellow2016deep}.
+A tanulási ráta az optimalizációs lépések nagyságát határozza meg. Túl alacsony érték esetén a konvergencia lassú, míg túl magas érték esetén a tanítás instabillá válhat. A vizsgált tartomány $5 \times 10^{-5}$ és $3 \times 10^{-3}$ között került meghatározásra, logaritmikus skálán mintavételezve. \cite{goodfellow2016deepbook}.
 
 \item \textbf{Maximális gradiensnorma}  
 A gradiensklippelés célja a robbanó gradiensek hatásának mérséklése, különösen rekurzív neurális hálózatok esetén. A túl alacsony küszöb korlátozhatja a tanulást, míg túl magas érték esetén a klippelés hatása elhanyagolható. A vizsgált intervallum 0.2–3.0 volt, amely a stabil tanítási gyakorlatokban alkalmazott tartományokkal összhangban került meghatározásra.

@@ -190,11 +190,11 @@ Ehhez a keresési tér tovább szűkült, majd a kiválasztott konfigurációval
 
 A módosítások a második fázis vizsgálata alapján kerültek megállapításra. 
 
-Az öt legjobb konfiguráció vizsgálatból adódóan a túlzott szekvencia hossz teljesítmény romlást okozhat, de mindenképp emeli a számítási költséget. Ezért a 500, 600, 700 és 800 token számosságú diszkrét szekvenciahossz tartományból eltávolításra kerülta  800-as érték.
+Az öt legjobb konfiguráció vizsgálatának tanulsága szerint a szekvencia túlzott hossza teljesítményromlást okozhat, egyúttal mindenképpen növeli a számítási költséget. Ezért a 500-, 600-, 700- és 800 tokenes maximális hosszak diszkrét tartományából eltávolításra került a 800-as érték.
 
-Látható volt hogy a magas paraméter szám mellett a modellek álltalánosító képessége csökkent. így a rejtett rétegek száma fixen kettőre lett csökkentve, míg a méretük a 64 illetve 128 dimenzióra került korlátozásra.
+Látható volt, hogy a magas paraméterszám mellett a modellek általánosító képessége csökkent. Így a rejtett rétegek száma fixen kettőre lett csökkentve, míg a méretük a 64 illetve 128 dimenzióra került korlátozásra.
 
-Az epochok száma is csökkentésre került, így csökkentve a tanítási időt és a túlilleszkedés kockázatát. A 4 epochos beállítás a legjobb teljesítmények között is megjelent nagyszámban, azonban az eredmények alapján remélhető a kevesebb epoch melleti jó álltalánosító képesség a többi paraméter megfelelő értéke mellett. A további hiperparaméterek értékei: 
+Az epochok száma is csökkentésre került, így csökkentve a tanítási időt és a túlilleszkedés kockázatát. A 4 epochos beállítás a legjobb teljesítmények között is megjelent nagyszámban, azonban az eredmények alapján remélhető a kevesebb epoch melletti jó általánosító képesség a többi paraméter megfelelő értéke mellett. A további hiperparaméterek értékei: 
 
 Ezek a tartományok mellett a hatodik vizsgálat érte el a legjobb F1-értéket, mely 0.9817 volt. A modell 2 090 049 tanítható paraméterrel rendelkezett, ami a nagyobb konfigurációkhoz képest viszonylag alacsony paraméterszámnak tekinthető. A rétegek méretei a legalacsonyabb értékek a keresési térből (beágyazási - 64, rejtett 2db - 64, sűrű - 32) ennél a modellnél. A további hiperparaméterek értékei: batch méret - 32, dropout arány - 0.4948275322312652, tanulási ráta - 0.0012221621228809315, maximális gradiens norma - 1.4503155625979154, epochok száma - 3.
 
@@ -209,7 +209,7 @@ A viszonylag magas dropout valószínűleg hozzájárult a modell általánosít
 
 Összességében a hiperparaméter-optimalizálás eredményei azt mutatják, hogy a megfelelően regularizált, közepes méretű LSTM-modellek képesek a legjobb általánosítási teljesítményt nyújtani. A túl nagy modellek nem eredményeztek arányos teljesítménynövekedést, miközben jelentősen növelték a tanítási költséget és a számítási erőforrásigényt.
 
-Áttérve a növekményes tanítóhalmaz kiértékelésére, láthatóvá válik hogy az ingadozás mértéke jelentősen csökken. A legnagyobb negatív eltérés alig közelíti meg az ötszázados eltérést, és ez a tanítóhalmaz növekedésével egyre kisebb mértékű lesz, miközben az F1-érték közelít a 0.98 értékhez. Érdekes megfigyelés, hogy a 8-as adag, amely  13911 üzenetet tartalmaz, hozott a legjobb eredményt, és az utána lévő tanítóhalmaz növelése rosszabb eredményeket hozott. A \ref{fig:phase3-learning-curve-f1} ábráról nehen olvasható le, azonban a json-ben tárolt pontos értékekből látható, hogy a 10-es adag tanítóhalmaz esetében az F1-érték több mint egy század ponttal rosszabb eredményt produkált mint a 8-as.
+Áttérve a növekményes tanítóhalmaz kiértékelésére, láthatóvá válik, hogy az ingadozás mértéke jelentősen csökken. A legnagyobb negatív eltérés alig közelíti meg az ötszázados eltérést, és ez a tanítóhalmaz növekedésével egyre kisebb mértékű lesz, miközben az F1-érték közelít a 0.98 értékhez. Érdekes megfigyelés, hogy az 8-as adag, amely $13\,911$ üzenetet tartalmaz, hozott a legjobb eredményt, és az utána lévő tanítóhalmaz növelése rosszabb eredményeket hozott. A \ref{fig:phase3-learning-curve-f1} ábráról nehezen olvasható le, azonban a JSON-fájlokban tárolt pontos értékekből látható, hogy a 10-es adag tanítóhalmaz esetében az F1-érték több mint egy századponttal rosszabb eredményt produkált, mint az 8-as.
 
 \begin{figure}[H]
     \centering
@@ -222,4 +222,4 @@ Ez nem feltétlenül az általánosító képesség romlására utal, hanem töb
 
 Emellett az is elképzelhető, hogy a rögzített hiperparaméterek az adott tanítóhalmaz méretéhez közel optimálisnak bizonyultak, azonban a nagyobb adatmennyiség már eltérő tanulási dinamikát igényelt volna. Ilyen esetben például a tanulási ráta, a regularizáció mértéke vagy az epochok száma már nem biztosít megfelelő konvergenciát. A mély neurális hálók optimalizációja bonyolult optimalizációs probléma, ezért kisebb teljesítményingadozások még stabil tanítás mellett is természetesnek tekinthetők \cite{goodfellow2016deepbook}.
 
-Az eredmények ugyanakkor  pozitív tendenciát mutatnak. A tanítóhalmaz növekedésével az F1-érték varianciája fokozatosan csökkent, a görbe stabilabbá vált, és a teljesítmény tartósan magas szinten maradt. Ez arra utal, hogy a modell általánosító képessége összességében javult, még akkor is, ha egyes részhalmazok esetében kisebb lokális teljesítménycsökkenés volt megfigyelhető.
+Az eredmények ugyanakkor pozitív tendenciát mutatnak. A tanítóhalmaz növekedésével az F1-érték varianciája fokozatosan csökkent, a görbe stabilabbá vált, és a teljesítmény tartósan magas szinten maradt. Ez arra utal, hogy a modell általánosító képessége összességében javult, még akkor is, ha egyes részhalmazok esetében kisebb lokális teljesítménycsökkenés volt megfigyelhető.

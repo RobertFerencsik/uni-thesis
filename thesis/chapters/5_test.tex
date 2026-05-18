@@ -159,7 +159,7 @@ Az öt legjobban teljesítő konfiguráció összefoglalása az alábbi tábláz
     \end{tabular}
 \end{table}
 
-A top-5 konfigurációk elemzése után a következő lépésben a modellek viselkedését vizsgáljuk a tanítóhalmaz növekvő részhalmazain történő tanítás esetén. A \ref{fig:phase2-cummulative_learning-curve} ábra azonos architektúrájú és hiperparaméterű modellek F1-értékét mutatja a tanítóadatok fokozatos növelése mellett.
+A top-5 konfigurációk elemzése után a következő lépésben a modellek viselkedését vizsgáljuk a növekményes tanítóhalmaz  alkalmazása esetén. A \ref{fig:phase2-cummulative_learning-curve} ábra azonos architektúrájú és hiperparaméterű modellek F1-értékét mutatja a tanítóadatok fokozatos növelése mellett.
 
 \begin{figure}[H]
     \centering
@@ -207,8 +207,19 @@ A viszonylag magas dropout valószínűleg hozzájárult a modell általánosít
     \label{fig:phase3-trial-6-learning-curve}
 \end{figure}
 
-Összességében a hiperparaméter-optimalizálás eredményei azt mutatják, hogy a megfelelően regularizált, közepes méretű LSTM-modellek képesek a legjobb általánosítási teljesítményt nyújtani. A túl nagy modellek és túl alacsony tanulási ráták nem eredményeztek arányos teljesítménynövekedést, miközben jelentősen növelték a tanítási költséget és a számítási erőforrásigényt.
+Összességében a hiperparaméter-optimalizálás eredményei azt mutatják, hogy a megfelelően regularizált, közepes méretű LSTM-modellek képesek a legjobb általánosítási teljesítményt nyújtani. A túl nagy modellek nem eredményeztek arányos teljesítménynövekedést, miközben jelentősen növelték a tanítási költséget és a számítási erőforrásigényt.
 
+Áttérve a növekményes tanítóhalmaz kiértékelésére, láthatóvá válik hogy az ingadozás mértéke jelentősen csökken. A legnagyobb negatív eltérés alig közelíti meg az ötszázados eltérést, és ez a tanítóhalmaz növekedésével egyre kisebb mértékű lesz, miközben az F1-érték közelít a 0.98 értékhez. Érdekes megfigyelés, hogy a 8-as adag, amely  13911 üzenetet tartalmaz, hozott a legjobb eredményt, és az utána lévő tanítóhalmaz növelése rosszabb eredményeket hozott. A \ref{fig:phase3-learning-curve-f1} ábráról nehen olvasható le, azonban a json-ben tárolt pontos értékekből látható, hogy a 10-es adag tanítóhalmaz esetében az F1-érték több mint egy század ponttal rosszabb eredményt produkált mint a 8-as.
 
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/phase_3_cummulative_learning_curve_f1.png}
+    \caption{A harmadik fázis növekményes tanulási görbéje. A variancia csökkenése és stabilizálódása érzékelhető.}
+    \label{fig:phase3-learning-curve-f1}
+\end{figure}
 
+Ez nem feltétlenül az általánosító képesség romlására utal, hanem több tényező együttes hatásának következménye is lehet. Lehetséges például, hogy az újonnan bevont üzenetek nagyobb zajt vagy nehezebben általánosítható mintázatokat vezettek be a tanítási folyamatba. A természetes nyelvi adathalmazok esetében gyakori, hogy a tanítóadat bővítésével nem kizárólag hasznos információ kerül a modellhez, hanem redundáns, bizonytalan vagy akár félrevezető minták is, amelyek átmenetileg ronthatják az optimalizáció stabilitását.
 
+Emellett az is elképzelhető, hogy a rögzített hiperparaméterek az adott tanítóhalmaz méretéhez közel optimálisnak bizonyultak, azonban a nagyobb adatmennyiség már eltérő tanulási dinamikát igényelt volna. Ilyen esetben például a tanulási ráta, a regularizáció mértéke vagy az epochok száma már nem biztosít megfelelő konvergenciát. A mély neurális hálók optimalizációja bonyolult optimalizációs probléma, ezért kisebb teljesítményingadozások még stabil tanítás mellett is természetesnek tekinthetők \cite{goodfellow2016deepbook}.
+
+Az eredmények ugyanakkor  pozitív tendenciát mutatnak. A tanítóhalmaz növekedésével az F1-érték varianciája fokozatosan csökkent, a görbe stabilabbá vált, és a teljesítmény tartósan magas szinten maradt. Ez arra utal, hogy a modell általánosító képessége összességében javult, még akkor is, ha egyes részhalmazok esetében kisebb lokális teljesítménycsökkenés volt megfigyelhető.

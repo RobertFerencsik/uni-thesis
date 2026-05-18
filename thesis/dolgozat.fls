@@ -581,6 +581,13 @@ INPUT .\images\phase_3_trial_6_training_curves.png
 INPUT .\images\phase_3_trial_6_training_curves.png
 INPUT .\images\phase_3_trial_6_training_curves.png
 INPUT .\images\phase_3_trial_6_training_curves.png
+INPUT .\images\phase_3_cummulative_learning_curve_f1.png
+INPUT .\images\phase_3_cummulative_learning_curve_f1.png
+INPUT .\images\phase_3_cummulative_learning_curve_f1.png
+INPUT .\images\phase_3_cummulative_learning_curve_f1.png
+INPUT .\images\phase_3_cummulative_learning_curve_f1.png
+INPUT .\images\phase_3_cummulative_learning_curve_f1.png
+INPUT .\images\phase_3_cummulative_learning_curve_f1.png
 INPUT .\chapters\6_summary.tex
 INPUT .\chapters\6_summary.tex
 OUTPUT chapters\6_summary.aux

@@ -103,46 +103,6 @@
     \field{year}{2022}
   \endentry
 
-  \entry{goodfellow2016deep}{online}{}{}
-    \name{author}{3}{}{%
-      {{hash=GI}{%
-         family={Goodfellow},
-         familyi={G\bibinitperiod},
-         given={Ian},
-         giveni={I\bibinitperiod},
-      }}%
-      {{hash=BY}{%
-         family={Bengio},
-         familyi={B\bibinitperiod},
-         given={Yoshua},
-         giveni={Y\bibinitperiod},
-      }}%
-      {{hash=CA}{%
-         family={Courville},
-         familyi={C\bibinitperiod},
-         given={Aaron},
-         giveni={A\bibinitperiod},
-      }}%
-    }
-    \list{organization}{1}{%
-      {{National AI Portal of India}}%
-    }
-    \strng{namehash}{GIBYCA1}
-    \strng{fullhash}{GIBYCA1}
-    \field{labelnamesource}{author}
-    \field{labeltitlesource}{title}
-    \field{sortinit}{G}
-    \field{sortinithash}{G}
-    \field{title}{{Deep Learning} {\normalfont [\texttt{PDF}]}}
-    \verb{url}
-    \verb https://aikosh.indiaai.gov.in/static/Deep+Learning+Ian+Goodfellow.pdf
-    \endverb
-    \field{year}{2016}
-    \field{urlday}{13}
-    \field{urlmonth}{05}
-    \field{urlyear}{2026}
-  \endentry
-
   \entry{ibmThinkAI}{online}{}{}
     \name{author}{1}{}{%
       {{hash=I}{%

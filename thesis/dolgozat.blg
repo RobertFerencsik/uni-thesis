@@ -40,47 +40,49 @@ Reallocating 'singl_function' (item size: 4) to 100 items.
 Reallocating 'singl_function' (item size: 4) to 100 items.
 Database file #1: dolgozat-blx.bib
 Database file #2: dolgozat.bib
+Warning--I didn't find a database entry for "goodfellow2016deep"
 Biblatex version: 3.21
 Reallocating 'wiz_functions' (item size: 4) to 9000 items.
 Reallocating 'singl_function' (item size: 4) to 100 items.
-You've used 20 entries,
+You've used 19 entries,
             6402 wiz_defined-function locations,
-            1348 strings with 13277 characters,
-and the built_in function-call counts, 166278 in all, are:
-= -- 12667
-> -- 4174
-< -- 810
-+ -- 6537
-- -- 2471
-* -- 10784
-:= -- 19778
+            1343 strings with 13070 characters,
+and the built_in function-call counts, 155662 in all, are:
+= -- 11911
+> -- 3738
+< -- 735
++ -- 5997
+- -- 2174
+* -- 10143
+:= -- 18505
 add.period$ -- 0
-call.type$ -- 20
-change.case$ -- 381
-chr.to.int$ -- 234
-cite$ -- 38
-duplicate$ -- 17980
-empty$ -- 13485
-format.name$ -- 1373
-if$ -- 31893
+call.type$ -- 19
+change.case$ -- 344
+chr.to.int$ -- 210
+cite$ -- 36
+duplicate$ -- 16888
+empty$ -- 12718
+format.name$ -- 1285
+if$ -- 29925
 int.to.chr$ -- 0
-int.to.str$ -- 49
+int.to.str$ -- 46
 missing$ -- 0
-newline$ -- 739
-num.names$ -- 1010
-pop$ -- 7147
+newline$ -- 699
+num.names$ -- 939
+pop$ -- 6745
 preamble$ -- 1
-purify$ -- 498
+purify$ -- 453
 quote$ -- 0
-skip$ -- 3954
+skip$ -- 3688
 stack$ -- 0
-substring$ -- 22365
-swap$ -- 3385
-text.length$ -- 627
-text.prefix$ -- 19
+substring$ -- 21055
+swap$ -- 3167
+text.length$ -- 581
+text.prefix$ -- 18
 top$ -- 1
-type$ -- 668
+type$ -- 634
 warning$ -- 0
-while$ -- 2470
+while$ -- 2326
 width$ -- 0
-write$ -- 720
+write$ -- 681
+(There was 1 warning)

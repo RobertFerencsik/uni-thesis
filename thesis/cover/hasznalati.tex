@@ -1,0 +1,109 @@
+\pagestyle{empty}
+
+\section*{Repository használati útmutató}
+
+\noindent
+Ez az útmutató a tároló (GitHub / mellékelt adathordozó) tartalmának áttekintéséhez és futtatásához szükséges lépéseket foglalja össze.
+
+\subsection*{Beállítás}
+
+\begin{enumerate}
+    \item CUDA-képes videokártya szükséges a futtatáshoz.
+    \item Python 3.10.0 telepítése.
+    \item Csomagok telepítése: \texttt{pip install -r requirements.txt}
+\end{enumerate}
+
+\subsection*{Használat}
+
+\subsubsection*{Adathalmaz feldolgozása}
+
+A \texttt{notebooks/} mappában található, Jupyter-notebookokat sorban le kell futtatni.
+
+\subsubsection*{Model}
+
+A tároló gyökerében a \texttt{main.py} a belépési pont.
+
+\paragraph{Hiperparaméter-keresés}
+
+\begin{verbatim}
+python main.py tune [--num-trials 20]
+\end{verbatim}
+
+\noindent
+A próbák száma opcionális. A reprodukálhatóság érdekében az alapértelmezett érték \textbf{20}, ezzel lett mindhárom fázis futtatva.
+
+\paragraph{Növekményes tanítóhalmazon tanulási görbe}
+
+\begin{verbatim}
+python main.py learning-curve --num-portions 10
+\end{verbatim}
+
+\noindent
+A részek száma szintén opcionális. Az alapértelmezés \textbf{10}. Ezzel lett kiértékelve a növekményes adathalmazokon tanított modellek \textbf{általánosító} képessége.
+
+\subsection*{Jegyzékfa}
+
+Az alábbi fa segít eligazodni a tárolóba. A results jegyzék tartalmazza a futási eredményeket, így ennek megtekintésével futtatás nélkül is tanulmányozhatóak az eredmények.
+
+\begin{small}
+\begin{verbatim}
+uni-thesis/
+|
++-- main.py                  # Belépési pont: tune vagy learning-curve
++-- requirements.txt         # pip-függőségek
++-- README.md
++-- .gitignore               # Nem verziókezelt fájlok listája
+|
++-- notebooks/
+|   +-- 1-eda-1.ipynb        # EDA
+|   +-- 2-data-cleaning.ipynb
+|   +-- 3-verification.ipynb
+|   +-- 4-tokenization.ipynb # Tokenizáló
+|   +-- 5-validation.ipynb   # Validációs lépések
+|   `-- (*.png)              # Futtatáskor generált ábrák
+|
++-- data/
+|   +-- corpora/
+|   |   +-- raw/             # Enron, CSV, train/teszt/validáció
+|   |   `-- processed/       # Előfeldolgozott és tokenizer tanító szöveg
+|   `-- models/              
+|       +-- lstm_tokenizer.model
+|       +-- train_ids.pkl, train_pieces.pkl
+|       +-- learning_curve/
+|       |   `-- portion_01..10/
+|       |       +-- best_model.pt
+|       |       +-- checkpoint_epoch_*.pt
+|       |       +-- eval_test_metrics.json
+|       |       +-- test_confusion_matrix.png
+|       |       `-- training_curves.png
+|       `-- tuning/
+|           `-- trial_001 .. trial_XXX/
+|               +-- best_model.pt
+|               +-- checkpoint_epoch_*.pt
+|               +-- eval_test_metrics.json
+|               +-- test_confusion_matrix.png
+|               `-- training_curves.png
+|
++-- src/
+|   +-- config/              # config.json, hiperparaméterek
+|   +-- data/                
+|   +-- models/              # bilstm.py
+|   +-- training/
+|   +-- evaluation/
+|   +-- experiments/         # tuning.py, learning_curve.py
+|   `-- infrastructure/
+|
++-- thesis/                  # Szakdolgozat LaTeX
+|
+`-- results/
+    +-- preprocessing/       # Notebookok kimenete (Markdown, ábrák)
+    +-- experiements/          # Modellek kiértékelései (archívum)
+    |   +-- 1_phase_one_tuning/
+    |   +-- 2_phase_two_learning_curve/
+    |   +-- 2_phase_two_tuning/
+    |   +-- 3_phase_three_learning_curve/
+    |   `-- 3_phase_three_tuning/
+    `-- SPAM_HAM_...pdf      # Dolgozat PDF (ha ide kerül)
+\end{verbatim}
+\end{small}
+

@@ -1,0 +1,54 @@
+\chapter{Bevezetés}
+
+Az információs technológiák rohamos fejlődése alapjaiban alakította át a kiberbiztonságot. 
+Az új technológiák megjelenésével ugyan jelentősen bővült a védekezés eszköztára, ez azonban korántsem jelenti a fenyegetések megszűnését vagy csökkenését. 
+A digitális térben zajló „küzdelem” inkább egy folyamatosan változó, dinamikus folyamatként írható le, 
+ahol a támadási és védekezési módszerek egymással párhuzamosan fejlődnek. 
+Az internet széles körű elterjedése áthelyezte a színterét, napjainkban pedig a mesterséges intelligencia biztosít új eszközöket mind a támadók, mind a védekezők számára.
+
+A köztudatban élő kép, miszerint a kiberbiztonság valós idejű „programozói párbajként” értelmezhető, nem tükrözi a valóság összetettségét. 
+A gyakorlatban a hangsúly sokkal inkább a már működő rendszerekben található sérülékenységek feltárásán és kezelésén van, hogy a támadók ne is férjenek hozzá sérülékeny felülethez. 
+Ez a védelem nem csupán a forráskód minőségétől függ, hanem számos egyéb tényező együttes hatásának eredménye. 
+Ilyen tényező például a titkosítás, a megfelelő jogosultságkezelés, a helyes konfigurációk, és az emberi figyelem és tudás.
+
+Az egyik leggyakoribb támadási forma az \textbf{adathalászat} (phishing). Az ilyen típusú támadások során a támadók megtévesztő, 
+gyakran hitelesnek tűnő üzenetek segítségével próbálnak érzékeny adatokat megszerezni a felhasználóktól. Az adathalász e-mailek különösen veszélyesek, 
+mivel kihasználják a felhasználók figyelmetlenségét, illetve döntéshozatali korlátait. Mindez rámutat arra, 
+hogy a kizárólag felhasználói döntésekre építő védekezés nem tekinthető elegendőnek.
+
+Ebből következően a modern kiberbiztonsági megoldások egyik kulcseleme az automatizált védelem alkalmazása, mely a valóságban a természetes nyelv terén, 
+illetve tapasztalat alapján egyéb területeken is inkább nevezhető félautomatának. 
+Az e-mail szolgáltatók fejlett szűrőrendszereket használnak annak érdekében, hogy a nem kívánt vagy kártékony 
+üzeneteket még a felhasználóhoz való eljutás előtt azonosítsák és elkülönítsék.
+
+Ezt a folyamatot klasszifikációnak, osztályba sorolásnak tekintjük. 
+Gépi módszerek számos fajtája alkalmazható, és ugyancsak sokféle adat felhasználásával lehet döntést hozni egy e-mail kéretlen voltáról. 
+A szöveg alapú megközelítések mellett a metaadatokból, hálózati jellemzőkből és viselkedési mintákból automata vagy félautomata módon információt 
+kinyerő modellek és ezek konkrét megvalósítása végtelen számú megoldást nyújt a feladatra.
+
+A beérkező üzenetek nagy mennyisége és folyamatosan növekvő változatossága miatt a modern rendszerek jellemzően 
+\textbf{gépi tanulási} (Machine Learning) módszerekre épülnek, amelyek képesek alkalmazkodni az újonnan megjelenő mintázatokhoz, 
+valamint a dinamikusan változó és egyre kifinomultabb támadási technikákhoz. E megközelítések közül különösen kiemelkednek a 
+\textbf{mélytanulási} (Deep Learning, DL) módszerek, amelyek a hagyományos gépi tanulási eljárásokhoz képest számos jelentős előnnyel rendelkeznek.
+
+A mélytanulási modellek egyik fontos tulajdonsága, hogy jelentősen csökkentik a kézi \textbf{jellemzőtervezés} (Feature Engineering) szükségességét, 
+amely a klasszikus módszerek esetében gyakran időigényes, szakértelmet igénylő folyamat. 
+Ezzel szemben a mély neurális hálózatok képesek közvetlenül a nyers adatokból automatikusan kinyerni a releváns jellemzőket és mintázatokat, 
+ezáltal a tanulási folyamat sokkal inkább adatvezéreltté válik.
+Ennek eredményeként a modell nemcsak hatékonyabban képes kezelni a nagy mennyiségű és komplex adatokat, hanem jobb általánosító képességet is mutathat új, 
+korábban nem látott példák esetén. A számítási költség növekedése emelhető ki hátrányként a mélytanulási módszerek kapcsán.
+Az egyik megközelítés a \textbf{kéretlen levél} (spam) és \textbf{valódi levél} (ham) kategóriák osztályba sorolására a természetes nyelvű szekvenciák vizsgálata. 
+Ezen dolgozat ezt veszi alapul, és vizsgálja mélytanulási módszerekkel. 
+A természetes nyelvi szekvenciák feldolgozására különösen alkalmasak a \textbf{hosszú-rövid távú memória} (Long Short-Term Memory, LSTM) 
+architektúrán alapuló visszacsatolt neurális hálózatok, amelyek a nyelvben előforduló statisztikai mintázatokat tanulják meg. 
+A szöveges e-maileket adat sorozatként kezelik, ahol az egyes szavak és nyelvi mintázatok jelentése nagyban függ az őket megelőző kontextustól. 
+A neurális hálózat a korábban látott szókapcsolatok és statisztikai összefüggések alapján tanulja meg felismerni azokat a mintákat, 
+amelyek jellemzőek lehetnek a kéretlen vagy a valódi levelekre. 
+Az osztályozási döntés során nem kizárólag egyes kulcsszavak jelenlétét vizsgálja, hanem azok sorrendjét, gyakoriságát és környezetét is figyelembe veszi. 
+Ennek köszönhetően a modell képes összetettebb nyelvi és stilisztikai mintázatok felismerésére is, amelyek hozzájárulnak az e-mailek pontosabb osztályozásához.
+
+A dolgozat központi témája a hosszú-rövid távú memóriahálózatokra épülő szövegosztályozás gyakorlati vizsgálata. A munka során az LSTM-alapú megközelítés implementációja, tanítása és kiértékelése kerül bemutatásra.
+
+A modell megfelelő kialakítása és paraméterezése mellett az előfeldolgozásik lépések részletes megvalósítása és értékelése is jelentős, mivel jelentősen befolyásolják a tanítás hatékonyságát és a végső teljesítményt.
+
+A vizsgálat fontos célja annak feltárása, hogy a tanítóadatok mennyisége milyen mértékben befolyásolja a modell teljesítményét és általánosító képességét. Ennek érdekében a dolgozat elemzi, hogyan változnak a teljesítménymutatók a növekvő tanítóhalmaz függvényében.

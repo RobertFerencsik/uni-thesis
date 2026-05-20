@@ -1,0 +1,157 @@
+\chapter{A klasszifikációs modell és tanítási folyamat}
+
+\section{Modelltervezés}
+
+A dolgozatban alkalmazott klasszifikációs modell egy kétirányú hosszú rövid távú memóriával rendelkező neurális architektúra, amely bináris szövegklasszifikációs feladatot valósít meg.
+A modell célja annak meghatározása, hogy egy elektronikus levél kéretlen vagy valódi üzenet kategóriába tartozik-e.
+
+A modell bemenetét tokenazonosítók sorozata képezi, amelyeket a korábban ismertetett SentencePiece tokenizáló állít elő. Kimenete pedig egy 0 és 1 közé eső szám, 
+az annak a valószínűsége, hogy a szekvencia kéretlen üzenet. Egy küszöbbel (értéke 0.5) bináris döntést hozunk. Ha a valószínűség nagyobb, mint 0.5, akkor kéretlen az üzenet.
+
+\subsection{Modell architektúra}
+
+A kéretlen üzenetek bináris osztályozására egy kétirányú hosszú rövid távú memória neurális hálón alapuló architektúra használata mellett esett a döntés. 
+A modell célja a szöveges üzenetek szekvenciális reprezentációjának hatékony feldolgozása a szövegkörnyezet mindkét irányból való figyelembevételével.
+
+A bemenetek változó hosszúságúak, ezért feldolgozás során \textbf{kitöltés} (padding) alkalmazása szükséges, és ezek a kitöltő tokenek ne járulhassanak hozzá a tanulható tokenekhez. 
+A beágyazási réteg feladatai közé tartozik ezen tokenek kezelése, mely az első réteg az architektúrában. Ebben a rétegben történik a token azonosítók egész számokból való kontextusban gazdag vektorrá alakítása.
+Ezt követően jönnek a hosszú rövid távú memória rétegek, ezek kimenete az utolsó réteg mindkét irányú rejtett állapotainak összefűzése.
+
+Ezt a kimenetet két \textbf{teljesen összekapcsolt} (Dense) lineáris réteg követi, amelyek feladata az osztályozás; közöttük egy \textbf{egyenirányított lineáris egység} (Rectified Linear Unit, ReLU) aktivációs függvény 
+és egy \textbf{lemorzsolás} (\textbf{dropout}) regularizáció kerül alkalmazásra a nemlinearitás biztosítása és a túlilleszkedés csökkentése érdekében, a modell általánosító képességének javítására. A második 
+teljesen összekapcsolt réteg kimenete egyetlen neuront tartalmaz, amely logit értéket állít elő.
+
+
+\subsection{Hiperparaméter-tér és optimalizálási stratégia}
+
+A megfelelő paraméterek kiválasztása az F1 érték maximalizálása szerint történik random hiperparaméter-keresés során az előre definiált értéktartományokból \cite{randomsearch}
+pszeudovéletlenszerűen kerül kiválasztásra az érték minden paraméter esetében a reprodukálhatóság érdekében. Az optimalizáció alapértelmezett célfüggvénye az F1 mérőszám, melynek jelentősége kiegyensúlyozatlan osztályozás esetén nagyobb. Helyes választás lehet a precizitás vagy a visszahívás is, a megoldandó feladattól függően.
+Magas precizitás esetén, ha a "pozitív" osztályunk a kéretlen üzenet, kevés normális üzenet kerül a spam mappába, ez a valósághűbb működés. Míg a visszahívás arra ad választ, hogy a valódi kéretlen üzenetek mekkora részét találja meg a modell. 
+Az F1-érték melletti döntést az általános kéretlen üzenetek detektálása támasztja alá. 
+
+Ezekkel a paraméterekkel egy új modell kerül betanításra és kiértékelésre. A tanítás folyamata a következő alfejezetben kerül bemutatásra.
+
+A keresési tér kialakításának célja olyan hiperparaméter-intervallumok meghatározása volt, amelyek egyensúlyt biztosítanak a modell reprezentációs kapacitása, a tanítás stabilitása és a számítási költség között. A vizsgált tartományok nem univerzális optimális értékek, hanem a szakirodalomban és korábbi BiLSTM-alapú szövegosztályozási megközelítésekben alkalmazott konfigurációk, valamint a feladat sajátosságai alapján meghatározott kísérleti keresési tér részei \cite{mlltclassificationbilstm, qin2023bilstm_attention}.  
+
+\begin{itemize}
+
+\item \textbf{Maximális szekvenciahossz}  
+A bemeneti szekvencia maximális hossza meghatározza, hogy a modell mennyi kontextuális információt képes feldolgozni egy mintából. A túl rövid szekvenciák információvesztéshez vezethetnek, míg a túl hosszú szekvenciák jelentősen növelik a memória- és számítási igényt. A korábbi statisztikai elemzés alapján a bemeneti szövegek túlnyomó része 500–800 token között helyezkedik el, ezért a vizsgált intervallum 500–1000 token volt.
+
+\item \textbf{Batch méret}  
+A batch size az egy iteráció során feldolgozott minták számát határozza meg. Kis batch méret zajosabb gradiensbecslést eredményez, míg túl nagy batch esetén a generalizáció romolhat a csökkent gradiensvariancia miatt. A szakirodalomban gyakran alkalmazott tartományokkal összhangban a vizsgált értékek 32, 64 és 128 voltak \cite{mlltclassificationbilstm}.
+
+\item \textbf{Szóbeágyazási dimenzió}  
+Az embedding dimenzió a tokenek sűrű vektorreprezentációjának méretét határozza meg. Alacsony dimenzió esetén a reprezentáció kapacitása korlátozott, míg túl magas dimenzió esetén a modell paraméterszáma és a túltanulás kockázata növekszik. A vizsgált értékek 64, 128 és 256 voltak, összhangban korábbi BiLSTM-alapú szövegklasszifikációs megközelítésekkel \cite{mlltclassificationbilstm, qin2023bilstm_attention}.
+
+\item \textbf{Rejtett réteg mérete}  
+A LSTM rejtett állapotának dimenziója közvetlenül befolyásolja a modell reprezentációs kapacitását. A kisebb méret gyorsabb tanítást eredményez, míg a nagyobb dimenzió jobb reprezentációt biztosíthat, de növeli a túltanulás és a számítási költség kockázatát. A vizsgált értékek 64, 128, 256 és 384 voltak, a korábbi szövegklasszifikációs BiLSTM architektúrák gyakorlati beállításai alapján \cite{qin2023bilstm_attention}.
+
+\item \textbf{Rejtett rétegek száma}  
+Az egymásra épített LSTM rétegek száma a modell mélységét határozza meg. A mélyebb architektúrák elméletileg nagyobb reprezentációs kapacitást biztosítanak, ugyanakkor érzékenyebbek a túlilleszkedésre és nehezebben optimalizálhatók. A vizsgált konfigurációk 1–3 réteget tartalmaztak, összhangban korábbi BiLSTM alapú szövegosztályozási modellekkel \cite{mlltclassificationbilstm, qin2023bilstm_attention}.
+
+\item \textbf{Dropout arány}  
+A dropout regularizációs technika, amely a neuronok véletlenszerű elhagyásával csökkenti a túlilleszkedést és javítja a generalizációt. Alacsony dropout érték esetén a regularizáció hatása gyenge, míg túl magas érték esetén a modell alultanulhat. A vizsgált intervallum 0.15–0.55 volt, amely a korábbi BiLSTM szövegklasszifikációs modellekben alkalmazott tartományokkal összhangban van \cite{mlltclassificationbilstm}.
+
+\item \textbf{Teljesen összekapcsolt réteg mérete}  
+A kimeneti osztályozó sűrű rétegének mérete a végső reprezentációs transzformáció kapacitását határozza meg. Kis méret esetén a döntési tér korlátozott, míg nagy méret esetén a túlilleszkedés kockázata növekszik. A vizsgált értékek 32, 64 és 128 voltak, a korábbi BiLSTM alapú osztályozási architektúrák gyakorlati beállításai alapján \cite{mlltclassificationbilstm}.
+
+\item \textbf{Tanulási ráta}  
+A tanulási ráta az optimalizációs lépések nagyságát határozza meg. Túl alacsony érték esetén a konvergencia lassú, míg túl magas érték esetén a tanítás instabillá válhat. A vizsgált tartomány $5 \times 10^{-5}$ és $3 \times 10^{-3}$ között került meghatározásra, logaritmikus skálán mintavételezve. \cite{goodfellow2016deepbook}.
+
+\item \textbf{Maximális gradiensnorma}  
+A gradiensklippelés célja a robbanó gradiensek hatásának mérséklése, különösen rekurzív neurális hálózatok esetén. A túl alacsony küszöb korlátozhatja a tanulást, míg túl magas érték esetén a klippelés hatása elhanyagolható. A vizsgált intervallum 0.2–3.0 volt, amely a stabil tanítási gyakorlatokban alkalmazott tartományokkal összhangban került meghatározásra.
+
+\item \textbf{Epochok száma}  
+Az epochok száma a teljes tanítóhalmazon történő áthaladások számát határozza meg. Alacsony epoch szám esetén a modell alultanulhat, míg túl magas érték esetén a túlilleszkedés kockázata nő. A vizsgált tartomány 2–5 epoch volt, korai megállítás (early stopping) és validációs teljesítmény monitorozása mellett \cite{qin2023bilstm_attention}.
+
+\end{itemize}
+
+\footnotetext{
+A rétegek számosságát és méretét, valamint az epochok számát a \cite{qin2023bilstm_attention} tanulmány inspirálta, amely rövid szövegek bináris szentimentklasszifikációjára fókuszált. A jelen feladat hosszabb szövegek feldolgozását igényli, ezért a keresési tér felső határai tágabbak voltak. Ugyanakkor a számítási erőforrások korlátai és a dataset mérete indokolták az epochok alacsonyabb tartományban történő vizsgálatát.
+}
+
+A diszkrét hiperparaméterek esetében előre definiált értékkészletből történt a mintavételezés, míg a folytonos paramétereknél intervallumalapú keresést alkalmaztunk. 
+A tanulási ráta logaritmikus skálán került mintavételezésre, mivel annak optimális értéke jellemzően több nagyságrendet is lefedhet.
+
+\subsubsection{Tanítási folyamat, hangolás és tanítóhalmaz növelés}
+
+A tanítási folyamat tulajdonképpen koncepcionálisan teljesen megegyezik a hangolás és a növekményes tanítóhalmaz vizsgálata között. Az eltérés logikusan abból áll, 
+hogy a hiperparaméterek keresése során a tanító-, validációs- és tesztadathalmazok változatlanok, míg a hiperparaméterek és az előző fejezetben megállapított rétegek mérete és számossága véletlenszerűen változnak a megadott értéktartományaiban. 
+Míg a másik esetben a tanítóhalmaz mérete növekszik kumulatívan, más néven halmozódóan, miközben a hiperparaméterek és a többi adathalmaz változatlan marad. A \Aref{fig:train-flowchart} ábra szemlélteti a tanítási folyamatot, mely az előkészítés, tanítás és kiértékelés részekből áll. 
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=1.0\textwidth]{images/traning_flow.drawio.png}
+    \caption{A tanítás folyamata részletesen.}
+    \label{fig:train-flowchart}
+\end{figure}
+
+\section{Implementáció}
+
+A modell, a tanítási folyamat és minden egyéb segédprogram implementálása Python nyelven történt, és az egész projekt egységesen a Python 3.10.0 verziót használja. 
+A kódbázis szerkezetét és egyes rövidebb kódrészleteket a BitNinja Technologies Zrt. zárt hozzáférésű projektje inspirálta, melyből részlet nem kerülhet bemutatásra.  
+A kód futtatásához a következő, pip-pel telepíthető külső csomagok kerültek felhasználásra (zárójelben a dokumentációban feltüntetett verziószámokkal):
+ 
+\begin{itemize}
+    \item pandas (2.3.3);
+    \item matplotlib (3.10.8);
+    \item scikit-learn (1.7.2);
+    \item sentencepiece (0.2.1);
+    \item numpy (2.2.6).
+    \item torch (2.11.0+cu130);
+\end{itemize}
+
+Továbbá a kód objektumorientált programozási paradigma alapján készült, melynek következtében a kód modularitása kedvezően befolyásolja a 
+kód olvasását, karbantartását és esetleges továbbfejlesztését.
+
+A kezelő felület nagyon egyszerű karakteres felület. Két fő argumentuma a tune és a learning-curve. A tune argumentum esetén a --num-trials nevű opcionális argumentum a 20 értéket kapja alapértelmezetten mely a 
+hiperparaméter-keresési próbálkozások száma, míg a learning-curve argumentum esetén a --num-portions nevű opcionális argumentum a 10 értéket kapja alapértelmezetten, amely a tanítóhalmaz méretének növelése során 
+végzett vizsgálatok száma, és e szám alapján kerül a tanítóhalmaz felosztásra.
+
+\subsection{Állomány és konfigurációk kezelése}
+
+Az állománykezelési műveletek megvalósításáért az \texttt{ArtifactManager} osztály felel. 
+Az osztály egységes interfészt biztosít különböző típusú adatok mentésére és betöltésére, beleértve:
+
+\begin{itemize}
+    \item PyTorch modellek és checkpointok mentését,
+    \item JSON konfigurációs állományok kezelését,
+    \item CSV adathalmazok betöltését és mentését,
+    \item grafikonok és ábrák exportálását,
+    \item szöveges állományok kezelését.
+\end{itemize}
+
+Az osztály automatikusan kezeli a könyvtárstruktúra létrehozását, így a mentési műveletek során nem szükséges manuálisan létrehozni a hiányzó mappákat. 
+Az implementáció támogatja a relatív és abszolút útvonalak egységes kezelését is.
+
+A konfigurációk JSON formátumban kerültek tárolásra, melyek közül az egyik feladata az útvonalak és reguláris kifejezések tárolása, míg a másik kettő a hiperparaméterteret és 
+a random hiperparaméter-keresés eredményeit tárolja. Az útvonalak kezelése nem teljes lefedettségű, találni a kódbázisban beégetett vagy kibővített útvonalakat. Az adatok betöltését és mentését 
+külön Python osztályok kezelik.
+
+\subsection{Modell, hiperparaméterek és tanulási görbe}
+
+A modell a PyTorch keretrendszer használatával készült, és a BiLSTMSpamClassifier osztály tartalmazza architektúráját, amely az \textbf{előrecsatolás} (forward pass) "forward" nevű metódusából olvasható ki.
+Ez az egyetlen használt metódus a konstruktoron kívül. Szerkezete a Modell architektúra részben rögzítésre került.
+
+A RandomSearchTuner osztály feladatai közé tartozik a hiperparaméter térből betöltött különböző érték tartományok kezelése, melyek közé került diszkrét lehetőség, egészszámú vagy lebegőpontos intervallum illetve 
+logaritmikus skálán való mintavételezés. Minden próba esetén egy új pszeudovéletlen hiperparaméter-konfiguráció generálódott, és ezekkel egy új modell tanítása kezdődött. 
+
+A tanítás folyamata mind a hiperparaméter mind a tanulási görbe esetében megegyezik, és futtatásukat az LSTMTrainingPipeline osztály indítja. Itt kerül példányosításra az összes különböző osztály, és run() metódusát hívja a 
+mindkét feladat futtatása. 
+
+A hiperparaméter-keresés eredményei külön jegyzékekbe kerültek mentésre, és a következő adatokat tartalmazzák:
+
+\begin{itemize}
+    \item a betanított modell állapot mentését,
+    \item a tanítási előzményeket,
+    \item a kiértékelési metrikákat,
+    \item a konfúziós mátrixot,
+    \item valamint a tanulási görbét.
+\end{itemize}
+
+A tanulási görbe osztálya a LearningCurveRunner osztály, feladata a tanítóhalmaz méretének növelése mellett az osztályozási teljesítmény vizsgálata és ezen vizsgálatok mentése vizuálisan és JSON formátumban, 
+a már említett állomány kezelő osztály segítségével. 
+
+A kumulatívfelosztást végző külső segédfüggvény érdekessége, hogy a scikit-learn könyvtár StratifiedKFold osztályának `split` metódusát alkalmazza, 
+mely pszeudorandom módon megkeveri az adatokat és biztosítja a közel azonos osztályeloszlást a részhalmazok között.

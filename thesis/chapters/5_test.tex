@@ -1,0 +1,225 @@
+\chapter{Kísérletek és eredmények}
+
+\section{Hiperparaméter-optimalizálás és tanulási görbe}
+
+Ebben a fejezetben a hiperparaméter-optimalizálás folyamata, valamint a kumulatív tanítóhalmazos tanulási görbe elemzése kerül bemutatásra.
+A vizsgálat elsődleges célja annak meghatározása volt, hogy milyen hiperparaméter-konfiguráció mellett képes a modell stabil és reprodukálható teljesítményt nyújtani, illetve hogyan változik az általánosító képessége a tanítóhalmaz méretének fokozatos növelésével.
+
+A hiperparaméter-optimalizálás során nem kizárólag a lehető legmagasabb teljesítmény elérése volt a cél. Bár a paraméterek végső kiválasztása a maximális F1-érték alapján történt, a stabil modellviselkedést a keresési tér szűkítésével lehetett elérni.
+Az F1-érték a precizitás és a visszahívás harmonikus átlaga, érzékeny az osztályozási torzításokra, és kiegyensúlyozott képet ad a modell teljesítményéről.
+
+A teljes optimalizálási folyamat három egymásra épülő fázisban valósult meg.
+Az első fázis célja a széles hiperparaméter-tér feltérképezése volt annak érdekében, hogy meg lehessen állapítani a paramétertér megfelelő beállítását.
+A második fázisban a keresési tér szűkítésére került sor, amelynek célja a stabilabb és hatékonyabban futtatható konfigurációk előtérbe helyezése volt.
+A harmadik fázisban már egy tudatosan konzervatívabb keresési stratégia került alkalmazásra, amely a tanulási görbe vizsgálatához szükséges stabil modellviselkedést támogatta.
+
+\subsection{Kísérleti környezet}
+
+A futtatások egyetlen lokális gépen történtek, a mérések során használt hardver és környezet a következő volt:
+\begin{itemize}
+    \item \textbf{GPU:} NVIDIA GeForce RTX 5050 Laptop GPU,
+    \item \textbf{GPU memória:} 8151 MiB VRAM,
+    \item \textbf{Rendszermemória:} 33617924096 bájt (kb. 31,3 GiB),
+    \item \textbf{Python:} 3.10.0,
+    \item \textbf{PyTorch:} 2.11.0+cu130,
+    \item \textbf{CUDA runtime:} 13.0.
+\end{itemize}
+
+Erőforrás-igény és futásidő-metrikák nem kerültek rögzítésre.
+
+\subsection{A három fázis keresési tere}
+
+A három kísérleti fázis közötti legfontosabb különbséget a hiperparaméter-tér fokozatos szűkítése jelentette.
+Az egyes iterációk során a korábbi futások tapasztalatai alapján kerültek módosításra a keresési tartományok annak érdekében, hogy csökkenjen az instabil vagy aránytalanul erőforrás-igényes konfigurációk száma.
+A \ref{tab:search-space-phases} táblázat összefoglalja a három fázisban alkalmazott keresési tereket.
+
+\begin{table}[htbp]
+    \centering
+    \caption{A hiperparaméter-tér módosítása a három fázisban.}
+    \label{tab:search-space-phases}
+    \begin{tabular}{|l|l|l|l|}
+        \hline
+        \textbf{Hiperparaméter} & \textbf{1. fázis} & \textbf{2. fázis} & \textbf{3. fázis} \\
+        \hline
+        Max. szekvenciahossz & [512, 800, 1024] & [500, 600, 700, 800] & [500, 600, 700] \\
+        \hline
+        Batch méret & [32, 64, 128] & [32, 64, 128] & [32, 64, 128] \\
+        \hline
+        Beágyazási dimenzió & [64, 128, 256] & [64, 128, 256] & [64, 128, 256] \\
+        \hline
+        Rejtett rétegek mérete & [64, 128, 256, 384] & [64, 128, 256] & [64, 128] \\
+        \hline
+        Rejtett rétegek száma & [1, 2, 3] & [2, 3] & [2] \\
+        \hline
+        Dropout arány & [0.15, 0.50] & [0.15, 0.50] & [0.15, 0.50] \\
+        \hline
+        Sűrű réteg mérete & [32, 64, 128] & [32, 64, 128] & [32, 64, 128] \\
+        \hline
+        Learning rate & [0.00005, 0.003] & [0.00005, 0.003] & [0.00005, 0.002] \\
+        \hline
+        Maximális gradiens norma & [0.2, 3.0] & [0.5, 3.0] & [0.5, 3.0] \\
+        \hline
+        Epochok száma & [2, 3, 4, 5] & [2, 3, 4] & [2, 3] \\
+        \hline
+    \end{tabular}
+\end{table}
+
+A második fázisban a cél elsősorban a szélsőségesen lassú konfigurációk kizárása volt, míg a harmadik fázisban már egy tudatosan konzervatívabb, kisebb varianciát és stabil működést eredményező keresési tér került kialakításra.
+Ennek eredményeként jelentősen csökkent az olyan konfigurációk aránya, amelyek instabil tanulási viselkedést vagy aránytalanul magas futási költséget okoztak.
+
+\subsection{Első fázis: kezdetleges keresési tér}
+
+Az első fázis célja egy széles hiperparaméter-tér feltérképezése volt, amelynek során azt vizsgáltuk, hogy a választott BiLSTM architektúra milyen teljesítményszinteket képes elérni különböző beállítások mellett. Ebben a szakaszban a hangsúly nem a végső optimalizáláson vagy a futási hatékonyságon volt, hanem a keresési tér általános viselkedésének és a különböző hiperparaméter-kombinációk hatásának feltárásán.
+
+A futtatási sorozat gyakorlati okokból nem volt teljes mértékben végigvihető: a tizedik kísérlet futási ideje meghaladta a négy órát, ezért a folyamat manuálisan megszakításra került. Ez az eset rávilágít arra, hogy a hiperparaméter-optimalizáció során nem elegendő kizárólag a teljesítménymetrikák javítására törekedni, hanem a számítási erőforrások és a futási idő is meghatározó korlátot jelentenek.
+
+A megszakítás ellenére összesen kilenc teljesen kiértékelt kísérlet állt rendelkezésre.
+Az eredmények alapján:
+\begin{itemize}
+    \item \textbf{legjobb F1-érték:} 0.9807 (a hatodik kísérletben),
+    \item \textbf{legrosszabb F1-érték:} 0.0033 (a hetedik kísérletben),
+    \item \textbf{átlagos F1-érték:} 0.8514.
+\end{itemize}
+
+Különösen informatívnak bizonyult a \texttt{7. kísérlet} eredménye.
+Ebben az esetben a precizitás értéke magas maradt, miközben a visszahívás közel nullára csökkent, ezért az F1-érték gyakorlatilag összeomlott. Ez a viselkedés arra utal, hogy a modell erősen egyoldalú döntési stratégiát alakított ki, így csak nagyon kevés mintát sorolt a pozitív osztályba.
+
+Ez a jelenség gyakran a mély hálók tanításának instabil dinamikájára vezethető vissza. Tipikusan túl agresszív tanulási ráta, nem megfelelő paraméter-inicializáció vagy instabil gradiensfrissítések okozhatják, amelyek megakadályozzák a modell konvergenciáját egy jól általánosító megoldás felé. Ennek következményeként a modell egy lokális "optimumban" reked, ahol ugyan bizonyos mintákon magas pontosságot ér el, de a teljes eloszlást nem tanulja meg megfelelően \cite{goodfellow2016deepbook}.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/7_interrupted_test_confusion_matrix.png}
+    \caption{A \texttt{7. kísérlet} konfúziós mátrixa. A modell egyoldalú döntése alapján a teszthalmazon öt darab kivételével az összes üzenet helytelenül valódi üzenetként került felcímkézésre.}
+    \label{fig:trial007-confusion}
+\end{figure}
+
+A konfúziós mátrix (\ref{fig:trial007-confusion}) és a tanulási görbe (\ref{fig:trial007-curve}) egyaránt azt mutatja, hogy a pontosság (accuracy) önmagában nem elegendő a modell teljesítményének értékelésére. Bizonyos esetekben a modell úgy is képes körülbelül 0.5-ös pontosságot elérni, hogy szinte kizárólag egyetlen osztályt prediktál, ami erősen torzított osztályozási viselkedésre utal \cite[11. fejezet]{goodfellow2016deepbook}.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/7_interrupted_training_curves.png}
+    \caption{A \texttt{trial\_007} tanulási görbéje. Leolvasható a pontosság értéke, amely önmagában nem jelenti a tanítás sikerességét.}
+    \label{fig:trial007-curve}
+\end{figure}
+
+A \textbf{tanulási veszteség} (training loss) a tanító adathalmazon, részhalmazokra bontva számított veszteségfüggvény-érték, amely a modell predikciói és a valódi címkék közötti eltérést méri, és a tanulási folyamat során a súlyok frissítésének alapjául szolgál. Ezzel szemben a \textbf{validációs veszteség} (validation loss) a validációs adathalmazon számított veszteség, amely a modell általánosító képességének értékelésére szolgál, és nem vesz részt a paraméterek optimalizálásában.
+
+A legrosszabb tanítási futás (\ref{fig:trial007-curve}) és a legjobb futás (\ref{fig:trial006-curve}) összehasonlítása alapján megfigyelhető, hogy a megfelelően konvergáló modell esetében mind a tanulási, mind a validációs veszteség egyértelműen csökkenő irányt mutat, ami stabil tanulásra és jó általánosító képességre utal. Ezzel szemben a gyengébb teljesítményű futás során a veszteségértékek nem mutattak állandó javulást, hanem mind a tanulási, mind a validációs veszteség kis mértékű növekedése volt megfigyelhető, ami instabil optimalizációra és nem megfelelő konvergenciára utal.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/6_interrupted_training_curves.png}
+    \caption{A 6. kísérlet tanulási görbéje. Leolvasható a pontosság értéke, amely önmagában nem jelenti a tanítás sikerességét.}
+    \label{fig:trial006-curve}
+\end{figure}
+
+\subsection{Második fázis: szűkített tér}
+
+A második fázisban a keresési tér szűkítésével összesen 20 kísérlet teljes lefuttatására került sor, amely lehetővé tette a növekményesen bővített tanítási halmazhoz tartozó tanulási görbék részletes vizsgálatát is, illetve a modellek F1-score alapján kirajzolt tanulási görbéi is elkészültek. A cél ebben a szakaszban már nem a teljes hiperparaméter-tér feltérképezése volt, hanem egy szűkebb, számításilag hatékonyabb keresési tér vizsgálata, amely várhatóan jobb általánosítási teljesítményt eredményez.
+
+A keresési tér szűkítése során a hosszú-rövid távú memória (LSTM) rétegek számát és rejtett dimenzióját, a szekvenciahosszt, valamint az epochok számát csökkentettük. Ennek célja egyrészt a tanítási idő mérséklése, másrészt a túlilleszkedés (overfitting) kockázatának csökkentése volt. Ezzel párhuzamosan a gradiensvágás küszöbérték keresési tartománya is módosításra került, mivel a túl alacsony határérték a gradiensek túlzott levágásához vezethet, ami jelentősen csökkenti a paraméterfrissítések mértékét és rontja a tanulás hatékonyságát.
+
+Az öt legjobban teljesítő konfiguráció vizsgálata alapján megfigyelhető, hogy a szekvenciahossz eloszlása a kisebb értékek felé tolódik. A minták közül csupán egy esetben jelent meg a 800 tokenes maximális szekvenciahossz, míg a többi konfiguráció 500 és 700 tokenes beállításokat alkalmazott. Ez arra utalhat, hogy az osztályozáshoz szükséges információk jellemzően a szövegek korábbi szakaszaiban is rendelkezésre állnak, így a hossuabb szekvenciák elsősorban a számítási költséget növelik, rosszabb esetben zajt visznek a tanításba. Ezek alapján a maximális szekvenciahossz további csökkentése indokolt.
+
+Hasonló figyelhető meg az LSTM rejtett rétegméret esetében is, ahol az esetek többségében a 128-as méret dominál, míg a nagyobb dimenziók ritkábban szerepelnek a legjobb konfigurációk között. Ez arra utalhat, hogy a modell kapacitása már ezen a szinten is elegendő a feladat reprezentálásához, és a további növelés nem feltétlenül eredményez teljesítményjavulást.
+
+Az öt legjobban teljesítő konfiguráció összefoglalása az alábbi táblázatban látható.
+
+\begin{table}[htbp]
+    \caption{A top 5 konfiguráció hiperparaméterei (F1 szerint rendezve).}
+    \label{tab:top5-fitted-hparams-transposed}
+    \centering
+    \scriptsize
+    \begin{tabular}{|l|c|c|c|c|c|}
+        \hline
+        \textbf{Hiperparaméter} & \textbf{trial\_003} & \textbf{trial\_001} & \textbf{trial\_010} & \textbf{trial\_007} & \textbf{trial\_005} \\
+        \hline
+        F1 & 0.9814 & 0.9729 & 0.9681 & 0.9657 & 0.9630 \\
+        \hline
+        Max. szekvenciahossz & 800 & 500 & 700 & 500 & 700 \\
+        \hline
+        Batch méret & 32 & 32 & 32 & 64 & 32 \\
+        \hline
+        Embedding dimenzió & 128 & 256 & 256 & 128 & 256 \\
+        \hline
+        Hidden size & 256 & 128 & 128 & 128 & 128 \\
+        \hline
+        LSTM rétegek száma & 3 & 2 & 3 & 3 & 2 \\
+        \hline
+        Dropout & 0.4333 & 0.2281 & 0.4596 & 0.2069 & 0.4906 \\
+        \hline
+        Dense hidden & 32 & 128 & 128 & 64 & 64 \\
+        \hline
+        Learning rate & 0.001117 & 0.000076 & 0.000327 & 0.000118 & 0.000069 \\
+        \hline
+        Max grad norm & 0.899 & 2.352 & 1.162 & 1.167 & 1.233 \\
+        \hline
+        Epochok száma & 3 & 4 & 2 & 4 & 4 \\
+        \hline
+    \end{tabular}
+\end{table}
+
+A top-5 konfigurációk elemzése után a következő lépésben a modellek viselkedését vizsgáljuk a növekményes tanítóhalmaz  alkalmazása esetén. A \ref{fig:phase2-cummulative_learning-curve} ábra azonos architektúrájú és hiperparaméterű modellek F1-értékét mutatja a tanítóadatok fokozatos növelése mellett.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/phase_2_cummulative_learning_curve_f1.png}
+    \caption{Instabil modell növekményes tanulási görbéje az F1-érték szerint, a második fázisban.}
+    \label{fig:phase2-cummulative_learning-curve}
+\end{figure}
+
+A görbe alapján megfigyelhető, hogy a modell teljesítménye a tanítás kezdeti szakaszában jelentős ingadozást mutat, 0,6 és 0,9 közötti F1-értékekkel. A tanítóadatok mennyiségének növekedésével a teljesítmény részben stabilizálódik, és a görbe kisebb varianciát mutat.
+
+A későbbi szakaszban azonban két alkalommal is megfigyelhető anomália, amikor az F1-érték gyakorlatilag nullára csökken. Ez a jelenség tipikusan akkor fordul elő, amikor a modell teljesen hibás predikciókat ad az adott szakaszban. Matematikailag ez azzal magyarázható, hogy az F1-score a precizitás (precision) és a visszahívás (recall) harmonikus átlaga, így amennyiben a precizitás vagy a visszahívás nullához közelít, az F1-érték is nullához tart. A \ref{fig:phase2-performance-curve} ábrán látható, hogy ebben az esetben a visszahívás értéke tartott a nullához, azaz a modell a teszthalmaz majdnem minden üzenetét a negatív osztályba sorolta. A negatív osztály ebben az esetben a valós üzeneteket jelenti. 
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/phase_2_cummulative_performance_curve.png}
+    \caption{Instabil modell növekményes tanulási görbéje az F1-érték szerint, a második fázisban.}
+    \label{fig:phase2-performance-curve}
+\end{figure}
+
+Szintén beszédes mutató az egyes modellek tanítható paramétereinek száma. A legrosszabb és legjobb konfiguráció közötti különbséget véve példaként arra következtethetünk, hogy a rejtett rétegek számát érdemes tovább csökkenteni, hiszen a hetedik kísérlet modelljének 4\,189\,313 tanítható paramétere több mint másfélszerese a hatodik kísérlet modelljének. Ez arra utal, hogy a modellkapacitás további növelése nem eredményezett arányos teljesítményjavulást, miközben jelentősen növelte a tanítható paraméterek számát és a számítási költséget.
+
+Ez a fázis tehát azt igazolta, hogy a keresési tér átgondolt szűkítésével javítható a gyakorlati futtathatóság. Megfigyelhető továbbá, hogy a hiperparaméter-keresés során még a legrosszabb konfigurációk is elfogadható F1-értéket eredményeztek, ami arra utal, hogy a futások közötti variancia érdemben csökkent. Ugyanakkor bizonyos esetekben továbbra is instabil viselkedés volt tapasztalható.
+
+\subsection{Harmadik fázis: Általánosító képesség}
+
+A harmadik fázis célja a növekményes tanítóhalmazos tanulási görbe stabilizálása.
+Ehhez a keresési tér tovább szűkült, majd a kiválasztott konfigurációval a tanulási görbe (learning curve) futtatása következett.
+
+A módosítások a második fázis vizsgálata alapján kerültek megállapításra. 
+
+Az öt legjobb konfiguráció vizsgálatának tanulsága szerint a szekvencia túlzott hossza teljesítményromlást okozhat, egyúttal mindenképpen növeli a számítási költséget. Ezért a 500-, 600-, 700- és 800 tokenes maximális hosszak diszkrét tartományából eltávolításra került a 800-as érték.
+
+Látható volt, hogy a magas paraméterszám mellett a modellek általánosító képessége csökkent. Így a rejtett rétegek száma fixen kettőre lett csökkentve, míg a méretük a 64 illetve 128 dimenzióra került korlátozásra.
+
+Az epochok száma is csökkentésre került, így csökkentve a tanítási időt és a túlilleszkedés kockázatát. A 4 epochos beállítás a legjobb teljesítmények között is megjelent nagyszámban, azonban az eredmények alapján remélhető a kevesebb epoch melletti jó általánosító képesség a többi paraméter megfelelő értéke mellett. A további hiperparaméterek értékei: 
+
+Ezek a tartományok mellett a hatodik vizsgálat érte el a legjobb F1-értéket, mely 0.9817 volt. A modell 2 090 049 tanítható paraméterrel rendelkezett, ami a nagyobb konfigurációkhoz képest viszonylag alacsony paraméterszámnak tekinthető. A rétegek méretei a legalacsonyabb értékek a keresési térből (beágyazási - 64, rejtett 2db - 64, sűrű - 32) ennél a modellnél. A további hiperparaméterek értékei: batch méret - 32, dropout arány - 0.4948275322312652, tanulási ráta - 0.0012221621228809315, maximális gradiens norma - 1.4503155625979154, epochok száma - 3.
+
+A viszonylag magas dropout valószínűleg hozzájárult a modell általánosító képességének javításához azáltal, hogy csökkentette a túlilleszkedés kockázatát. A tanulási görbék alapján megfigyelhető, hogy mind a tanulási, mind a validációs veszteség fokozatosan csökkent, miközben a validációs pontosság stabilan növekedett. Ez kiegyensúlyozott és stabil tanulási folyamatra utal.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/phase_3_trial_6_training_curves.png}
+    \caption{A hatodik és egyben legeredményesebb próba tanulási görbéje, a harmadik fázisban.}
+    \label{fig:phase3-trial-6-learning-curve}
+\end{figure}
+
+Összességében a hiperparaméter-optimalizálás eredményei azt mutatják, hogy a megfelelően regularizált, közepes méretű LSTM-modellek képesek a legjobb általánosítási teljesítményt nyújtani. A túl nagy modellek nem eredményeztek arányos teljesítménynövekedést, miközben jelentősen növelték a tanítási költséget és a számítási erőforrásigényt.
+
+Áttérve a növekményes tanítóhalmaz kiértékelésére, láthatóvá válik, hogy az ingadozás mértéke jelentősen csökken. A legnagyobb negatív eltérés alig közelíti meg az ötszázados eltérést, és ez a tanítóhalmaz növekedésével egyre kisebb mértékű lesz, miközben az F1-érték közelít a 0.98 értékhez. Érdekes megfigyelés, hogy az 8-as adag, amely $13\,911$ üzenetet tartalmaz, hozott a legjobb eredményt, és az utána lévő tanítóhalmaz növelése rosszabb eredményeket hozott. A \ref{fig:phase3-learning-curve-f1} ábráról nehezen olvasható le, azonban a JSON-fájlokban tárolt pontos értékekből látható, hogy a 10-es adag tanítóhalmaz esetében az F1-érték több mint egy századponttal rosszabb eredményt produkált, mint az 8-as.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/phase_3_cummulative_learning_curve_f1.png}
+    \caption{A harmadik fázis növekményes tanulási görbéje. A variancia csökkenése és stabilizálódása érzékelhető.}
+    \label{fig:phase3-learning-curve-f1}
+\end{figure}
+
+Ez nem feltétlenül az általánosító képesség romlására utal, hanem több tényező együttes hatásának következménye is lehet. Lehetséges például, hogy az újonnan bevont üzenetek nagyobb zajt vagy nehezebben általánosítható mintázatokat vezettek be a tanítási folyamatba. A természetes nyelvi adathalmazok esetében gyakori, hogy a tanítóadat bővítésével nem kizárólag hasznos információ kerül a modellhez, hanem redundáns, bizonytalan vagy akár félrevezető minták is, amelyek átmenetileg ronthatják az optimalizáció stabilitását.
+
+Emellett az is elképzelhető, hogy a rögzített hiperparaméterek az adott tanítóhalmaz méretéhez közel optimálisnak bizonyultak, azonban a nagyobb adatmennyiség már eltérő tanulási dinamikát igényelt volna. Ilyen esetben például a tanulási ráta, a regularizáció mértéke vagy az epochok száma már nem biztosít megfelelő konvergenciát. A mély neurális hálók optimalizációja bonyolult optimalizációs probléma, ezért kisebb teljesítményingadozások még stabil tanítás mellett is természetesnek tekinthetők \cite{goodfellow2016deepbook}.
+
+Az eredmények ugyanakkor pozitív tendenciát mutatnak. A tanítóhalmaz növekedésével az F1-érték varianciája fokozatosan csökkent, a görbe stabilabbá vált, és a teljesítmény tartósan magas szinten maradt. Ez arra utal, hogy a modell általánosító képessége összességében javult, még akkor is, ha egyes részhalmazok esetében kisebb lokális teljesítménycsökkenés volt megfigyelhető.

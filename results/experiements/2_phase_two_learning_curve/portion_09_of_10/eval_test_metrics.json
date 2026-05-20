@@ -1,0 +1,22 @@
+{
+  "corpus_size": 15649,
+  "tp": 2973,
+  "tn": 2919,
+  "fp": 96,
+  "fn": 55,
+  "precision": 0.9687194525904204,
+  "recall": 0.9818361955085865,
+  "f1": 0.9752337215023782,
+  "num_samples": 6043,
+  "threshold": 0.5,
+  "model_info": {
+    "vocab_size": 30000,
+    "embedding_dim": 128,
+    "hidden_size": 256,
+    "num_layers": 3,
+    "dropout_rate": 0.4333006598372393,
+    "dense_hidden": 32,
+    "total_parameters": 7800897,
+    "trainable_parameters": 7800897
+  }
+}

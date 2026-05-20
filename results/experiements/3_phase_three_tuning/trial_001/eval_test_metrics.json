@@ -1,0 +1,39 @@
+{
+  "trial_index": 1,
+  "trial_dir": "D:\\uni-thesis\\data\\models\\tuning\\trial_001",
+  "hyperparameters": {
+    "max_length": 700,
+    "batch_size": 32,
+    "embedding_dim": 64,
+    "hidden_size": 128,
+    "num_layers": 2,
+    "dropout_rate": 0.22812375835208795,
+    "dense_hidden": 128,
+    "learning_rate": 7.297488602867036e-05,
+    "max_grad_norm": 2.3516693616691895,
+    "num_epochs": 2
+  },
+  "metrics": {
+    "tp": 2492,
+    "tn": 2508,
+    "fp": 460,
+    "fn": 515,
+    "precision": 0.8441734417344173,
+    "recall": 0.828732956434985,
+    "f1": 0.8363819432790737,
+    "num_samples": 5975,
+    "threshold": 0.5,
+    "model_info": {
+      "vocab_size": 30000,
+      "embedding_dim": 64,
+      "hidden_size": 128,
+      "num_layers": 2,
+      "dropout_rate": 0.22812375835208795,
+      "dense_hidden": 128,
+      "total_parameters": 2546945,
+      "trainable_parameters": 2546945
+    }
+  },
+  "score": 0.8363819432790737,
+  "score_metric": "f1"
+}

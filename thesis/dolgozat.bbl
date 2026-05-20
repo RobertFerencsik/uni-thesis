@@ -1,0 +1,745 @@
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 3.3 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated as
+% required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+\datalist[entry]{nyt/global//global/global/global}
+  \entry{randomsearch}{article}{}{}
+    \name{author}{2}{}{%
+      {{hash=BJ}{%
+         family={Bergstra},
+         familyi={B\bibinitperiod},
+         given={James},
+         giveni={J\bibinitperiod},
+      }}%
+      {{hash=BY}{%
+         family={Bengio},
+         familyi={B\bibinitperiod},
+         given={Yoshua},
+         giveni={Y\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {JMLR.org}%
+    }
+    \strng{namehash}{BJBY1}
+    \strng{fullhash}{BJBY1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{B}
+    \field{sortinithash}{B}
+    \field{issn}{1532-4435}
+    \field{number}{null}
+    \field{pages}{281–305}
+    \field{title}{Random search for hyper-parameter optimization}
+    \field{volume}{13}
+    \field{journaltitle}{J. Mach. Learn. Res.}
+    \field{month}{02}
+    \field{year}{2012}
+  \endentry
+
+  \entry{mlltclassificationbilstm}{article}{}{}
+    \name{author}{5}{}{%
+      {{hash=EL}{%
+         family={Enamoto},
+         familyi={E\bibinitperiod},
+         given={Liriam},
+         giveni={L\bibinitperiod},
+      }}%
+      {{hash=SA}{%
+         family={Santos},
+         familyi={S\bibinitperiod},
+         given={Andre},
+         giveni={A\bibinitperiod},
+      }}%
+      {{hash=MR}{%
+         family={Maia},
+         familyi={M\bibinitperiod},
+         given={Ricardo},
+         giveni={R\bibinitperiod},
+      }}%
+      {{hash=WL}{%
+         family={Weigang},
+         familyi={W\bibinitperiod},
+         given={Li},
+         giveni={L\bibinitperiod},
+      }}%
+      {{hash=FG}{%
+         family={Filho},
+         familyi={F\bibinitperiod},
+         given={Geraldo},
+         giveni={G\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{EL+1}
+    \strng{fullhash}{ELSAMRWLFG1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{E}
+    \field{sortinithash}{E}
+    \verb{doi}
+    \verb 10.1504/IJCAT.2022.125186
+    \endverb
+    \field{pages}{369}
+    \field{title}{Multi-label legal text classification with BiLSTM and
+  attention}
+    \field{volume}{68}
+    \field{journaltitle}{International Journal of Computer Applications in
+  Technology}
+    \field{month}{01}
+    \field{year}{2022}
+  \endentry
+
+  \entry{goodfellow2016deepbook}{book}{}{}
+    \name{author}{3}{}{%
+      {{hash=GI}{%
+         family={Goodfellow},
+         familyi={G\bibinitperiod},
+         given={Ian},
+         giveni={I\bibinitperiod},
+      }}%
+      {{hash=BY}{%
+         family={Bengio},
+         familyi={B\bibinitperiod},
+         given={Yoshua},
+         giveni={Y\bibinitperiod},
+      }}%
+      {{hash=CA}{%
+         family={Courville},
+         familyi={C\bibinitperiod},
+         given={Aaron},
+         giveni={A\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {MIT Press}%
+    }
+    \strng{namehash}{GIBYCA1}
+    \strng{fullhash}{GIBYCA1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{G}
+    \field{sortinithash}{G}
+    \field{note}{\url{http://www.deeplearningbook.org}}
+    \field{title}{Deep Learning}
+    \field{year}{2016}
+  \endentry
+
+  \entry{ibmThinkAI}{online}{}{}
+    \name{author}{1}{}{%
+      {{hash=I}{%
+         family={{IBM}},
+         familyi={I\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{I1}
+    \strng{fullhash}{I1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{I}
+    \field{sortinithash}{I}
+    \field{title}{Artificial intelligence}
+    \verb{url}
+    \verb https://www.ibm.com/think/topics/artificial-intelligence
+    \endverb
+    \field{urlday}{29}
+    \field{urlmonth}{04}
+    \field{urlyear}{2026}
+  \endentry
+
+  \entry{ibm_confusion_matrix}{online}{}{}
+    \name{author}{1}{}{%
+      {{hash=I}{%
+         family={{IBM}},
+         familyi={I\bibinitperiod},
+      }}%
+    }
+    \list{organization}{1}{%
+      {{International Business Machines Corporation (IBM)}}%
+    }
+    \strng{namehash}{I1}
+    \strng{fullhash}{I1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{I}
+    \field{sortinithash}{I}
+    \field{title}{What is a confusion matrix?}
+    \verb{url}
+    \verb https://www.ibm.com/think/topics/confusion-matrix
+    \endverb
+    \field{urlday}{11}
+    \field{urlmonth}{05}
+    \field{urlyear}{2026}
+  \endentry
+
+  \entry{kowsari2019textclassificationsurvey}{article}{}{}
+    \name{author}{6}{}{%
+      {{hash=KK}{%
+         family={Kowsari},
+         familyi={K\bibinitperiod},
+         given={Kamran},
+         giveni={K\bibinitperiod},
+      }}%
+      {{hash=JMK}{%
+         family={Jafari\bibnamedelima Meimandi},
+         familyi={J\bibinitperiod\bibinitdelim M\bibinitperiod},
+         given={Kia},
+         giveni={K\bibinitperiod},
+      }}%
+      {{hash=HM}{%
+         family={Heidarysafa},
+         familyi={H\bibinitperiod},
+         given={Mojtaba},
+         giveni={M\bibinitperiod},
+      }}%
+      {{hash=MS}{%
+         family={Mendu},
+         familyi={M\bibinitperiod},
+         given={Sanjana},
+         giveni={S\bibinitperiod},
+      }}%
+      {{hash=BLE}{%
+         family={Barnes},
+         familyi={B\bibinitperiod},
+         given={Laura\bibnamedelima E.},
+         giveni={L\bibinitperiod\bibinitdelim E\bibinitperiod},
+      }}%
+      {{hash=BDE}{%
+         family={Brown},
+         familyi={B\bibinitperiod},
+         given={Donald\bibnamedelima E.},
+         giveni={D\bibinitperiod\bibinitdelim E\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{KK+1}
+    \strng{fullhash}{KKJMKHMMSBLEBDE1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{K}
+    \field{sortinithash}{K}
+    \verb{doi}
+    \verb 10.3390/info10040150
+    \endverb
+    \field{number}{4}
+    \field{pages}{150}
+    \field{title}{Text classification algorithms: A survey}
+    \verb{url}
+    \verb https://doi.org/10.3390/info10040150
+    \endverb
+    \field{volume}{10}
+    \field{journaltitle}{Information}
+    \field{year}{2019}
+  \endentry
+
+  \entry{kudo-richardson-2018-sentencepiece}{inproceedings}{}{}
+    \name{author}{2}{}{%
+      {{hash=KT}{%
+         family={Kudo},
+         familyi={K\bibinitperiod},
+         given={Taku},
+         giveni={T\bibinitperiod},
+      }}%
+      {{hash=RJ}{%
+         family={Richardson},
+         familyi={R\bibinitperiod},
+         given={John},
+         giveni={J\bibinitperiod},
+      }}%
+    }
+    \name{editor}{2}{}{%
+      {{hash=BE}{%
+         family={Blanco},
+         familyi={B\bibinitperiod},
+         given={Eduardo},
+         giveni={E\bibinitperiod},
+      }}%
+      {{hash=LW}{%
+         family={Lu},
+         familyi={L\bibinitperiod},
+         given={Wei},
+         giveni={W\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {Association for Computational Linguistics}%
+    }
+    \strng{namehash}{KTRJ1}
+    \strng{fullhash}{KTRJ1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{K}
+    \field{sortinithash}{K}
+    \field{booktitle}{Proceedings of the 2018 Conference on Empirical Methods
+  in Natural Language Processing: System Demonstrations}
+    \verb{doi}
+    \verb 10.18653/v1/D18-2012
+    \endverb
+    \field{pages}{66\bibrangedash 71}
+    \field{title}{{S}entence{P}iece: A simple and language independent subword
+  tokenizer and detokenizer for Neural Text Processing}
+    \list{location}{1}{%
+      {Brussels, Belgium}%
+    }
+    \field{month}{11}
+    \field{year}{2018}
+  \endentry
+
+  \entry{li2022surveytextclassification}{article}{}{}
+    \name{author}{8}{}{%
+      {{hash=LQ}{%
+         family={Li},
+         familyi={L\bibinitperiod},
+         given={Qian},
+         giveni={Q\bibinitperiod},
+      }}%
+      {{hash=PH}{%
+         family={Peng},
+         familyi={P\bibinitperiod},
+         given={Hao},
+         giveni={H\bibinitperiod},
+      }}%
+      {{hash=LJ}{%
+         family={Li},
+         familyi={L\bibinitperiod},
+         given={Jianxin},
+         giveni={J\bibinitperiod},
+      }}%
+      {{hash=XC}{%
+         family={Xia},
+         familyi={X\bibinitperiod},
+         given={Congying},
+         giveni={C\bibinitperiod},
+      }}%
+      {{hash=YR}{%
+         family={Yang},
+         familyi={Y\bibinitperiod},
+         given={Renyu},
+         giveni={R\bibinitperiod},
+      }}%
+      {{hash=SL}{%
+         family={Sun},
+         familyi={S\bibinitperiod},
+         given={Lichao},
+         giveni={L\bibinitperiod},
+      }}%
+      {{hash=YPS}{%
+         family={Yu},
+         familyi={Y\bibinitperiod},
+         given={Philip\bibnamedelima S.},
+         giveni={P\bibinitperiod\bibinitdelim S\bibinitperiod},
+      }}%
+      {{hash=HL}{%
+         family={He},
+         familyi={H\bibinitperiod},
+         given={Lifang},
+         giveni={L\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{LQ+1}
+    \strng{fullhash}{LQPHLJXCYRSLYPSHL1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{L}
+    \field{sortinithash}{L}
+    \verb{doi}
+    \verb 10.1145/3495162
+    \endverb
+    \field{number}{2}
+    \field{pages}{1\bibrangedash 39}
+    \field{title}{A Survey on Text Classification: From Traditional to Deep
+  Learning}
+    \field{volume}{13}
+    \field{journaltitle}{ACM Transactions on Intelligent Systems and
+  Technology}
+    \field{year}{2022}
+  \endentry
+
+  \entry{LIU2019325}{article}{}{}
+    \name{author}{2}{}{%
+      {{hash=LG}{%
+         family={Liu},
+         familyi={L\bibinitperiod},
+         given={Gang},
+         giveni={G\bibinitperiod},
+      }}%
+      {{hash=GJ}{%
+         family={Guo},
+         familyi={G\bibinitperiod},
+         given={Jiabao},
+         giveni={J\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{LGGJ1}
+    \strng{fullhash}{LGGJ1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{L}
+    \field{sortinithash}{L}
+    \verb{doi}
+    \verb https://doi.org/10.1016/j.neucom.2019.01.078
+    \endverb
+    \field{issn}{0925-2312}
+    \field{pages}{325\bibrangedash 338}
+    \field{title}{Bidirectional LSTM with attention mechanism and convolutional
+  layer for text classification}
+    \verb{url}
+    \verb https://www.sciencedirect.com/science/article/pii/S0925231219301067
+    \endverb
+    \field{volume}{337}
+    \field{journaltitle}{Neurocomputing}
+    \field{year}{2019}
+  \endentry
+
+  \entry{inproceedings}{inproceedings}{}{}
+    \name{author}{3}{}{%
+      {{hash=MV}{%
+         family={Metsis},
+         familyi={M\bibinitperiod},
+         given={Vangelis},
+         giveni={V\bibinitperiod},
+      }}%
+      {{hash=AI}{%
+         family={Androutsopoulos},
+         familyi={A\bibinitperiod},
+         given={Ion},
+         giveni={I\bibinitperiod},
+      }}%
+      {{hash=PG}{%
+         family={Paliouras},
+         familyi={P\bibinitperiod},
+         given={Georgios},
+         giveni={G\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{MVAIPG1}
+    \strng{fullhash}{MVAIPG1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{M}
+    \field{sortinithash}{M}
+    \field{title}{Spam Filtering with Naive Bayes - Which Naive Bayes?}
+    \field{journaltitle}{In CEAS}
+    \field{month}{01}
+    \field{year}{2006}
+  \endentry
+
+  \entry{piantadosi2014zipf}{article}{}{}
+    \name{author}{1}{}{%
+      {{hash=PST}{%
+         family={Piantadosi},
+         familyi={P\bibinitperiod},
+         given={Steven\bibnamedelima T.},
+         giveni={S\bibinitperiod\bibinitdelim T\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {Springer}%
+    }
+    \strng{namehash}{PST1}
+    \strng{fullhash}{PST1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{P}
+    \field{sortinithash}{P}
+    \field{number}{5}
+    \field{pages}{1112\bibrangedash 1130}
+    \field{title}{Zipf's word frequency law in natural language: A critical
+  review and future directions}
+    \field{volume}{21}
+    \field{journaltitle}{Psychonomic Bulletin \& Review}
+    \field{year}{2014}
+  \endentry
+
+  \entry{procogiaIQR}{online}{}{}
+    \name{author}{1}{}{%
+      {{hash=P}{%
+         family={{Procogia}},
+         familyi={P\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{P1}
+    \strng{fullhash}{P1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{P}
+    \field{sortinithash}{P}
+    \field{title}{The {Interquartile Range Method} For Outliers}
+    \verb{url}
+    \verb https://procogia.com/interquartile-range-method-for-reliable-data-ana
+    \verb lysis/
+    \endverb
+    \field{urlday}{04}
+    \field{urlmonth}{05}
+    \field{urlyear}{2026}
+  \endentry
+
+  \entry{qin2023bilstm_attention}{article}{}{}
+    \name{author}{1}{}{%
+      {{hash=QH}{%
+         family={Qin},
+         familyi={Q\bibinitperiod},
+         given={Hao},
+         giveni={H\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{QH1}
+    \strng{fullhash}{QH1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{Q}
+    \field{sortinithash}{Q}
+    \verb{doi}
+    \verb 10.25236/AJCIS.2023.061314
+    \endverb
+    \field{number}{13}
+    \field{pages}{92\bibrangedash 98}
+    \field{title}{BiLSTM Text Classification Incorporating Attentional
+  Mechanisms}
+    \verb{url}
+    \verb https://francis-press.com/uploads/papers/louD4xcIlZAI6NdXMO126npbxAqY
+    \verb c0cxIOMK41gW.pdf
+    \endverb
+    \field{volume}{6}
+    \field{journaltitle}{Academic Journal of Computing \& Information Science}
+    \field{year}{2023}
+  \endentry
+
+  \entry{ibmThinkNLP}{online}{}{}
+    \name{author}{2}{}{%
+      {{hash=SC}{%
+         family={Stryker},
+         familyi={S\bibinitperiod},
+         given={Cole},
+         giveni={C\bibinitperiod},
+      }}%
+      {{hash=HJ}{%
+         family={Holdsworth},
+         familyi={H\bibinitperiod},
+         given={Jim},
+         giveni={J\bibinitperiod},
+      }}%
+    }
+    \list{organization}{1}{%
+      {{International Business Machines Corporation (IBM)}}%
+    }
+    \strng{namehash}{SCHJ1}
+    \strng{fullhash}{SCHJ1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{S}
+    \field{sortinithash}{S}
+    \field{title}{What is {NLP}?}
+    \verb{url}
+    \verb https://www.ibm.com/think/topics/natural-language-processing
+    \endverb
+    \field{urlday}{29}
+    \field{urlmonth}{04}
+    \field{urlyear}{2026}
+  \endentry
+
+  \entry{taha2024textclassificationsurvey}{article}{}{}
+    \name{author}{5}{}{%
+      {{hash=TK}{%
+         family={Taha},
+         familyi={T\bibinitperiod},
+         given={Kamal},
+         giveni={K\bibinitperiod},
+      }}%
+      {{hash=YPD}{%
+         family={Yoo},
+         familyi={Y\bibinitperiod},
+         given={Paul\bibnamedelima D.},
+         giveni={P\bibinitperiod\bibinitdelim D\bibinitperiod},
+      }}%
+      {{hash=YC}{%
+         family={Yeun},
+         familyi={Y\bibinitperiod},
+         given={Chan},
+         giveni={C\bibinitperiod},
+      }}%
+      {{hash=HD}{%
+         family={Homouz},
+         familyi={H\bibinitperiod},
+         given={Dirar},
+         giveni={D\bibinitperiod},
+      }}%
+      {{hash=TA}{%
+         family={Taha},
+         familyi={T\bibinitperiod},
+         given={Aya},
+         giveni={A\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{TK+1}
+    \strng{fullhash}{TKYPDYCHDTA1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{T}
+    \field{sortinithash}{T}
+    \verb{doi}
+    \verb 10.1016/j.cosrev.2024.100664
+    \endverb
+    \field{pages}{100664}
+    \field{title}{A comprehensive survey of text classification techniques and
+  their research applications: Observational and experimental insights}
+    \verb{url}
+    \verb https://doi.org/10.1016/j.cosrev.2024.100664
+    \endverb
+    \field{volume}{54}
+    \field{journaltitle}{Computer Science Review}
+    \field{year}{2024}
+  \endentry
+
+  \entry{uscensusDatascience}{online}{}{}
+    \name{author}{1}{}{%
+      {{hash=U}{%
+         family={{U.S. Census Bureau}},
+         familyi={U\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{U1}
+    \strng{fullhash}{U1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{U}
+    \field{sortinithash}{U}
+    \field{title}{Data science}
+    \verb{url}
+    \verb https://www.census.gov/topics/research/data-science.html
+    \endverb
+    \field{urlday}{29}
+    \field{urlmonth}{04}
+    \field{urlyear}{2026}
+  \endentry
+
+  \entry{wang2023textclassificationnlp}{article}{}{}
+    \name{author}{1}{}{%
+      {{hash=WM}{%
+         family={Wang},
+         familyi={W\bibinitperiod},
+         given={Mengnan},
+         giveni={M\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{WM1}
+    \strng{fullhash}{WM1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{W}
+    \field{sortinithash}{W}
+    \verb{doi}
+    \verb 10.23977/acss.2023.070213
+    \endverb
+    \field{pages}{93\bibrangedash 100}
+    \field{title}{Research on Text Classification Method Based on {NLP}}
+    \field{volume}{7}
+    \field{journaltitle}{Advances in Computer, Signals and Systems}
+    \field{year}{2023}
+  \endentry
+
+  \entry{wiechmannNoppelEnronSpam}{online}{}{}
+    \name{author}{2}{}{%
+      {{hash=WM}{%
+         family={Wiechmann},
+         familyi={W\bibinitperiod},
+         given={M.},
+         giveni={M\bibinitperiod},
+      }}%
+      {{hash=NM}{%
+         family={Noppel},
+         familyi={N\bibinitperiod},
+         given={M.},
+         giveni={M\bibinitperiod},
+      }}%
+    }
+    \list{organization}{1}{%
+      {{GitHub}}%
+    }
+    \strng{namehash}{WMNM1}
+    \strng{fullhash}{WMNM1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{W}
+    \field{sortinithash}{W}
+    \field{note}{Data set}
+    \field{title}{Enron Spam Dataset}
+    \verb{url}
+    \verb https://github.com/MWiechmann/enron_spam_data
+    \endverb
+    \field{urlday}{06}
+    \field{urlmonth}{05}
+    \field{urlyear}{2026}
+  \endentry
+
+  \entry{zhou2016textclassificationimprovedintegrating}{misc}{}{}
+    \name{author}{6}{}{%
+      {{hash=ZP}{%
+         family={Zhou},
+         familyi={Z\bibinitperiod},
+         given={Peng},
+         giveni={P\bibinitperiod},
+      }}%
+      {{hash=QZ}{%
+         family={Qi},
+         familyi={Q\bibinitperiod},
+         given={Zhenyu},
+         giveni={Z\bibinitperiod},
+      }}%
+      {{hash=ZS}{%
+         family={Zheng},
+         familyi={Z\bibinitperiod},
+         given={Suncong},
+         giveni={S\bibinitperiod},
+      }}%
+      {{hash=XJ}{%
+         family={Xu},
+         familyi={X\bibinitperiod},
+         given={Jiaming},
+         giveni={J\bibinitperiod},
+      }}%
+      {{hash=BH}{%
+         family={Bao},
+         familyi={B\bibinitperiod},
+         given={Hongyun},
+         giveni={H\bibinitperiod},
+      }}%
+      {{hash=XB}{%
+         family={Xu},
+         familyi={X\bibinitperiod},
+         given={Bo},
+         giveni={B\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{ZP+1}
+    \strng{fullhash}{ZPQZZSXJBHXB1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{Z}
+    \field{sortinithash}{Z}
+    \verb{eprint}
+    \verb 1611.06639
+    \endverb
+    \field{title}{Text Classification Improved by Integrating Bidirectional
+  LSTM with Two-dimensional Max Pooling}
+    \verb{url}
+    \verb https://arxiv.org/abs/1611.06639
+    \endverb
+    \field{eprinttype}{arXiv}
+    \field{eprintclass}{cs.CL}
+    \field{year}{2016}
+  \endentry
+\enddatalist
+\endinput

@@ -1,0 +1,1133 @@
+{
+  "config_path": "D:\\uni-thesis\\src\\config\\hyperparameter_search_space.json",
+  "metric": "f1",
+  "num_trials": 20,
+  "best_trial_index": 6,
+  "best_model_dir": "D:\\uni-thesis\\data\\models\\tuning\\trial_006",
+  "best_model_checkpoint": "D:\\uni-thesis\\data\\models\\tuning\\trial_006\\best_model.pt",
+  "best_hyperparameters": {
+    "max_length": 700,
+    "batch_size": 32,
+    "embedding_dim": 64,
+    "hidden_size": 64,
+    "num_layers": 2,
+    "dropout_rate": 0.4948275322312652,
+    "dense_hidden": 32,
+    "learning_rate": 0.0012221621228809315,
+    "max_grad_norm": 1.4503155625979154,
+    "num_epochs": 3
+  },
+  "best_metrics": {
+    "tp": 2956,
+    "tn": 2909,
+    "fp": 59,
+    "fn": 51,
+    "precision": 0.9804311774461029,
+    "recall": 0.9830395743265713,
+    "f1": 0.9817336433078712,
+    "num_samples": 5975,
+    "threshold": 0.5,
+    "model_info": {
+      "vocab_size": 30000,
+      "embedding_dim": 64,
+      "hidden_size": 64,
+      "num_layers": 2,
+      "dropout_rate": 0.4948275322312652,
+      "dense_hidden": 32,
+      "total_parameters": 2090049,
+      "trainable_parameters": 2090049
+    }
+  },
+  "all_trials": [
+    {
+      "trial_index": 1,
+      "trial_dir": "D:\\uni-thesis\\data\\models\\tuning\\trial_001",
+      "hyperparameters": {
+        "max_length": 700,
+        "batch_size": 32,
+        "embedding_dim": 64,
+        "hidden_size": 128,
+        "num_layers": 2,
+        "dropout_rate": 0.22812375835208795,
+        "dense_hidden": 128,
+        "learning_rate": 7.297488602867036e-05,
+        "max_grad_norm": 2.3516693616691895,
+        "num_epochs": 2
+      },
+      "training_history": {
+        "train_losses": [
+          0.5888437102548778,
+          0.31985951923107836
+        ],
+        "val_losses": [
+          0.39086388489779306,
+          0.4563569877555664
+        ],
+        "val_accuracies": [
+          0.8369874476987448,
+          0.8389958158995816
+        ]
+      },
+      "metrics": {
+        "tp": 2492,
+        "tn": 2508,
+        "fp": 460,
+        "fn": 515,
+        "precision": 0.8441734417344173,
+        "recall": 0.828732956434985,
+        "f1": 0.8363819432790737,
+        "num_samples": 5975,
+        "threshold": 0.5,
+        "model_info": {
+          "vocab_size": 30000,
+          "embedding_dim": 64,
+          "hidden_size": 128,
+          "num_layers": 2,
+          "dropout_rate": 0.22812375835208795,
+          "dense_hidden": 128,
+          "total_parameters": 2546945,
+          "trainable_parameters": 2546945
+        }
+      },
+      "score": 0.8363819432790737,
+      "score_metric": "f1"
+    },
+    {
+      "trial_index": 2,
+      "trial_dir": "D:\\uni-thesis\\data\\models\\tuning\\trial_002",
+      "hyperparameters": {
+        "max_length": 700,
+        "batch_size": 64,
+        "embedding_dim": 64,
+        "hidden_size": 64,
+        "num_layers": 2,
+        "dropout_rate": 0.22652329118126116,
+        "dense_hidden": 128,
+        "learning_rate": 0.00046072324477668624,
+        "max_grad_norm": 1.9031126573465325,
+        "num_epochs": 3
+      },
+      "training_history": {
+        "train_losses": [
+          0.4673632496748777,
+          0.20368334605796812,
+          0.12256562990232316
+        ],
+        "val_losses": [
+          0.3284258007052097,
+          0.19898102741609228,
+          0.21801374777358898
+        ],
+        "val_accuracies": [
+          0.8887029288702929,
+          0.9375732217573222,
+          0.9270292887029289
+        ]
+      },
+      "metrics": {
+        "tp": 2742,
+        "tn": 2860,
+        "fp": 108,
+        "fn": 265,
+        "precision": 0.9621052631578947,
+        "recall": 0.9118722979714,
+        "f1": 0.936315519890729,
+        "num_samples": 5975,
+        "threshold": 0.5,
+        "model_info": {
+          "vocab_size": 30000,
+          "embedding_dim": 64,
+          "hidden_size": 64,
+          "num_layers": 2,
+          "dropout_rate": 0.22652329118126116,
+          "dense_hidden": 128,
+          "total_parameters": 2102529,
+          "trainable_parameters": 2102529
+        }
+      },
+      "score": 0.936315519890729,
+      "score_metric": "f1"
+    },
+    {
+      "trial_index": 3,
+      "trial_dir": "D:\\uni-thesis\\data\\models\\tuning\\trial_003",
+      "hyperparameters": {
+        "max_length": 500,
+        "batch_size": 64,
+        "embedding_dim": 256,
+        "hidden_size": 128,
+        "num_layers": 2,
+        "dropout_rate": 0.41558257849541846,
+        "dense_hidden": 32,
+        "learning_rate": 0.0006567970559462666,
+        "max_grad_norm": 1.3506262912949798,
+        "num_epochs": 2
+      },
+      "training_history": {
+        "train_losses": [
+          0.33247006340774105,
+          0.10528995537349735
+        ],
+        "val_losses": [
+          0.11114479292263375,
+          0.1014456492254233
+        ],
+        "val_accuracies": [
+          0.9626778242677825,
+          0.9670292887029289
+        ]
+      },
+      "metrics": {
+        "tp": 2865,
+        "tn": 2867,
+        "fp": 101,
+        "fn": 142,
+        "precision": 0.9659474039109912,
+        "recall": 0.9527768540073163,
+        "f1": 0.9593169261677549,
+        "num_samples": 5975,
+        "threshold": 0.5,
+        "model_info": {
+          "vocab_size": 30000,
+          "embedding_dim": 256,
+          "hidden_size": 128,
+          "num_layers": 2,
+          "dropout_rate": 0.41558257849541846,
+          "dense_hidden": 32,
+          "total_parameters": 8478785,
+          "trainable_parameters": 8478785
+        }
+      },
+      "score": 0.9593169261677549,
+      "score_metric": "f1"
+    },
+    {
+      "trial_index": 4,
+      "trial_dir": "D:\\uni-thesis\\data\\models\\tuning\\trial_004",
+      "hyperparameters": {
+        "max_length": 500,
+        "batch_size": 64,
+        "embedding_dim": 64,
+        "hidden_size": 64,
+        "num_layers": 2,
+        "dropout_rate": 0.1838507318917124,
+        "dense_hidden": 64,
+        "learning_rate": 0.0004636340512730002,
+        "max_grad_norm": 2.5178206831859504,
+        "num_epochs": 3
+      },
+      "training_history": {
+        "train_losses": [
+          0.47548910350922274,
+          0.1993868443156209,
+          0.11930091370595619
+        ],
+        "val_losses": [
+          0.26924350207790415,
+          0.17180704028206936,
+          0.1561240073531232
+        ],
+        "val_accuracies": [
+          0.891213389121339,
+          0.9374058577405858,
+          0.9410878661087866
+        ]
+      },
+      "metrics": {
+        "tp": 2698,
+        "tn": 2924,
+        "fp": 44,
+        "fn": 309,
+        "precision": 0.9839533187454412,
+        "recall": 0.8972397738609911,
+        "f1": 0.9385980170464427,
+        "num_samples": 5975,
+        "threshold": 0.5,
+        "model_info": {
+          "vocab_size": 30000,
+          "embedding_dim": 64,
+          "hidden_size": 64,
+          "num_layers": 2,
+          "dropout_rate": 0.1838507318917124,
+          "dense_hidden": 64,
+          "total_parameters": 2094209,
+          "trainable_parameters": 2094209
+        }
+      },
+      "score": 0.9385980170464427,
+      "score_metric": "f1"
+    },
+    {
+      "trial_index": 5,
+      "trial_dir": "D:\\uni-thesis\\data\\models\\tuning\\trial_005",
+      "hyperparameters": {
+        "max_length": 700,
+        "batch_size": 32,
+        "embedding_dim": 128,
+        "hidden_size": 64,
+        "num_layers": 2,
+        "dropout_rate": 0.4402916324885482,
+        "dense_hidden": 128,
+        "learning_rate": 0.0013107408176370853,
+        "max_grad_norm": 1.4040875654174414,
+        "num_epochs": 2
+      },
+      "training_history": {
+        "train_losses": [
+          0.29481876012013186,
+          0.07332026116166483
+        ],
+        "val_losses": [
+          0.114492382225456,
+          0.09510474392327475
+        ],
+        "val_accuracies": [
+          0.9651882845188284,
+          0.9695397489539749
+        ]
+      },
+      "metrics": {
+        "tp": 2989,
+        "tn": 2804,
+        "fp": 164,
+        "fn": 18,
+        "precision": 0.9479860450364732,
+        "recall": 0.9940139674093781,
+        "f1": 0.9704545454545455,
+        "num_samples": 5975,
+        "threshold": 0.5,
+        "model_info": {
+          "vocab_size": 30000,
+          "embedding_dim": 128,
+          "hidden_size": 64,
+          "num_layers": 2,
+          "dropout_rate": 0.4402916324885482,
+          "dense_hidden": 128,
+          "total_parameters": 4055297,
+          "trainable_parameters": 4055297
+        }
+      },
+      "score": 0.9704545454545455,
+      "score_metric": "f1"
+    },
+    {
+      "trial_index": 6,
+      "trial_dir": "D:\\uni-thesis\\data\\models\\tuning\\trial_006",
+      "hyperparameters": {
+        "max_length": 700,
+        "batch_size": 32,
+        "embedding_dim": 64,
+        "hidden_size": 64,
+        "num_layers": 2,
+        "dropout_rate": 0.4948275322312652,
+        "dense_hidden": 32,
+        "learning_rate": 0.0012221621228809315,
+        "max_grad_norm": 1.4503155625979154,
+        "num_epochs": 3
+      },
+      "training_history": {
+        "train_losses": [
+          0.3828823791597696,
+          0.12697749571217334,
+          0.06481269928275758
+        ],
+        "val_losses": [
+          0.2622054792781246,
+          0.0882188556566436,
+          0.06024789228508707
+        ],
+        "val_accuracies": [
+          0.9218410041841004,
+          0.9715481171548117,
+          0.9815899581589959
+        ]
+      },
+      "metrics": {
+        "tp": 2956,
+        "tn": 2909,
+        "fp": 59,
+        "fn": 51,
+        "precision": 0.9804311774461029,
+        "recall": 0.9830395743265713,
+        "f1": 0.9817336433078712,
+        "num_samples": 5975,
+        "threshold": 0.5,
+        "model_info": {
+          "vocab_size": 30000,
+          "embedding_dim": 64,
+          "hidden_size": 64,
+          "num_layers": 2,
+          "dropout_rate": 0.4948275322312652,
+          "dense_hidden": 32,
+          "total_parameters": 2090049,
+          "trainable_parameters": 2090049
+        }
+      },
+      "score": 0.9817336433078712,
+      "score_metric": "f1"
+    },
+    {
+      "trial_index": 7,
+      "trial_dir": "D:\\uni-thesis\\data\\models\\tuning\\trial_007",
+      "hyperparameters": {
+        "max_length": 700,
+        "batch_size": 64,
+        "embedding_dim": 64,
+        "hidden_size": 128,
+        "num_layers": 2,
+        "dropout_rate": 0.2233274607700207,
+        "dense_hidden": 64,
+        "learning_rate": 0.0006657761748294035,
+        "max_grad_norm": 2.208869163841668,
+        "num_epochs": 2
+      },
+      "training_history": {
+        "train_losses": [
+          0.4217881507733289,
+          0.16027848934069933
+        ],
+        "val_losses": [
+          0.22759249061346054,
+          0.12053027412200228
+        ],
+        "val_accuracies": [
+          0.9205020920502092,
+          0.9601673640167364
+        ]
+      },
+      "metrics": {
+        "tp": 2931,
+        "tn": 2806,
+        "fp": 162,
+        "fn": 76,
+        "precision": 0.9476236663433559,
+        "recall": 0.9747256401729298,
+        "f1": 0.960983606557377,
+        "num_samples": 5975,
+        "threshold": 0.5,
+        "model_info": {
+          "vocab_size": 30000,
+          "embedding_dim": 64,
+          "hidden_size": 128,
+          "num_layers": 2,
+          "dropout_rate": 0.2233274607700207,
+          "dense_hidden": 64,
+          "total_parameters": 2530433,
+          "trainable_parameters": 2530433
+        }
+      },
+      "score": 0.960983606557377,
+      "score_metric": "f1"
+    },
+    {
+      "trial_index": 8,
+      "trial_dir": "D:\\uni-thesis\\data\\models\\tuning\\trial_008",
+      "hyperparameters": {
+        "max_length": 700,
+        "batch_size": 128,
+        "embedding_dim": 64,
+        "hidden_size": 64,
+        "num_layers": 2,
+        "dropout_rate": 0.31179107414789053,
+        "dense_hidden": 64,
+        "learning_rate": 0.0019241803483040524,
+        "max_grad_norm": 2.099999399635232,
+        "num_epochs": 2
+      },
+      "training_history": {
+        "train_losses": [
+          0.41579117034288016,
+          0.14644851327380715
+        ],
+        "val_losses": [
+          0.20681233054145853,
+          0.11852231526628454
+        ],
+        "val_accuracies": [
+          0.9210041841004184,
+          0.956652719665272
+        ]
+      },
+      "metrics": {
+        "tp": 2970,
+        "tn": 2745,
+        "fp": 223,
+        "fn": 37,
+        "precision": 0.9301597243971187,
+        "recall": 0.9876953774526106,
+        "f1": 0.9580645161290322,
+        "num_samples": 5975,
+        "threshold": 0.5,
+        "model_info": {
+          "vocab_size": 30000,
+          "embedding_dim": 64,
+          "hidden_size": 64,
+          "num_layers": 2,
+          "dropout_rate": 0.31179107414789053,
+          "dense_hidden": 64,
+          "total_parameters": 2094209,
+          "trainable_parameters": 2094209
+        }
+      },
+      "score": 0.9580645161290322,
+      "score_metric": "f1"
+    },
+    {
+      "trial_index": 9,
+      "trial_dir": "D:\\uni-thesis\\data\\models\\tuning\\trial_009",
+      "hyperparameters": {
+        "max_length": 700,
+        "batch_size": 64,
+        "embedding_dim": 64,
+        "hidden_size": 64,
+        "num_layers": 2,
+        "dropout_rate": 0.431766030269925,
+        "dense_hidden": 64,
+        "learning_rate": 0.0001342477296439337,
+        "max_grad_norm": 1.0274571089658162,
+        "num_epochs": 3
+      },
+      "training_history": {
+        "train_losses": [
+          0.6862950975842336,
+          0.44455170313663345,
+          0.2837002990109956
+        ],
+        "val_losses": [
+          0.6008204963613064,
+          0.3232812288593739,
+          0.22529525365284148
+        ],
+        "val_accuracies": [
+          0.7265271966527197,
+          0.874142259414226,
+          0.9151464435146444
+        ]
+      },
+      "metrics": {
+        "tp": 2749,
+        "tn": 2719,
+        "fp": 249,
+        "fn": 258,
+        "precision": 0.9169446297531688,
+        "recall": 0.9142001995344197,
+        "f1": 0.9155703580349709,
+        "num_samples": 5975,
+        "threshold": 0.5,
+        "model_info": {
+          "vocab_size": 30000,
+          "embedding_dim": 64,
+          "hidden_size": 64,
+          "num_layers": 2,
+          "dropout_rate": 0.431766030269925,
+          "dense_hidden": 64,
+          "total_parameters": 2094209,
+          "trainable_parameters": 2094209
+        }
+      },
+      "score": 0.9155703580349709,
+      "score_metric": "f1"
+    },
+    {
+      "trial_index": 10,
+      "trial_dir": "D:\\uni-thesis\\data\\models\\tuning\\trial_010",
+      "hyperparameters": {
+        "max_length": 500,
+        "batch_size": 128,
+        "embedding_dim": 128,
+        "hidden_size": 128,
+        "num_layers": 2,
+        "dropout_rate": 0.20000505665472193,
+        "dense_hidden": 32,
+        "learning_rate": 0.00012418869606398874,
+        "max_grad_norm": 1.903420335407877,
+        "num_epochs": 3
+      },
+      "training_history": {
+        "train_losses": [
+          0.6294289080097395,
+          0.33581244825002027,
+          0.20557975834783385
+        ],
+        "val_losses": [
+          0.450053962621283,
+          0.25452487931606615,
+          0.15206377335051272
+        ],
+        "val_accuracies": [
+          0.8071966527196652,
+          0.9035983263598326,
+          0.9439330543933054
+        ]
+      },
+      "metrics": {
+        "tp": 2855,
+        "tn": 2785,
+        "fp": 183,
+        "fn": 152,
+        "precision": 0.9397630019749835,
+        "recall": 0.9494512803458597,
+        "f1": 0.9445822994210092,
+        "num_samples": 5975,
+        "threshold": 0.5,
+        "model_info": {
+          "vocab_size": 30000,
+          "embedding_dim": 128,
+          "hidden_size": 128,
+          "num_layers": 2,
+          "dropout_rate": 0.20000505665472193,
+          "dense_hidden": 32,
+          "total_parameters": 4507713,
+          "trainable_parameters": 4507713
+        }
+      },
+      "score": 0.9445822994210092,
+      "score_metric": "f1"
+    },
+    {
+      "trial_index": 11,
+      "trial_dir": "D:\\uni-thesis\\data\\models\\tuning\\trial_011",
+      "hyperparameters": {
+        "max_length": 700,
+        "batch_size": 128,
+        "embedding_dim": 128,
+        "hidden_size": 128,
+        "num_layers": 2,
+        "dropout_rate": 0.22676226570504915,
+        "dense_hidden": 32,
+        "learning_rate": 0.00032753800085927754,
+        "max_grad_norm": 0.7272735304344847,
+        "num_epochs": 2
+      },
+      "training_history": {
+        "train_losses": [
+          0.5368245219921365,
+          0.2246352156405063
+        ],
+        "val_losses": [
+          0.27802661410037505,
+          0.14509680597706043
+        ],
+        "val_accuracies": [
+          0.8928870292887029,
+          0.9497907949790795
+        ]
+      },
+      "metrics": {
+        "tp": 2872,
+        "tn": 2803,
+        "fp": 165,
+        "fn": 135,
+        "precision": 0.9456700691471848,
+        "recall": 0.9551047555703359,
+        "f1": 0.9503639973527466,
+        "num_samples": 5975,
+        "threshold": 0.5,
+        "model_info": {
+          "vocab_size": 30000,
+          "embedding_dim": 128,
+          "hidden_size": 128,
+          "num_layers": 2,
+          "dropout_rate": 0.22676226570504915,
+          "dense_hidden": 32,
+          "total_parameters": 4507713,
+          "trainable_parameters": 4507713
+        }
+      },
+      "score": 0.9503639973527466,
+      "score_metric": "f1"
+    },
+    {
+      "trial_index": 12,
+      "trial_dir": "D:\\uni-thesis\\data\\models\\tuning\\trial_012",
+      "hyperparameters": {
+        "max_length": 500,
+        "batch_size": 32,
+        "embedding_dim": 256,
+        "hidden_size": 64,
+        "num_layers": 2,
+        "dropout_rate": 0.35874316075619084,
+        "dense_hidden": 64,
+        "learning_rate": 0.00020433699163721332,
+        "max_grad_norm": 2.990303450600242,
+        "num_epochs": 3
+      },
+      "training_history": {
+        "train_losses": [
+          0.41210485664059354,
+          0.12368100770468385,
+          0.07572473601698328
+        ],
+        "val_losses": [
+          0.2339483929529069,
+          0.11571290229452166,
+          0.1134426173166357
+        ],
+        "val_accuracies": [
+          0.9226778242677824,
+          0.9591631799163179,
+          0.9651882845188284
+        ]
+      },
+      "metrics": {
+        "tp": 2992,
+        "tn": 2775,
+        "fp": 193,
+        "fn": 15,
+        "precision": 0.939403453689168,
+        "recall": 0.9950116395078151,
+        "f1": 0.9664082687338502,
+        "num_samples": 5975,
+        "threshold": 0.5,
+        "model_info": {
+          "vocab_size": 30000,
+          "embedding_dim": 256,
+          "hidden_size": 64,
+          "num_layers": 2,
+          "dropout_rate": 0.35874316075619084,
+          "dense_hidden": 64,
+          "total_parameters": 7952513,
+          "trainable_parameters": 7952513
+        }
+      },
+      "score": 0.9664082687338502,
+      "score_metric": "f1"
+    },
+    {
+      "trial_index": 13,
+      "trial_dir": "D:\\uni-thesis\\data\\models\\tuning\\trial_013",
+      "hyperparameters": {
+        "max_length": 700,
+        "batch_size": 32,
+        "embedding_dim": 256,
+        "hidden_size": 64,
+        "num_layers": 2,
+        "dropout_rate": 0.41900955643010607,
+        "dense_hidden": 64,
+        "learning_rate": 7.545417562823602e-05,
+        "max_grad_norm": 1.5869131266727625,
+        "num_epochs": 3
+      },
+      "training_history": {
+        "train_losses": [
+          0.6099353960770018,
+          0.26298160707879376,
+          0.16617129467811217
+        ],
+        "val_losses": [
+          0.34987958676037306,
+          0.22683710861891349,
+          0.20253890171587308
+        ],
+        "val_accuracies": [
+          0.8697907949790795,
+          0.9210041841004184,
+          0.9409205020920502
+        ]
+      },
+      "metrics": {
+        "tp": 2953,
+        "tn": 2669,
+        "fp": 299,
+        "fn": 54,
+        "precision": 0.9080565805658056,
+        "recall": 0.9820419022281344,
+        "f1": 0.9436012142514778,
+        "num_samples": 5975,
+        "threshold": 0.5,
+        "model_info": {
+          "vocab_size": 30000,
+          "embedding_dim": 256,
+          "hidden_size": 64,
+          "num_layers": 2,
+          "dropout_rate": 0.41900955643010607,
+          "dense_hidden": 64,
+          "total_parameters": 7952513,
+          "trainable_parameters": 7952513
+        }
+      },
+      "score": 0.9436012142514778,
+      "score_metric": "f1"
+    },
+    {
+      "trial_index": 14,
+      "trial_dir": "D:\\uni-thesis\\data\\models\\tuning\\trial_014",
+      "hyperparameters": {
+        "max_length": 500,
+        "batch_size": 128,
+        "embedding_dim": 256,
+        "hidden_size": 128,
+        "num_layers": 2,
+        "dropout_rate": 0.3276885861115138,
+        "dense_hidden": 32,
+        "learning_rate": 0.001240489169231595,
+        "max_grad_norm": 1.2461119786215822,
+        "num_epochs": 2
+      },
+      "training_history": {
+        "train_losses": [
+          0.34397557646255283,
+          0.09239460448460544
+        ],
+        "val_losses": [
+          0.13795503466687303,
+          0.09110746271115669
+        ],
+        "val_accuracies": [
+          0.9541422594142259,
+          0.9722175732217573
+        ]
+      },
+      "metrics": {
+        "tp": 2900,
+        "tn": 2908,
+        "fp": 60,
+        "fn": 107,
+        "precision": 0.9797297297297297,
+        "recall": 0.9644163618224144,
+        "f1": 0.9720127367186192,
+        "num_samples": 5975,
+        "threshold": 0.5,
+        "model_info": {
+          "vocab_size": 30000,
+          "embedding_dim": 256,
+          "hidden_size": 128,
+          "num_layers": 2,
+          "dropout_rate": 0.3276885861115138,
+          "dense_hidden": 32,
+          "total_parameters": 8478785,
+          "trainable_parameters": 8478785
+        }
+      },
+      "score": 0.9720127367186192,
+      "score_metric": "f1"
+    },
+    {
+      "trial_index": 15,
+      "trial_dir": "D:\\uni-thesis\\data\\models\\tuning\\trial_015",
+      "hyperparameters": {
+        "max_length": 500,
+        "batch_size": 64,
+        "embedding_dim": 64,
+        "hidden_size": 64,
+        "num_layers": 2,
+        "dropout_rate": 0.32101199781013173,
+        "dense_hidden": 32,
+        "learning_rate": 0.0015397199093373684,
+        "max_grad_norm": 2.6968046945579607,
+        "num_epochs": 3
+      },
+      "training_history": {
+        "train_losses": [
+          0.6442833400386221,
+          0.29092330411624384,
+          0.11438676989842754
+        ],
+        "val_losses": [
+          0.49368319517754494,
+          0.17669016951100625,
+          0.10466678358832414
+        ],
+        "val_accuracies": [
+          0.7998326359832636,
+          0.9422594142259414,
+          0.9665271966527197
+        ]
+      },
+      "metrics": {
+        "tp": 2984,
+        "tn": 2793,
+        "fp": 175,
+        "fn": 23,
+        "precision": 0.9446027223805001,
+        "recall": 0.9923511805786498,
+        "f1": 0.9678884203697696,
+        "num_samples": 5975,
+        "threshold": 0.5,
+        "model_info": {
+          "vocab_size": 30000,
+          "embedding_dim": 64,
+          "hidden_size": 64,
+          "num_layers": 2,
+          "dropout_rate": 0.32101199781013173,
+          "dense_hidden": 32,
+          "total_parameters": 2090049,
+          "trainable_parameters": 2090049
+        }
+      },
+      "score": 0.9678884203697696,
+      "score_metric": "f1"
+    },
+    {
+      "trial_index": 16,
+      "trial_dir": "D:\\uni-thesis\\data\\models\\tuning\\trial_016",
+      "hyperparameters": {
+        "max_length": 500,
+        "batch_size": 32,
+        "embedding_dim": 64,
+        "hidden_size": 64,
+        "num_layers": 2,
+        "dropout_rate": 0.40616765819561973,
+        "dense_hidden": 32,
+        "learning_rate": 0.0018439954019547535,
+        "max_grad_norm": 1.8317654238237893,
+        "num_epochs": 2
+      },
+      "training_history": {
+        "train_losses": [
+          0.3116044879219878,
+          0.09762651492201257
+        ],
+        "val_losses": [
+          0.14478599877759096,
+          0.09139093484251416
+        ],
+        "val_accuracies": [
+          0.9511297071129707,
+          0.9702092050209205
+        ]
+      },
+      "metrics": {
+        "tp": 2905,
+        "tn": 2891,
+        "fp": 77,
+        "fn": 102,
+        "precision": 0.9741784037558685,
+        "recall": 0.9660791486531427,
+        "f1": 0.9701118717649022,
+        "num_samples": 5975,
+        "threshold": 0.5,
+        "model_info": {
+          "vocab_size": 30000,
+          "embedding_dim": 64,
+          "hidden_size": 64,
+          "num_layers": 2,
+          "dropout_rate": 0.40616765819561973,
+          "dense_hidden": 32,
+          "total_parameters": 2090049,
+          "trainable_parameters": 2090049
+        }
+      },
+      "score": 0.9701118717649022,
+      "score_metric": "f1"
+    },
+    {
+      "trial_index": 17,
+      "trial_dir": "D:\\uni-thesis\\data\\models\\tuning\\trial_017",
+      "hyperparameters": {
+        "max_length": 500,
+        "batch_size": 128,
+        "embedding_dim": 128,
+        "hidden_size": 64,
+        "num_layers": 2,
+        "dropout_rate": 0.3346858255963889,
+        "dense_hidden": 128,
+        "learning_rate": 0.00023815646158403627,
+        "max_grad_norm": 1.029495513605205,
+        "num_epochs": 2
+      },
+      "training_history": {
+        "train_losses": [
+          0.6285703247960877,
+          0.29193037518245335
+        ],
+        "val_losses": [
+          0.43555978574651355,
+          0.2190935568923646
+        ],
+        "val_accuracies": [
+          0.8120502092050209,
+          0.9211715481171548
+        ]
+      },
+      "metrics": {
+        "tp": 2865,
+        "tn": 2638,
+        "fp": 330,
+        "fn": 142,
+        "precision": 0.8967136150234741,
+        "recall": 0.9527768540073163,
+        "f1": 0.9238955175749757,
+        "num_samples": 5975,
+        "threshold": 0.5,
+        "model_info": {
+          "vocab_size": 30000,
+          "embedding_dim": 128,
+          "hidden_size": 64,
+          "num_layers": 2,
+          "dropout_rate": 0.3346858255963889,
+          "dense_hidden": 128,
+          "total_parameters": 4055297,
+          "trainable_parameters": 4055297
+        }
+      },
+      "score": 0.9238955175749757,
+      "score_metric": "f1"
+    },
+    {
+      "trial_index": 18,
+      "trial_dir": "D:\\uni-thesis\\data\\models\\tuning\\trial_018",
+      "hyperparameters": {
+        "max_length": 700,
+        "batch_size": 64,
+        "embedding_dim": 128,
+        "hidden_size": 128,
+        "num_layers": 2,
+        "dropout_rate": 0.4648649296250309,
+        "dense_hidden": 64,
+        "learning_rate": 7.813146818740147e-05,
+        "max_grad_norm": 1.0617433425788934,
+        "num_epochs": 3
+      },
+      "training_history": {
+        "train_losses": [
+          0.6709070274715915,
+          0.3733989991357221,
+          0.23382275951478412
+        ],
+        "val_losses": [
+          0.5082785769345912,
+          0.2874855321455509,
+          0.24274071416956314
+        ],
+        "val_accuracies": [
+          0.7934728033472803,
+          0.8930543933054393,
+          0.9121338912133892
+        ]
+      },
+      "metrics": {
+        "tp": 2585,
+        "tn": 2866,
+        "fp": 102,
+        "fn": 422,
+        "precision": 0.9620394491998512,
+        "recall": 0.8596607914865314,
+        "f1": 0.9079733052335792,
+        "num_samples": 5975,
+        "threshold": 0.5,
+        "model_info": {
+          "vocab_size": 30000,
+          "embedding_dim": 128,
+          "hidden_size": 128,
+          "num_layers": 2,
+          "dropout_rate": 0.4648649296250309,
+          "dense_hidden": 64,
+          "total_parameters": 4515969,
+          "trainable_parameters": 4515969
+        }
+      },
+      "score": 0.9079733052335792,
+      "score_metric": "f1"
+    },
+    {
+      "trial_index": 19,
+      "trial_dir": "D:\\uni-thesis\\data\\models\\tuning\\trial_019",
+      "hyperparameters": {
+        "max_length": 500,
+        "batch_size": 128,
+        "embedding_dim": 256,
+        "hidden_size": 64,
+        "num_layers": 2,
+        "dropout_rate": 0.15251679364478274,
+        "dense_hidden": 128,
+        "learning_rate": 0.0005129024842562139,
+        "max_grad_norm": 1.072354459527886,
+        "num_epochs": 2
+      },
+      "training_history": {
+        "train_losses": [
+          0.413548062884194,
+          0.12628198192482265
+        ],
+        "val_losses": [
+          0.16394312568801514,
+          0.10563281376628166
+        ],
+        "val_accuracies": [
+          0.9397489539748954,
+          0.9678661087866108
+        ]
+      },
+      "metrics": {
+        "tp": 2898,
+        "tn": 2885,
+        "fp": 83,
+        "fn": 109,
+        "precision": 0.9721569942972157,
+        "recall": 0.963751247090123,
+        "f1": 0.967935871743487,
+        "num_samples": 5975,
+        "threshold": 0.5,
+        "model_info": {
+          "vocab_size": 30000,
+          "embedding_dim": 256,
+          "hidden_size": 64,
+          "num_layers": 2,
+          "dropout_rate": 0.15251679364478274,
+          "dense_hidden": 128,
+          "total_parameters": 7960833,
+          "trainable_parameters": 7960833
+        }
+      },
+      "score": 0.967935871743487,
+      "score_metric": "f1"
+    },
+    {
+      "trial_index": 20,
+      "trial_dir": "D:\\uni-thesis\\data\\models\\tuning\\trial_020",
+      "hyperparameters": {
+        "max_length": 600,
+        "batch_size": 32,
+        "embedding_dim": 256,
+        "hidden_size": 64,
+        "num_layers": 2,
+        "dropout_rate": 0.3841422224036982,
+        "dense_hidden": 32,
+        "learning_rate": 0.00036547284316064453,
+        "max_grad_norm": 2.308381414702427,
+        "num_epochs": 3
+      },
+      "training_history": {
+        "train_losses": [
+          0.36669992491849424,
+          0.11757944344015628,
+          0.06764525796161787
+        ],
+        "val_losses": [
+          0.1745389032471467,
+          0.2054747764822992,
+          0.0929471572318219
+        ],
+        "val_accuracies": [
+          0.9451046025104602,
+          0.9439330543933054,
+          0.9730543933054393
+        ]
+      },
+      "metrics": {
+        "tp": 2874,
+        "tn": 2942,
+        "fp": 26,
+        "fn": 133,
+        "precision": 0.9910344827586207,
+        "recall": 0.9557698703026272,
+        "f1": 0.9730827831386489,
+        "num_samples": 5975,
+        "threshold": 0.5,
+        "model_info": {
+          "vocab_size": 30000,
+          "embedding_dim": 256,
+          "hidden_size": 64,
+          "num_layers": 2,
+          "dropout_rate": 0.3841422224036982,
+          "dense_hidden": 32,
+          "total_parameters": 7948353,
+          "trainable_parameters": 7948353
+        }
+      },
+      "score": 0.9730827831386489,
+      "score_metric": "f1"
+    }
+  ]
+}

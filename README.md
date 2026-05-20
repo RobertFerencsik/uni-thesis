@@ -45,7 +45,7 @@ Szintén a részek száma opcionális és az alapértelmezett érték a 10, ezze
 
 ## Jegyzék fa
 
-Futtatás nélkül az eredmények megtekintéséhez
+Futtatás nélkül az eredmények megtekintéséhez a ./results mappa tanulmányozása szükséges.
 
 ```
 uni-thesis/

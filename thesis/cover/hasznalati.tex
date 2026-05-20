@@ -3,7 +3,8 @@
 \section*{Repository használati útmutató}
 
 \noindent
-Ez az útmutató a tároló (GitHub / mellékelt adathordozó) tartalmának áttekintéséhez és futtatásához szükséges lépéseket foglalja össze.
+Az alábbi útmutató a dolgozathoz tartozó repository felépítését, valamint a reprodukálhatósághoz szükséges futtatási lépéseket foglalja össze. 
+A projekt GitHubon érhető el: \texttt{https://github.com/RobertFerencsik/uni-thesis}
 
 \subsection*{Beállítás}
 
@@ -11,13 +12,14 @@ Ez az útmutató a tároló (GitHub / mellékelt adathordozó) tartalmának átt
     \item CUDA-képes videokártya szükséges a futtatáshoz.
     \item Python 3.10.0 telepítése.
     \item Csomagok telepítése: \texttt{pip install -r requirements.txt}
+    \item A notebookok futtatásához a Jupyter környezet és az \texttt{ipykernel} csomag telepítése is szükséges.
 \end{enumerate}
 
 \subsection*{Használat}
 
 \subsubsection*{Adathalmaz feldolgozása}
 
-A \texttt{notebooks/} mappában található, Jupyter-notebookokat sorban le kell futtatni.
+Az adathalmaz feldolgozásához a \texttt{notebooks/} mappában található notebookokat sorrendben szükséges futtatni.
 
 \subsubsection*{Model}
 
@@ -35,7 +37,7 @@ A próbák száma opcionális. A reprodukálhatóság érdekében az alapértelm
 \paragraph{Növekményes tanítóhalmazon tanulási görbe}
 
 \begin{verbatim}
-python main.py learning-curve --num-portions 10
+python main.py learning-curve [--num-portions 10]
 \end{verbatim}
 
 \noindent
@@ -43,7 +45,7 @@ A részek száma szintén opcionális. Az alapértelmezés \textbf{10}. Ezzel le
 
 \subsection*{Jegyzékfa}
 
-Az alábbi fa segít eligazodni a tárolóba. A results jegyzék tartalmazza a futási eredményeket, így ennek megtekintésével futtatás nélkül is tanulmányozhatóak az eredmények.
+Az alábbi fa segít eligazodni a tárolóba. A results \textbf{jegyzék} tartalmazza a futási eredményeket, így ennek megtekintésével futtatás nélkül is tanulmányozhatóak.
 
 \begin{small}
 \begin{verbatim}
@@ -65,7 +67,7 @@ uni-thesis/
 +-- data/
 |   +-- corpora/
 |   |   +-- raw/             # Enron, CSV, train/teszt/validáció
-|   |   `-- processed/       # Előfeldolgozott és tokenizer tanító szöveg
+|   |   `-- processed/       # Tisztított adatok, tokenizáló tanító szöveg
 |   `-- models/              
 |       +-- lstm_tokenizer.model
 |       +-- train_ids.pkl, train_pieces.pkl
@@ -76,13 +78,7 @@ uni-thesis/
 |       |       +-- eval_test_metrics.json
 |       |       +-- test_confusion_matrix.png
 |       |       `-- training_curves.png
-|       `-- tuning/
-|           `-- trial_001 .. trial_XXX/
-|               +-- best_model.pt
-|               +-- checkpoint_epoch_*.pt
-|               +-- eval_test_metrics.json
-|               +-- test_confusion_matrix.png
-|               `-- training_curves.png
+|       `-- tuning/          # learning_curve-vel egyező szerkezet
 |
 +-- src/
 |   +-- config/              # config.json, hiperparaméterek
@@ -97,13 +93,13 @@ uni-thesis/
 |
 `-- results/
     +-- preprocessing/       # Notebookok kimenete (Markdown, ábrák)
-    +-- experiements/          # Modellek kiértékelései (archívum)
+    +-- experiements/        # Modellek kiértékelései (archívum)
     |   +-- 1_phase_one_tuning/
     |   +-- 2_phase_two_learning_curve/
     |   +-- 2_phase_two_tuning/
     |   +-- 3_phase_three_learning_curve/
     |   `-- 3_phase_three_tuning/
-    `-- SPAM_HAM_...pdf      # Dolgozat PDF (ha ide kerül)
+    `-- SPAM_HAM_uzenetek_osztalyozasa_melytanulasi_modszerekkel.pdf
 \end{verbatim}
 \end{small}
 

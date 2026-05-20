@@ -1,10 +1,4 @@
-# SPAM/HAM üzenetek osztályozása mélytanulási módszerekkel
-
-## Intézményi adatok
-
-- MISKOLCI EGYETEM
-- Gépészmérnöki és informatikai Kar
-- Alkalmazott Matematikai Tanszék
+# SPAM/HAM üzenetek osztályozása neurális hálók és nagy nyelvi modellek (LLM) segítségével
 
 ## Szakdolgozat tárgyköre
 

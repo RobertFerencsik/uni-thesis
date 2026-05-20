@@ -1,4 +1,4 @@
-# SPAM/HAM üzenetek osztályozása neurális hálók és nagy nyelvi modellek (LLM) segítségével
+# SPAM/HAM üzenetek osztályozása mélytanulási módszerekkel
 
 ## Szakdolgozat tárgyköre
 

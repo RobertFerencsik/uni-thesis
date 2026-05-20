@@ -1,6 +1,6 @@
-PWD D:\uni-thesis\thesis
+PWD d:\uni-thesis\thesis
 INPUT C:\Users\rober\AppData\Local\MiKTeX\miktex\data\le\pdftex\pdflatex.fmt
-INPUT dolgozat.tex
+INPUT d:\uni-thesis\thesis\dolgozat.tex
 OUTPUT dolgozat.log
 INPUT C:\Users\rober\AppData\Local\Programs\MiKTeX\tex\latex\base\report.cls
 INPUT C:\Users\rober\AppData\Local\Programs\MiKTeX\tex\latex\base\report.cls

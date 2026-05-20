@@ -43,3 +43,5 @@
 \select@language {magyar} \contentsline {section}{\numberline {6.1}Összefoglalás (magyar)}{34}{section.6.1}%
 \select@language {magyar} \contentsline {section}{\numberline {6.2}Summary (english)}{35}{section.6.2}%
 \select@language {magyar} \contentsline {chapter}{Források}{37}{chapter*.9}%
+\select@language {magyar} \contentsline {paragraph}{Hiperparaméter-keresés}{39}{section*.15}%
+\select@language {magyar} \contentsline {paragraph}{Növekményes tanítóhalmazon tanulási görbe}{39}{section*.16}%

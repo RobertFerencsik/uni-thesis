@@ -1,19 +1,4 @@
-# SPAM/HAM üzenetek osztályozása neurális hálók és nagy nyelvi modellek (LLM) segítségével
-
-## Szakdolgozat tárgyköre
-
-Gépi tanulás, klasszifikáció
-
-## Szakdolgozat részletezése
-
-A SPAM/HAM klasszifikációs probléma lényege annak eldöntése, hogy egy adott üzenet spam (kéretlen, nem kívánt üzenet), vagy ham (nem spam, hasznos üzenet). A feladat jól vizsgálható gépi tanulási és mélytanulási módszerekkel. A dolgozat célja az LSTM (Long Short-Term Memomry neurális háló) és LLM (Large Language Model) alapú módszerek alkalmazása és teljesítményük kiértékelése.
-
-Megoldandó feladatok
-
-1. A SPAM/HAM  osztályozési feladat megismerése, adathalmaz gyűjtése és előkészítése.
-2. LSTM neurális háló implementálása Python nyelven a szöveges üzenetek SPAM/HAM osztályozására.
-3. LLM-alapú módszerek alkalmazása ugyanazon feladatra.
-4. Az eredmények összehasonlítása, teljesítményértékelés, előnyök és korlátok feltárása.
+# SPAM/HAM üzenetek osztályozása mélytanulási módszerekkel
 
 ## Intézményi adatok
 
@@ -21,76 +6,126 @@ Megoldandó feladatok
 - Gépészmérnöki és informatikai Kar
 - Alkalmazott Matematikai Tanszék
 
-## Repository Használata
+## Szakdolgozat tárgyköre
 
-### Install
+Gépi tanulás, klasszifikáció
 
-#### 1) Python telepítése (Windows)
+## Szakdolgozat részletezése
 
-```powershell
-winget install Python.Python.3.10
+A hallgató feladata egy SPAM/HAM szövegosztályozó rendszer megtervezése és megvalósítása mélytanulási módszerekkel. A dolgozatnak tartalmaznia kell:
+
+- A szövegosztályozás elméleti hátterének bemutatását. A hagyományos és mélytanulási módszerek összevetését és a szekvenciális modellek szerepét.
+- A felhasznált adathalmaz részletes elemzését.
+- Az előfeldolgozási folyamat kidolgozását és implementálását.
+- Egy kétirányú LSTM (BiLSTM) modell megtervezését és megvalósítását.
+- Az elvégzett kísérletek és a kapott eredmények bemutatását.
+- A módszer korlátainak és továbbfejlesztési lehetőségeinek áttekintését.
+
+## Repository Használati útmutató
+
+### Beállítás
+
+1. CUDA képes videokártya szükséges a futtatáshoz.
+2. Python 3.10.0 telepítése
+3. Csomagok telepítése `pip install -r requirements.txt`
+
+### Használat
+
+### Adathalmaz feldolgozása
+
+A `notebooks` mappába belépve egy jupyternotebook -ot kezelni képes környezetben kell csak lefuttani mind az öt "jegyzetfüzetet".
+
+### Model
+
+A repository gyökerében a `main.py` a belépési pont
+
+#### Hiperparaméter keresés
+
+`python main.py tune [--num-trials 20]`
+A próbák számossága opcionális, a reprodukálhatóság érdekében az alapértelmezett érték 20, ezzel lett mindhárom fázis futtatva.
+
+#### Növekményes tanítóhalmazon tanulási görbe
+
+`python main.py learning-curve --num-portions 10`
+Szintén a részek száma opcionális és az alapértelmezett érték a 10, ezzel lett kiértékelve a növekményes adathalmazokon tanítot modellek álltalánosító képessége.
+
+## Jegyzék fa
+
+Futtatás nélkül az eredmények megtekintéséhez
+
 ```
-
-#### 2) Virtuális környezet létrehozása és aktiválása
-
-```powershell
-py -3.10 -m venv .venv
-.venv\Scripts\activate
+uni-thesis/
+│
+├── main.py                                 # Belépési pont: tune vagy learning-curve
+├── requirements.txt                        # pip függőségek
+├── README.md
+├── .gitignore                              # Nem verziókezelt fájlok jegyzése
+│
+├── notebooks/
+│   ├── 1-eda-1.ipynb                   # EDA
+│   ├── 2-data-cleaning.ipynb           # Tisztítás
+│   ├── 3-verification.ipynb            # Feldolgozott adat ellenőrzése
+│   ├── 4-tokenization.ipynb            # Tokenizáló
+│   ├── 5-validation.ipynb              # Validációs lépések
+│   └── (*.png)                         # Futtatáskor generált ábrák
+│
+├── data/
+│   ├── corpora/
+│   │   ├── raw/                        # Enron tömörített állomány, CSV, tanító / teszt / validációs adathalmazok
+│   │   └── processed/                  # Enron tanító / teszt / validációs előfeldolgozott adathalmazok. Növekményes tanításhoz részekre bontott tanító halmazok. Tokenizáló tanításához szöveges állomány a tanító adathalmazból.
+│   │
+│   └── models/                          # Tanítási artefaktok (útvonalak: src/config/config.json)
+│       ├── lstm_tokenizer.model        
+│       ├── train_ids.pkl, train_pieces.pkl
+│       ├── learning_curve/
+│       │   └── portion_01_of_10 … portion_10_of_10/
+│       │       ├── best_model.pt
+│       │       ├── checkpoint_epoch_*.pt
+│       │       ├── eval_test_metrics.json
+│       │       ├── test_confusion_matrix.png
+│       │       └── training_curves.png
+│       └── tuning/
+│           └── trial_001 … trial_XXX/
+│               ├── best_model.pt
+│               ├── checkpoint_epoch_*.pt
+│               ├── eval_test_metrics.json
+│               ├── test_confusion_matrix.png
+│               └── training_curves.png
+│
+├── src/
+│   ├── config/
+│   │   ├── config.json                  # Útvonalak, regexek
+│   │   ├── config.py
+│   │   ├── hyperparameter_search_space.json
+│   │   └── best_hyperparameters.json    # A tune futás után ide kerül a legjobb konfiguráció
+│   ├── data/
+│   │   ├── dataset.py
+│   │   └── tokenizer.py
+│   ├── models/
+│   │   └── bilstm.py                   # BiLSTM modell
+│   ├── training/
+│   │   ├── pipeline.py
+│   │   └── trainer.py
+│   ├── evaluation/
+│   │   ├── evaluate.py
+│   │   └── reporting.py
+│   ├── experiments/
+│   │   ├── tuning.py                   # Véletlen hiperparaméter-keresés
+│   │   └── learning_curve.py           # Növekményes tanulási görbe futtató
+│   └── infrastructure/
+│       ├── paths.py                    # Útvonalak feloldása
+│       ├── artifact_manager.py         # JSON / kimenetek kezelése
+│       └── regexes.py
+│
+├── thesis/                             # Szakdolgozat LaTeX
+│
+└── results/                            # Archivált / exportált kísérletek 
+    ├── preprocessing/                  # A notebooks -ok kiemente
+    ├── experiements/                   # a moddellek kiértékelései
+    │   ├── 1_phase_one_tuning/
+    │   ├── 2_phase_two_learning_curve/
+    │   ├── 2_phase_two_tuning/
+    │   ├── 3_phase_three_learning_curve/
+    │   ├── 3_phase_three_tuning/
+    └── SPAM_HAM_uzenetek_osztalyozasa_melytanulasi_modszerekkel.pdf # A dolgozat pdf formátuma
 ```
-
-#### 3) Függőségek telepítése
-
-```powershell
-pip install -r requirements.txt
-```
-
-### Usage
-
-Az entrypoint a `main.py`.
-
-#### Learning curve tanítás + kiértékelés
-
-```powershell
-python main.py --train --eval --num-portions 10
-```
-
-- A modellek a `data/models/learning_curve/` mappába kerülnek.
-- A görbe ábra: `data/models/learning_curve/learning_curve_f1.png`.
-
-#### Csak tanítás
-
-```powershell
-python main.py --train --num-portions 10
-```
-
-#### Csak kiértékelés (korábban tanított modellekre)
-
-```powershell
-python main.py --eval --num-portions 10
-```
-
-#### Random search hyperparameter tuning
-
-```powershell
-python main.py --tune
-```
-
-Használt keresési tartomány:
-- `src/config/hyperparameter_search_space.json`
-
-A legjobb hyperparaméterek kimenete:
-- `src/config/best_hyperparameters.json`
-
-Egyedi trial szám:
-
-```powershell
-python main.py --tune --num-trials 20
-```
-
-#### Fix konfigurációs fájlok (paper/repro mód)
-
-A projekt fix fájlnevekkel dolgozik:
-- Keresési tér: `src/config/hyperparameter_search_space.json`
-- Legjobb hyperparaméterek: `src/config/best_hyperparameters.json`
-
-A tanítás és kiértékelés mindig a `src/config/best_hyperparameters.json` fájlt használja.
